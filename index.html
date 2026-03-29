@@ -780,6 +780,7 @@ async function openMatchDetail(matchId){
   const c1=COLORS[m.team1_color]||COLORS.bianco,c2=COLORS[m.team2_color]||COLORS.nero;
   const isPast=new Date(m.date+'T23:59:59')<new Date();
   const isOrg=currentUser&&m.created_by===currentUser.id;
+  const confirmed=m.stats_confirmed;
   const mapUrl=m.lat&&m.lng?`https://www.google.com/maps?q=${m.lat},${m.lng}`:'';
   document.getElementById('md-title').textContent=m.name;
   document.getElementById('md-info').innerHTML=`
@@ -793,28 +794,132 @@ async function openMatchDetail(matchId){
     <span style="color:var(--text3);font-weight:700">VS</span>
     <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:50%;background:${c2.hex};border:2px solid rgba(255,255,255,.2)"></div><span style="font-size:12px;color:var(--text2)">${c2.label}</span></div>
   `;
-  const{data:mps}=await _sb.from('match_players').select('player_id, profiles(*)').eq('match_id',matchId);
+  const{data:mps}=await _sb.from('match_players').select('player_id, presente, gol, assist, is_mvp, profiles(*)').eq('match_id',matchId);
   let myRatings=new Set();
   if(currentUser){const{data:rr}=await _sb.from('ratings').select('rated_id').eq('match_id',matchId).eq('voter_id',currentUser.id);myRatings=new Set((rr||[]).map(r=>r.rated_id));}
   const pl=document.getElementById('md-players');
-  if(!mps||!mps.length){pl.innerHTML=`<div style="color:var(--text3);font-size:13px;text-align:center;padding:20px">Nessun iscritto</div>`;}
-  else{
+
+  if(!mps||!mps.length){
+    pl.innerHTML=`<div style="color:var(--text3);font-size:13px;text-align:center;padding:20px">Nessun iscritto</div>`;
+    document.getElementById('ov-match').classList.add('on');
+    return;
+  }
+
+  // ── Stats già confermate: mostra risultati + pulsante voto ──
+  if(confirmed){
     pl.innerHTML=mps.map(r=>{
       const p=r.profiles;if(!p)return'';
-      const canRate=isOrg&&isPast&&currentUser&&p.id!==currentUser.id&&!myRatings.has(p.id);
-      const rated=isOrg&&isPast&&myRatings.has(p.id);
-      return `<div class="mpl-item">
+      const canRate=isOrg&&currentUser&&p.id!==currentUser.id&&!myRatings.has(p.id);
+      const rated=isOrg&&myRatings.has(p.id);
+      return `<div class="mpl-item" style="${!r.presente?'opacity:.5':''}">
         <div class="mpl-av">${ini(p.name)}</div>
-        <div class="mpl-name">${p.name}</div>
+        <div style="flex:1">
+          <div class="mpl-name">${p.name}${r.is_mvp?' 🏆':''}</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:2px">
+            ${r.presente?`✅ Presente &nbsp;⚽ ${r.gol||0} &nbsp;🎯 ${r.assist||0}`:'❌ Assente'}
+          </div>
+        </div>
         <div class="mpl-pos">${p.position||'—'}</div>
         ${canRate?`<button class="mpl-rate-btn" onclick="openRate(${matchId},'${p.id}','${p.name.replace(/'/g,"\\'")}')">⭐ Vota</button>`:rated?`<span class="mpl-rated">✓ Votato</span>`:''}
       </div>`;
     }).join('');
+    document.getElementById('ov-match').classList.add('on');
+    return;
   }
+
+  // ── Lista semplice ──
+  pl.innerHTML=mps.map(r=>{
+    const p=r.profiles;if(!p)return'';
+    return `<div class="mpl-item">
+      <div class="mpl-av">${ini(p.name)}</div>
+      <div class="mpl-name">${p.name}</div>
+      <div class="mpl-pos">${p.position||'—'}</div>
+    </div>`;
+  }).join('');
+
+  // ── Form post-partita (solo org + partita passata) ──
+  if(isOrg&&isPast){
+    const rows=mps.map(r=>{
+      const p=r.profiles;if(!p)return'';
+      return `<div style="display:grid;grid-template-columns:1fr 60px 52px 52px;gap:8px;align-items:center;margin-bottom:8px;background:var(--bg2);padding:10px 12px;border-radius:6px">
+        <div>
+          <div style="font-size:13px;font-weight:500">${p.name}</div>
+          <div style="font-size:10px;color:var(--text2)">${p.position||'—'}</div>
+        </div>
+        <label style="display:flex;flex-direction:column;align-items:center;gap:3px;font-size:9px;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;cursor:pointer">
+          <input type="checkbox" data-pid="${r.player_id}" data-type="pre" style="width:16px;height:16px;accent-color:var(--cyan)">
+          Pres.
+        </label>
+        <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+          <label style="font-size:9px;color:var(--text3);text-transform:uppercase">⚽</label>
+          <input type="number" data-pid="${r.player_id}" data-type="gol" min="0" max="20" value="0" style="width:44px;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:4px;border-radius:4px;font-size:13px;text-align:center;outline:none">
+        </div>
+        <div style="display:flex;flex-direction:column;gap:2px;align-items:center">
+          <label style="font-size:9px;color:var(--text3);text-transform:uppercase">🎯</label>
+          <input type="number" data-pid="${r.player_id}" data-type="ass" min="0" max="20" value="0" style="width:44px;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:4px;border-radius:4px;font-size:13px;text-align:center;outline:none">
+        </div>
+      </div>`;
+    }).join('');
+
+    const mvpOpts=mps.map(r=>r.profiles?`<option value="${r.player_id}">${r.profiles.name}</option>`:'').join('');
+
+    pl.innerHTML+=`
+      <div style="margin-top:20px;padding:16px;background:rgba(0,229,255,.04);border:1px solid rgba(0,229,255,.18);border-radius:8px">
+        <div style="font-family:var(--font-display);font-size:14px;font-weight:600;letter-spacing:1px;color:var(--cyan);margin-bottom:14px">📋 CONFERMA PARTITA</div>
+        <div id="stats-form-${matchId}">${rows}</div>
+        <div style="margin-top:12px">
+          <label style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:6px">🏆 MVP</label>
+          <select id="mvp-${matchId}" style="width:100%;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:9px 13px;border-radius:5px;font-family:var(--font-body);font-size:13px;outline:none">
+            <option value="">— Nessun MVP —</option>
+            ${mvpOpts}
+          </select>
+        </div>
+        <button id="stats-btn-${matchId}" onclick="submitStats(${matchId})" style="width:100%;margin-top:14px;padding:12px;background:var(--cyan);color:var(--bg);border:none;border-radius:5px;font-family:var(--font-display);font-size:14px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .18s">✅ CONFERMA E SALVA</button>
+      </div>`;
+  }
+
   if(isOrg&&!isPast){
-    pl.innerHTML+=`<div style="margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:6px;font-size:12px;color:var(--text2)">ℹ️ Potrai votare i giocatori al termine della partita</div>`;
+    pl.innerHTML+=`<div style="margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:6px;font-size:12px;color:var(--text2)">ℹ️ Potrai confermare presenze e stats al termine della partita</div>`;
   }
+
   document.getElementById('ov-match').classList.add('on');
+}
+
+async function submitStats(matchId){
+  const btn=document.getElementById('stats-btn-'+matchId);
+  btn.disabled=true;btn.textContent='Salvo...';
+  try{
+    const form=document.getElementById('stats-form-'+matchId);
+    const mvpId=document.getElementById('mvp-'+matchId).value||null;
+    const preInputs=form.querySelectorAll('[data-type="pre"]');
+    for(const cb of preInputs){
+      const pid=cb.dataset.pid;
+      const presente=cb.checked;
+      const gol=parseInt(form.querySelector(`[data-pid="${pid}"][data-type="gol"]`).value)||0;
+      const assist=parseInt(form.querySelector(`[data-pid="${pid}"][data-type="ass"]`).value)||0;
+      const is_mvp=mvpId===pid;
+      await _sb.from('match_players').update({presente,gol,assist,is_mvp}).eq('match_id',matchId).eq('player_id',pid);
+      if(presente){
+        const{data:prof}=await _sb.from('profiles').select('games,goals,assists,mvp').eq('id',pid).single();
+        if(prof){
+          await _sb.from('profiles').update({
+            games:(prof.games||0)+1,
+            goals:(prof.goals||0)+gol,
+            assists:(prof.assists||0)+assist,
+            mvp:(prof.mvp||0)+(is_mvp?1:0)
+          }).eq('id',pid);
+        }
+      }
+    }
+    await _sb.from('matches').update({stats_confirmed:true}).eq('id',matchId);
+    const idx=allMatches.findIndex(x=>x.id===matchId);
+    if(idx>=0)allMatches[idx].stats_confirmed=true;
+    toast('✅ Stats salvate!');
+    openMatchDetail(matchId);
+  }catch(e){
+    toast(t('err_generic'),true);
+    btn.disabled=false;btn.textContent='✅ CONFERMA E SALVA';
+  }
 }
 
 function openRate(matchId,ratedId,ratedName){
