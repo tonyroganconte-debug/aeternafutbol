@@ -14,7 +14,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5;}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px;}
-
+ 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(6,10,15,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:var(--font-black);font-size:20px;letter-spacing:1px;color:var(--text);cursor:pointer;user-select:none;}
@@ -29,11 +29,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .btn-sm{padding:6px 14px;font-size:12px;}
 .btn-red{background:var(--red);color:#fff;}.btn-red:hover{background:#cc2244;}
 .btn-gold{background:var(--gold);color:var(--bg);}.btn-gold:hover{background:#ccaa00;}
-
+ 
 /* PAGES */
 .page{display:none;padding-top:56px;min-height:100vh;animation:fadeIn .3s ease;}.page.on{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-
+ 
 /* HERO */
 .hero{position:relative;min-height:calc(100vh - 56px);display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0 24px;}
 .hero-canvas{position:absolute;inset:0;overflow:hidden;}
@@ -56,7 +56,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .hstat-l{font-size:10px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
 .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text3);font-size:10px;letter-spacing:1px;text-transform:uppercase;animation:bounce 2s infinite;}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
-
+ 
 /* SECTIONS */
 .sec{max-width:1080px;margin:0 auto;padding:48px 20px;}
 .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
@@ -70,7 +70,7 @@ select.finput option{background:var(--card2);}
 .tabs{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:3px;margin-bottom:20px;}
 .tab{flex:1;background:none;border:none;color:var(--text2);padding:9px;border-radius:4px;font-family:var(--font-display);font-size:13px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .18s;}
 .tab.on{background:var(--cyan);color:var(--bg);}
-
+ 
 /* MATCH CARD */
 .match-grid{display:grid;gap:10px;}
 .mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;transition:all .22s;position:relative;overflow:hidden;}
@@ -102,14 +102,14 @@ select.finput option{background:var(--card2);}
 .bjoin.waitlist{background:rgba(255,204,0,.12);color:var(--gold);border:1px solid rgba(255,204,0,.4);cursor:default;}
 .list-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;font-family:var(--font-display);letter-spacing:.5px;transition:all .15s;margin-top:6px;}
 .list-btn:hover{border-color:var(--cyan);color:var(--cyan);}
-
+ 
 /* WAITLIST */
 .wl-section{margin-top:16px;padding:12px 14px;background:rgba(255,204,0,.05);border:1px solid rgba(255,204,0,.2);border-radius:8px;}
 .wl-title{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--gold);margin-bottom:8px;}
 .wl-item{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;}
 .wl-item:last-child{border-bottom:none;}
 .wl-pos{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--gold);width:24px;}
-
+ 
 /* BADGES */
 .badges-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;}
@@ -118,7 +118,7 @@ select.finput option{background:var(--card2);}
 .badge-green{background:rgba(0,255,136,.12);color:var(--green);border:1px solid rgba(0,255,136,.25);}
 .badge-red{background:rgba(255,51,85,.12);color:var(--red);border:1px solid rgba(255,51,85,.25);}
 .badge-gray{background:rgba(255,255,255,.06);color:var(--text2);border:1px solid var(--border);}
-
+ 
 /* PLAYERS */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
 .pc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 16px;text-align:center;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;}
@@ -136,7 +136,7 @@ select.finput option{background:var(--card2);}
 .pcs-l{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
 .pc-sus{border-color:rgba(255,204,0,.3)!important;}
 .pc-sus-badge{position:absolute;top:8px;left:8px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;}
-
+ 
 /* LEADERBOARD */
 .lb-table{width:100%;border-collapse:collapse;}
 .lb-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding:10px 14px;border-bottom:2px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;}
@@ -153,7 +153,7 @@ select.finput option{background:var(--card2);}
 .lb-av img{width:100%;height:100%;object-fit:cover;}
 .lb-val{font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--cyan);}
 .lb-val-gold{color:var(--gold);}
-
+ 
 /* PROFILE */
 .prof-hero{background:var(--card);border-bottom:1px solid var(--border);padding:36px 24px;position:relative;overflow:hidden;}
 .prof-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.04) 0%,transparent 60%);}
@@ -171,7 +171,7 @@ select.finput option{background:var(--card2);}
 .bstat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;}
 .bstat-v{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--cyan);line-height:1;}
 .bstat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:5px;}
-
+ 
 /* AUTH */
 .auth-wrap{max-width:440px;margin:36px auto;padding:0 20px;}
 .auth-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;}
@@ -194,7 +194,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .auth-err.on{display:block;}
 .auth-ok{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green);padding:10px 14px;border-radius:5px;font-size:12px;margin-bottom:14px;display:none;}
 .auth-ok.on{display:block;}
-
+ 
 /* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:300;align-items:center;justify-content:center;padding:20px;}
 .overlay.on{display:flex;animation:fadeIn .2s ease;}
@@ -212,7 +212,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .pmod-s{background:var(--bg2);border-radius:6px;padding:12px;text-align:center;}
 .pmod-sv{font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--cyan);}
 .pmod-sl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-top:3px;}
-
+ 
 /* MATCH PLAYERS LIST */
 .mpl{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
 .mpl-item{display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:6px;padding:10px 14px;}
@@ -223,20 +223,20 @@ textarea.fi{resize:vertical;min-height:80px;}
 .mpl-rate-btn{background:var(--gold);color:var(--bg);border:none;padding:5px 12px;border-radius:4px;font-family:var(--font-display);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
 .mpl-rate-btn:hover{background:#ccaa00;}
 .mpl-rated{font-size:11px;color:var(--gold);}
-
+ 
 /* STARS */
 .stars-row{display:flex;gap:6px;justify-content:center;margin:12px 0;}
 .star{font-size:32px;cursor:pointer;transition:transform .15s;filter:grayscale(1);opacity:.4;}
 .star:hover,.star.on{filter:none;opacity:1;transform:scale(1.15);}
 .rating-val{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--gold);text-align:center;margin-bottom:8px;}
-
+ 
 /* COLOR PALETTE */
 .color-palette{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
 .color-opt{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .18s;position:relative;}
 .color-opt.on{border-color:var(--cyan);transform:scale(1.15);}
 .color-opt::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;opacity:0;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.8);}
 .color-opt.on::after{opacity:1;}
-
+ 
 /* MAP */
 .map-search-wrap{position:relative;}
 .map-suggestions{position:absolute;top:100%;left:0;right:0;background:var(--card2);border:1px solid var(--border);border-top:none;border-radius:0 0 5px 5px;z-index:10;max-height:200px;overflow-y:auto;}
@@ -244,7 +244,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .map-sug-item:hover{background:var(--bg2);}.map-sug-item:last-child{border-bottom:none;}
 .map-link{display:inline-flex;align-items:center;gap:5px;color:var(--cyan);font-size:12px;text-decoration:none;margin-top:6px;}
 .map-link:hover{text-decoration:underline;}
-
+ 
 /* ADMIN */
 .admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:32px;}
 .admin-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;}
@@ -265,7 +265,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .abtn-sus{background:rgba(255,204,0,.15);color:var(--gold);}.abtn-sus:hover{background:var(--gold);color:var(--bg);}
 .abtn-del{background:rgba(255,51,85,.15);color:var(--red);}.abtn-del:hover{background:var(--red);color:#fff;}
 .abtn-ok{background:rgba(0,255,136,.15);color:var(--green);}.abtn-ok:hover{background:var(--green);color:var(--bg);}
-
+ 
 /* HOME FEATURES */
 .features{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:48px;}
 .feat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;transition:all .22s;position:relative;overflow:hidden;}
@@ -284,7 +284,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .about-stat-n{font-family:var(--font-display);font-size:42px;font-weight:700;color:var(--cyan);line-height:1;}
 .about-stat-l{font-size:12px;color:var(--text2);margin-top:3px;}
 .about-divider{height:1px;background:var(--border);margin:18px 0;}
-
+ 
 /* MISC */
 .loading{display:flex;align-items:center;justify-content:center;padding:48px;color:var(--text2);font-size:13px;gap:10px;}
 .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;}
@@ -296,14 +296,14 @@ textarea.fi{resize:vertical;min-height:80px;}
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card2);border:1px solid var(--cyan);color:var(--cyan);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:600;z-index:500;opacity:0;white-space:nowrap;transition:all .28s;pointer-events:none;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 .toast.err{border-color:var(--red);color:var(--red);}
-
+ 
 /* BOTTOM NAV */
 .bnav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(6,10,15,.96);backdrop-filter:blur(24px);border-top:1px solid var(--border);z-index:200;padding-bottom:env(safe-area-inset-bottom);}
 .bnav-row{display:flex;justify-content:space-around;}
 .bnbb{background:none;border:none;color:var(--text3);padding:10px 12px;cursor:pointer;font-family:var(--font-display);font-size:9px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s;min-width:52px;}
 .bnbb svg{width:20px;height:20px;stroke-width:1.8;}
 .bnbb.on{color:var(--cyan);}
-
+ 
 @media(max-width:640px){
   .bnav{display:block;}body{padding-bottom:68px;}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:20px;}.hero-stats{gap:20px;}.hero-pitch-svg{display:none;}
@@ -315,7 +315,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 </style>
 </head>
 <body>
-
+ 
 <nav class="nav">
   <div class="nav-logo" onclick="goPage('home')">AETERNA<em>FUTBOL</em></div>
   <div class="nav-right">
@@ -336,7 +336,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </nav>
-
+ 
 <!-- HOME -->
 <div id="p-home" class="page on">
   <section class="hero">
@@ -402,13 +402,12 @@ textarea.fi{resize:vertical;min-height:80px;}
       <div style="font-family:var(--font-black);font-size:14px">AETERNA<span style="color:var(--cyan)">FUTBOL</span></div>
       <div style="display:flex;gap:20px;font-size:12px">
         <a href="#" onclick="goPage('about')" style="color:var(--text2);text-decoration:none" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text2)'" data-i18n="footer_about">Chi siamo</a>
-        <a href="mailto:aeternafutbol.2026@gmail.com" style="color:var(--text2);text-decoration:none" onmouseover="this.style.color='var(--cyan)'" onmouseout="this.style.color='var(--text2)'" data-i18n="footer_contact">Contatti</a>
       </div>
       <div style="font-size:11px;color:var(--text3)">© 2025 AeternaFutbol</div>
     </div>
   </div>
 </div>
-
+ 
 <!-- MATCHES -->
 <div id="p-matches" class="page">
   <div class="sec">
@@ -440,7 +439,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div id="matches-list" class="match-grid"></div>
   </div>
 </div>
-
+ 
 <!-- PLAYERS -->
 <div id="p-players" class="page">
   <div class="sec">
@@ -459,7 +458,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div id="pgrid" class="pgrid"></div>
   </div>
 </div>
-
+ 
 <!-- RANKING -->
 <div id="p-ranking" class="page">
   <div class="sec">
@@ -485,7 +484,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
-
+ 
 <!-- PROFILE -->
 <div id="p-profile" class="page">
   <div class="prof-hero">
@@ -518,7 +517,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div id="prof-matches" class="match-grid"></div>
   </div>
 </div>
-
+ 
 <!-- ADMIN -->
 <div id="p-admin" class="page">
   <div class="sec">
@@ -535,7 +534,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Nome</th><th>Data</th><th>Zona</th><th>Formato</th><th>Iscritti</th><th>Azioni</th></tr></thead><tbody id="adm-matches-body"></tbody></table></div>
   </div>
 </div>
-
+ 
 <!-- REGISTER -->
 <div id="p-register" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -559,7 +558,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="auth-alt"><span data-i18n="reg_alt">Già registrato?</span> <a href="#" onclick="goPage('login')" data-i18n="nav_login">Login</a></div>
   </div></div>
 </div>
-
+ 
 <!-- LOGIN -->
 <div id="p-login" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -573,7 +572,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="auth-alt"><span data-i18n="log_alt">Non hai un account?</span> <a href="#" onclick="goPage('register')" data-i18n="nav_register">Registrati</a></div>
   </div></div>
 </div>
-
+ 
 <!-- FORGOT PASSWORD -->
 <div id="p-forgot" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -586,7 +585,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="auth-alt"><a href="#" onclick="goPage('login')" data-i18n="nav_login" style="color:var(--cyan);text-decoration:none">← Torna al Login</a></div>
   </div></div>
 </div>
-
+ 
 <!-- RESET PASSWORD -->
 <div id="p-reset" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -599,39 +598,39 @@ textarea.fi{resize:vertical;min-height:80px;}
     <button class="bsubmit" id="reset-btn" onclick="doReset()" data-i18n="reset_btn">Salva Nuova Password</button>
   </div></div>
 </div>
-
+ 
 <!-- ABOUT -->
 <div id="p-about" class="page">
   <div class="sec" style="max-width:720px">
-    <div class="sec-head"><div class="sec-title">CHI SIAMO</div><div class="sec-line"></div></div>
+    <div class="sec-head"><div class="sec-title" data-i18n="footer_about">CHI SIAMO</div><div class="sec-line"></div></div>
     <div style="background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;margin-bottom:20px">
       <div style="font-family:var(--font-black);font-size:28px;margin-bottom:4px">AETERNA<span style="color:var(--cyan)">FUTBOL</span></div>
       <div style="font-size:13px;color:var(--text2);margin-bottom:24px">Tenerife Sur · Isole Canarie · Spagna</div>
-      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px">AeternaFutbol nasce per dare un'identità digitale a chi gioca a calcio amatoriale nel sud di Tenerife. Un posto dove le tue statistiche, le tue valutazioni e la tua reputazione si costruiscono partita dopo partita — indipendentemente dal livello.</p>
-      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px">La piattaforma è multilingua (italiano, spagnolo, francese, inglese) perché il calcetto del sud Tenerife unisce giocatori di tutta Europa. Non sostituisce i tuoi gruppi WhatsApp — li affianca, aggiungendo dati, storia e reputazione.</p>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:16px" data-i18n="about_long1">AeternaFutbol nasce per dare un'identità digitale a chi gioca a calcio amatoriale nel sud di Tenerife. Un posto dove le tue statistiche, le tue valutazioni e la tua reputazione si costruiscono partita dopo partita — indipendentemente dal livello.</p>
+      <p style="font-size:14px;color:var(--text2);line-height:1.8;margin-bottom:24px" data-i18n="about_long2">La piattaforma è multilingua (italiano, spagnolo, francese, inglese) perché il calcetto del sud Tenerife unisce giocatori di tutta Europa. Non sostituisce i tuoi gruppi WhatsApp — li affianca, aggiungendo dati, storia e reputazione.</p>
       <div style="border-top:1px solid var(--border);padding-top:20px;margin-top:8px">
-        <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:12px">Contatti</div>
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1.5px;color:var(--text3);text-transform:uppercase;margin-bottom:12px" data-i18n="footer_contact">Contatti</div>
         <div style="font-size:13px;color:var(--text2);margin-bottom:6px">📧 <a href="mailto:aeternafutbol.2026@gmail.com" style="color:var(--cyan);text-decoration:none">aeternafutbol.2026@gmail.com</a></div>
-        <div style="font-size:13px;color:var(--text2)">📸 <a href="https://instagram.com/aeterna.futbol" target="_blank" style="color:var(--cyan);text-decoration:none">aeterna.futbol.2026</a></div>
+        <div style="font-size:13px;color:var(--text2)">📸 <a href="https://instagram.com/aeterna.futbol.2026" target="_blank" style="color:var(--cyan);text-decoration:none">aeterna.futbol.2026</a></div>
       </div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
       <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center">
         <div style="font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--cyan)">6</div>
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Zone coperte</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px" data-i18n="ab1">Zone coperte</div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center">
         <div style="font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--cyan)">4</div>
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Lingue</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px" data-i18n="ab3">Lingue</div>
       </div>
       <div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;text-align:center">
         <div style="font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--cyan)">2025</div>
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px">Anno lancio</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:4px" data-i18n="about_launch">Anno lancio</div>
       </div>
     </div>
   </div>
 </div>
-
+ 
 <!-- MODAL CREATE -->
 <div class="overlay" id="ov-create">
   <div class="modal">
@@ -668,7 +667,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
-
+ 
 <!-- MODAL MATCH DETAIL -->
 <div class="overlay" id="ov-match">
   <div class="modal">
@@ -683,7 +682,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
-
+ 
 <!-- MODAL PLAYER -->
 <div class="overlay" id="ov-player">
   <div class="modal">
@@ -711,7 +710,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
-
+ 
 <!-- MODAL RATE -->
 <div class="overlay" id="ov-rate">
   <div class="modal" style="max-width:380px">
@@ -728,9 +727,9 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
-
+ 
 <div class="toast" id="toast"><span id="toast-t">OK</span></div>
-
+ 
 <div class="bnav"><div class="bnav-row">
   <button class="bnbb on" id="bn-home" onclick="goPage('home');setBn('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
@@ -748,22 +747,22 @@ textarea.fi{resize:vertical;min-height:80px;}
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="bn_profile">Profilo</span>
   </button>
 </div></div>
-
+ 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const _sb=supabase.createClient(
   'https://yaqcdxhlyihykeceehfd.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhcWNkeGhseWloeWtlY2VlaGZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDU0NzIsImV4cCI6MjA5MDIyMTQ3Mn0.5WZIPu0cVVOpPk5fg4NOm71_t3AV9k2au-zMmOljDVM'
 );
-
+ 
 /* ══ I18N ══ */
 const T={
-  it:{nav_login:'Login',nav_register:'Registrati',nav_logout:'Esci',hero_tag:'Tenerife Sur · Calcio Amatoriale',hero_l1:'TROVA',hero_l2:'LA TUA PARTITA',hero_p:'Cerca partite vicino a te e costruisci la tua reputazione nel calcio amatoriale.',hero_btn1:'Trova Partita',hero_btn_rank:'Classifica',hs_p:'Giocatori',hs_m:'Partite',hs_z:'Zone',scroll:'Scopri',feat_title:'COME FUNZIONA',f1t:'Trova Partite',f1d:'Filtra per zona, orario e formato. Unisciti in un click o mettiti in lista d\'attesa.',f2t:'Profilo Giocatore',f2d:'Foto, statistiche, badge guadagnati e valutazione media.',f3t:'Classifica',f3d:'Ordina per gol, assist, presenze o rating.',f4t:'Valuta i Giocatori',f4d:'Dopo la partita ogni presente può votare gli altri.',about_h:'IL PROGETTO TENERIFE SUR',about_p1:'AeternaFutbol connette gli appassionati di calcio amatoriale nel sud di Tenerife.',about_p2:'Niente burocrazia. Solo calcio.',about_cta:'Unisciti Gratis',ab1:'Zone coperte',ab2:'Formati',ab3:'Lingue',m_title:'PARTITE',m_create:'+ Crea',fz_all:'Tutte le zone',ff_all:'Tutti i formati',t_up:'Prossime',t_mine:'Le Mie',t_past:'Archivio',pl_title:'GIOCATORI',fp_all:'Tutte le posizioni',fp_ph:'Cerca giocatore...',reg_sub:'Unisciti · È gratis',reg_name:'Nome e Cognome',reg_pos:'Posizione',reg_age:'Età',reg_zone:'Zona',reg_pw:'Password',reg_btn:'Crea Account',reg_alt:'Già registrato?',log_sub:'Bentornato in campo',log_alt:'Non hai un account?',cm_title:'CREA PARTITA',cm_name:'Nome Partita',cm_date:'Data',cm_time:'Orario',cm_field:'Campo',cm_fmt:'Formato',cm_spots:'Posti',cm_pub:'Pubblica Partita',cm_desc:'Descrizione',bs_g:'Partite',bs_go:'Gol',bs_a:'Assist',rec_m:'PARTITE RECENTI',bn_home:'Home',bn_matches:'Partite',bn_rank:'Classifica',bn_players:'Giocatori',bn_profile:'Profilo',t_join:'Unisciti',t_wl:'Lista Attesa',t_full:'Completo',t_spots:'posti liberi',t_joined:'Iscritto ✓',t_inwl:'In Attesa',toast_join:'Iscritto!',toast_wl:'In lista d\'attesa!',toast_create:'Partita pubblicata!',toast_reg:'Controlla la tua email per confermare!',toast_logout:'A presto!',toast_rate:'Valutazione inviata!',toast_avatar:'Foto aggiornata!',pm_close:'Chiudi',avail:'disponibili',err_fill:'Compila tutti i campi',err_login:'Email o password errati',err_generic:'Errore, riprova',err_banned:'Account bannato.',log_forgot:'Password dimenticata?',forgot_sub:'Recupera la tua password',forgot_btn:'Invia Link Reset',forgot_ok:'Email inviata! Controlla la casella.',reset_sub:'Scegli una nuova password',reset_new:'Nuova Password',reset_conf:'Conferma Password',reset_btn:'Salva Nuova Password',reset_ok:'Password aggiornata!',reset_err_match:'Le password non coincidono.',footer_about:'Chi siamo',footer_contact:'Contatti'},
-  es:{nav_login:'Entrar',nav_register:'Registrarse',nav_logout:'Salir',hero_tag:'Tenerife Sur · Fútbol Amateur',hero_l1:'ENCUENTRA',hero_l2:'TU PARTIDO',hero_p:'Busca partidos cerca de ti y construye tu reputación en el fútbol amateur.',hero_btn1:'Buscar Partido',hero_btn_rank:'Clasificación',hs_p:'Jugadores',hs_m:'Partidos',hs_z:'Zonas',scroll:'Descubrir',feat_title:'CÓMO FUNCIONA',f1t:'Encuentra Partidos',f1d:'Filtra y únete en un clic o apúntate a la lista de espera.',f2t:'Perfil de Jugador',f2d:'Foto, estadísticas, insignias y valoración media.',f3t:'Clasificación',f3d:'Ordena por goles, asistencias, partidos o rating.',f4t:'Valora Jugadores',f4d:'Tras el partido cada presente puede votar a los demás.',about_h:'EL PROYECTO TENERIFE SUR',about_p1:'AeternaFutbol conecta a los aficionados del fútbol amateur en el sur de Tenerife.',about_p2:'Sin burocracia. Solo fútbol.',about_cta:'Únete Gratis',ab1:'Zonas cubiertas',ab2:'Formatos',ab3:'Idiomas',m_title:'PARTIDOS',m_create:'+ Crear',fz_all:'Todas las zonas',ff_all:'Todos los formatos',t_up:'Próximos',t_mine:'Los Míos',t_past:'Archivo',pl_title:'JUGADORES',fp_all:'Todas las posiciones',fp_ph:'Buscar jugador...',reg_sub:'Únete · Es gratis',reg_name:'Nombre Completo',reg_pos:'Posición',reg_age:'Edad',reg_zone:'Zona',reg_pw:'Contraseña',reg_btn:'Crear Cuenta',reg_alt:'¿Ya tienes cuenta?',log_sub:'Bienvenido de vuelta',log_alt:'¿No tienes cuenta?',cm_title:'CREAR PARTIDO',cm_name:'Nombre',cm_date:'Fecha',cm_time:'Hora',cm_field:'Campo',cm_fmt:'Formato',cm_spots:'Plazas',cm_pub:'Publicar Partido',cm_desc:'Descripción',bs_g:'Partidos',bs_go:'Goles',bs_a:'Asistencias',rec_m:'PARTIDOS RECIENTES',bn_home:'Inicio',bn_matches:'Partidos',bn_rank:'Clasificación',bn_players:'Jugadores',bn_profile:'Perfil',t_join:'Unirse',t_wl:'Lista Espera',t_full:'Completo',t_spots:'plazas libres',t_joined:'Inscrito ✓',t_inwl:'En Espera',toast_join:'¡Inscrito!',toast_wl:'¡En lista de espera!',toast_create:'¡Partido publicado!',toast_reg:'¡Revisa tu email para confirmar!',toast_logout:'¡Hasta pronto!',toast_rate:'¡Valoración enviada!',toast_avatar:'¡Foto actualizada!',pm_close:'Cerrar',avail:'disponibles',err_fill:'Rellena todos los campos',err_login:'Email o contraseña incorrectos',err_generic:'Error, inténtalo',err_banned:'Cuenta bloqueada.',log_forgot:'¿Olvidaste tu contraseña?',forgot_sub:'Recupera tu contraseña',forgot_btn:'Enviar enlace',forgot_ok:'¡Email enviado! Revisa tu bandeja.',reset_sub:'Elige una nueva contraseña',reset_new:'Nueva Contraseña',reset_conf:'Confirmar Contraseña',reset_btn:'Guardar Contraseña',reset_ok:'¡Contraseña actualizada!',reset_err_match:'Las contraseñas no coinciden.',footer_about:'Quiénes somos',footer_contact:'Contacto'},
-  fr:{nav_login:'Connexion',nav_register:"S'inscrire",nav_logout:'Déconnexion',hero_tag:'Tenerife Sud · Football Amateur',hero_l1:'TROUVE',hero_l2:'TON MATCH',hero_p:'Cherche des matchs et construis ta réputation dans le football amateur.',hero_btn1:'Trouver un Match',hero_btn_rank:'Classement',hs_p:'Joueurs',hs_m:'Matchs',hs_z:'Zones',scroll:'Découvrir',feat_title:'COMMENT ÇA MARCHE',f1t:'Trouve des Matchs',f1d:'Filtre et rejoins en un clic ou mets-toi sur liste d\'attente.',f2t:'Profil Joueur',f2d:'Photo, stats, badges et note moyenne.',f3t:'Classement',f3d:'Trie par buts, passes, matchs ou note.',f4t:'Évalue les Joueurs',f4d:'Après le match chaque présent peut voter les autres.',about_h:'LE PROJET TENERIFE SUD',about_p1:'AeternaFutbol connecte les passionnés de football au sud de Tenerife.',about_p2:'Pas de bureaucratie. Juste du football.',about_cta:'Rejoindre Gratuitement',ab1:'Zones couvertes',ab2:'Formats',ab3:'Langues',m_title:'MATCHS',m_create:'+ Créer',fz_all:'Toutes les zones',ff_all:'Tous les formats',t_up:'À venir',t_mine:'Les Miens',t_past:'Archives',pl_title:'JOUEURS',fp_all:'Tous les postes',fp_ph:'Chercher joueur...',reg_sub:'Rejoins · Gratuit',reg_name:'Nom Complet',reg_pos:'Poste',reg_age:'Âge',reg_zone:'Zone',reg_pw:'Mot de passe',reg_btn:'Créer un Compte',reg_alt:'Déjà un compte ?',log_sub:'Bienvenue de retour',log_alt:'Pas encore de compte ?',cm_title:'CRÉER MATCH',cm_name:'Nom',cm_date:'Date',cm_time:'Heure',cm_field:'Terrain',cm_fmt:'Format',cm_spots:'Places',cm_pub:'Publier',cm_desc:'Description',bs_g:'Matchs',bs_go:'Buts',bs_a:'Passes D.',rec_m:'MATCHS RÉCENTS',bn_home:'Accueil',bn_matches:'Matchs',bn_rank:'Classement',bn_players:'Joueurs',bn_profile:'Profil',t_join:'Rejoindre',t_wl:'Liste Attente',t_full:'Complet',t_spots:'places libres',t_joined:'Inscrit ✓',t_inwl:'En Attente',toast_join:'Inscrit!',toast_wl:'Sur liste d\'attente!',toast_create:'Match publié!',toast_reg:'Vérifie ton email!',toast_logout:'À bientôt!',toast_rate:'Évaluation envoyée!',toast_avatar:'Photo mise à jour!',pm_close:'Fermer',avail:'disponibles',err_fill:'Remplis tous les champs',err_login:'Email ou mot de passe incorrect',err_generic:'Erreur',err_banned:'Compte bloqué.',log_forgot:'Mot de passe oublié ?',forgot_sub:'Récupère ton mot de passe',forgot_btn:'Envoyer le lien',forgot_ok:'Email envoyé! Vérifie ta boîte.',reset_sub:'Choisis un nouveau mot de passe',reset_new:'Nouveau Mot de passe',reset_conf:'Confirmer',reset_btn:'Enregistrer',reset_ok:'Mot de passe mis à jour!',reset_err_match:'Les mots de passe ne correspondent pas.',footer_about:'Qui sommes-nous',footer_contact:'Contact'},
-  en:{nav_login:'Login',nav_register:'Sign Up',nav_logout:'Logout',hero_tag:'Tenerife South · Amateur Football',hero_l1:'FIND YOUR',hero_l2:'MATCH',hero_p:'Find matches near you and build your reputation in amateur football.',hero_btn1:'Find a Match',hero_btn_rank:'Leaderboard',hs_p:'Players',hs_m:'Matches',hs_z:'Zones',scroll:'Discover',feat_title:'HOW IT WORKS',f1t:'Find Matches',f1d:'Filter and join in one click or join the waitlist.',f2t:'Player Profile',f2d:'Photo, stats, earned badges and average rating.',f3t:'Leaderboard',f3d:'Sort by goals, assists, matches or rating.',f4t:'Rate Players',f4d:'After the match every player present can rate the others.',about_h:'THE TENERIFE SOUTH PROJECT',about_p1:'AeternaFutbol connects amateur football enthusiasts in South Tenerife.',about_p2:'No bureaucracy. Just football.',about_cta:'Join for Free',ab1:'Zones covered',ab2:'Formats',ab3:'Languages',m_title:'MATCHES',m_create:'+ Create',fz_all:'All zones',ff_all:'All formats',t_up:'Upcoming',t_mine:'My Matches',t_past:'Archive',pl_title:'PLAYERS',fp_all:'All positions',fp_ph:'Search player...',reg_sub:"Join · It's free",reg_name:'Full Name',reg_pos:'Position',reg_age:'Age',reg_zone:'Zone',reg_pw:'Password',reg_btn:'Create Account',reg_alt:'Already have an account?',log_sub:'Welcome back',log_alt:"Don't have an account?",cm_title:'CREATE MATCH',cm_name:'Match Name',cm_date:'Date',cm_time:'Start Time',cm_field:'Field',cm_fmt:'Format',cm_spots:'Spots',cm_pub:'Publish Match',cm_desc:'Description',bs_g:'Matches',bs_go:'Goals',bs_a:'Assists',rec_m:'RECENT MATCHES',bn_home:'Home',bn_matches:'Matches',bn_rank:'Ranking',bn_players:'Players',bn_profile:'Profile',t_join:'Join',t_wl:'Waitlist',t_full:'Full',t_spots:'spots left',t_joined:'Joined ✓',t_inwl:'Waitlisted',toast_join:'Joined!',toast_wl:'Added to waitlist!',toast_create:'Match published!',toast_reg:'Check your email to confirm!',toast_logout:'See you!',toast_rate:'Rating sent!',toast_avatar:'Photo updated!',pm_close:'Close',avail:'available',err_fill:'Fill in all fields',err_login:'Wrong email or password',err_generic:'Error, please try again',err_banned:'Account banned.',log_forgot:'Forgot password?',forgot_sub:'Recover your password',forgot_btn:'Send Reset Link',forgot_ok:'Email sent! Check your inbox.',reset_sub:'Choose a new password',reset_new:'New Password',reset_conf:'Confirm Password',reset_btn:'Save Password',reset_ok:'Password updated! You can login.',reset_err_match:'Passwords do not match.',footer_about:'About us',footer_contact:'Contact'}
+  it:{nav_login:'Login',nav_register:'Registrati',nav_logout:'Esci',hero_tag:'Tenerife Sur · Calcio Amatoriale',hero_l1:'TROVA',hero_l2:'LA TUA PARTITA',hero_p:'Cerca partite vicino a te e costruisci la tua reputazione nel calcio amatoriale.',hero_btn1:'Trova Partita',hero_btn_rank:'Classifica',hs_p:'Giocatori',hs_m:'Partite',hs_z:'Zone',scroll:'Scopri',feat_title:'COME FUNZIONA',f1t:'Trova Partite',f1d:'Filtra per zona, orario e formato. Unisciti in un click o mettiti in lista d\'attesa.',f2t:'Profilo Giocatore',f2d:'Foto, statistiche, badge guadagnati e valutazione media.',f3t:'Classifica',f3d:'Ordina per gol, assist, presenze o rating.',f4t:'Valuta i Giocatori',f4d:'Dopo la partita ogni presente può votare gli altri.',about_h:'IL PROGETTO TENERIFE SUR',about_p1:'AeternaFutbol connette gli appassionati di calcio amatoriale nel sud di Tenerife.',about_p2:'Niente burocrazia. Solo calcio.',about_cta:'Unisciti Gratis',ab1:'Zone coperte',ab2:'Formati',ab3:'Lingue',m_title:'PARTITE',m_create:'+ Crea',fz_all:'Tutte le zone',ff_all:'Tutti i formati',t_up:'Prossime',t_mine:'Le Mie',t_past:'Archivio',pl_title:'GIOCATORI',fp_all:'Tutte le posizioni',fp_ph:'Cerca giocatore...',reg_sub:'Unisciti · È gratis',reg_name:'Nome e Cognome',reg_pos:'Posizione',reg_age:'Età',reg_zone:'Zona',reg_pw:'Password',reg_btn:'Crea Account',reg_alt:'Già registrato?',log_sub:'Bentornato in campo',log_alt:'Non hai un account?',cm_title:'CREA PARTITA',cm_name:'Nome Partita',cm_date:'Data',cm_time:'Orario',cm_field:'Campo',cm_fmt:'Formato',cm_spots:'Posti',cm_pub:'Pubblica Partita',cm_desc:'Descrizione',bs_g:'Partite',bs_go:'Gol',bs_a:'Assist',rec_m:'PARTITE RECENTI',bn_home:'Home',bn_matches:'Partite',bn_rank:'Classifica',bn_players:'Giocatori',bn_profile:'Profilo',t_join:'Unisciti',t_wl:'Lista Attesa',t_full:'Completo',t_spots:'posti liberi',t_joined:'Iscritto ✓',t_inwl:'In Attesa',toast_join:'Iscritto!',toast_wl:'In lista d\'attesa!',toast_create:'Partita pubblicata!',toast_reg:'Controlla la tua email per confermare!',toast_logout:'A presto!',toast_rate:'Valutazione inviata!',toast_avatar:'Foto aggiornata!',pm_close:'Chiudi',avail:'disponibili',err_fill:'Compila tutti i campi',err_login:'Email o password errati',err_generic:'Errore, riprova',err_banned:'Account bannato.',about_launch:"Anno lancio",about_long2:"La piattaforma è multilingua (italiano, spagnolo, francese, inglese) perché il calcetto del sud Tenerife unisce giocatori di tutta Europa. Non sostituisce i tuoi gruppi WhatsApp — li affianca, aggiungendo dati, storia e reputazione.",about_long1:"AeternaFutbol nasce per dare un'identità digitale a chi gioca a calcio amatoriale nel sud di Tenerife. Un posto dove le tue statistiche, le tue valutazioni e la tua reputazione si costruiscono partita dopo partita — indipendentemente dal livello.",log_forgot:'Password dimenticata?',forgot_sub:'Recupera la tua password',forgot_btn:'Invia Link Reset',forgot_ok:'Email inviata! Controlla la casella.',reset_sub:'Scegli una nuova password',reset_new:'Nuova Password',reset_conf:'Conferma Password',reset_btn:'Salva Nuova Password',reset_ok:'Password aggiornata!',reset_err_match:'Le password non coincidono.',footer_about:'Chi siamo',footer_contact:'Contatti'},
+  es:{nav_login:'Entrar',nav_register:'Registrarse',nav_logout:'Salir',hero_tag:'Tenerife Sur · Fútbol Amateur',hero_l1:'ENCUENTRA',hero_l2:'TU PARTIDO',hero_p:'Busca partidos cerca de ti y construye tu reputación en el fútbol amateur.',hero_btn1:'Buscar Partido',hero_btn_rank:'Clasificación',hs_p:'Jugadores',hs_m:'Partidos',hs_z:'Zonas',scroll:'Descubrir',feat_title:'CÓMO FUNCIONA',f1t:'Encuentra Partidos',f1d:'Filtra y únete en un clic o apúntate a la lista de espera.',f2t:'Perfil de Jugador',f2d:'Foto, estadísticas, insignias y valoración media.',f3t:'Clasificación',f3d:'Ordena por goles, asistencias, partidos o rating.',f4t:'Valora Jugadores',f4d:'Tras el partido cada presente puede votar a los demás.',about_h:'EL PROYECTO TENERIFE SUR',about_p1:'AeternaFutbol conecta a los aficionados del fútbol amateur en el sur de Tenerife.',about_p2:'Sin burocracia. Solo fútbol.',about_cta:'Únete Gratis',ab1:'Zonas cubiertas',ab2:'Formatos',ab3:'Idiomas',m_title:'PARTIDOS',m_create:'+ Crear',fz_all:'Todas las zonas',ff_all:'Todos los formatos',t_up:'Próximos',t_mine:'Los Míos',t_past:'Archivo',pl_title:'JUGADORES',fp_all:'Todas las posiciones',fp_ph:'Buscar jugador...',reg_sub:'Únete · Es gratis',reg_name:'Nombre Completo',reg_pos:'Posición',reg_age:'Edad',reg_zone:'Zona',reg_pw:'Contraseña',reg_btn:'Crear Cuenta',reg_alt:'¿Ya tienes cuenta?',log_sub:'Bienvenido de vuelta',log_alt:'¿No tienes cuenta?',cm_title:'CREAR PARTIDO',cm_name:'Nombre',cm_date:'Fecha',cm_time:'Hora',cm_field:'Campo',cm_fmt:'Formato',cm_spots:'Plazas',cm_pub:'Publicar Partido',cm_desc:'Descripción',bs_g:'Partidos',bs_go:'Goles',bs_a:'Asistencias',rec_m:'PARTIDOS RECIENTES',bn_home:'Inicio',bn_matches:'Partidos',bn_rank:'Clasificación',bn_players:'Jugadores',bn_profile:'Perfil',t_join:'Unirse',t_wl:'Lista Espera',t_full:'Completo',t_spots:'plazas libres',t_joined:'Inscrito ✓',t_inwl:'En Espera',toast_join:'¡Inscrito!',toast_wl:'¡En lista de espera!',toast_create:'¡Partido publicado!',toast_reg:'¡Revisa tu email para confirmar!',toast_logout:'¡Hasta pronto!',toast_rate:'¡Valoración enviada!',toast_avatar:'¡Foto actualizada!',pm_close:'Cerrar',avail:'disponibles',err_fill:'Rellena todos los campos',err_login:'Email o contraseña incorrectos',err_generic:'Error, inténtalo',err_banned:'Cuenta bloqueada.',about_launch:"Año de lanzamiento",about_long2:"La plataforma es multilingüe (italiano, español, francés, inglés) porque el fútbol amateur del sur de Tenerife reúne jugadores de toda Europa. No sustituye tus grupos de WhatsApp — los complementa, añadiendo datos, historia y reputación.",about_long1:"AeternaFutbol nace para dar una identidad digital a quienes juegan al fútbol amateur en el sur de Tenerife. Un lugar donde tus estadísticas, valoraciones y reputación se construyen partido a partido — independientemente del nivel.",log_forgot:'¿Olvidaste tu contraseña?',forgot_sub:'Recupera tu contraseña',forgot_btn:'Enviar enlace',forgot_ok:'¡Email enviado! Revisa tu bandeja.',reset_sub:'Elige una nueva contraseña',reset_new:'Nueva Contraseña',reset_conf:'Confirmar Contraseña',reset_btn:'Guardar Contraseña',reset_ok:'¡Contraseña actualizada!',reset_err_match:'Las contraseñas no coinciden.',footer_about:'Quiénes somos',footer_contact:'Contacto'},
+  fr:{nav_login:'Connexion',nav_register:"S'inscrire",nav_logout:'Déconnexion',hero_tag:'Tenerife Sud · Football Amateur',hero_l1:'TROUVE',hero_l2:'TON MATCH',hero_p:'Cherche des matchs et construis ta réputation dans le football amateur.',hero_btn1:'Trouver un Match',hero_btn_rank:'Classement',hs_p:'Joueurs',hs_m:'Matchs',hs_z:'Zones',scroll:'Découvrir',feat_title:'COMMENT ÇA MARCHE',f1t:'Trouve des Matchs',f1d:'Filtre et rejoins en un clic ou mets-toi sur liste d\'attente.',f2t:'Profil Joueur',f2d:'Photo, stats, badges et note moyenne.',f3t:'Classement',f3d:'Trie par buts, passes, matchs ou note.',f4t:'Évalue les Joueurs',f4d:'Après le match chaque présent peut voter les autres.',about_h:'LE PROJET TENERIFE SUD',about_p1:'AeternaFutbol connecte les passionnés de football au sud de Tenerife.',about_p2:'Pas de bureaucratie. Juste du football.',about_cta:'Rejoindre Gratuitement',ab1:'Zones couvertes',ab2:'Formats',ab3:'Langues',m_title:'MATCHS',m_create:'+ Créer',fz_all:'Toutes les zones',ff_all:'Tous les formats',t_up:'À venir',t_mine:'Les Miens',t_past:'Archives',pl_title:'JOUEURS',fp_all:'Tous les postes',fp_ph:'Chercher joueur...',reg_sub:'Rejoins · Gratuit',reg_name:'Nom Complet',reg_pos:'Poste',reg_age:'Âge',reg_zone:'Zone',reg_pw:'Mot de passe',reg_btn:'Créer un Compte',reg_alt:'Déjà un compte ?',log_sub:'Bienvenue de retour',log_alt:'Pas encore de compte ?',cm_title:'CRÉER MATCH',cm_name:'Nom',cm_date:'Date',cm_time:'Heure',cm_field:'Terrain',cm_fmt:'Format',cm_spots:'Places',cm_pub:'Publier',cm_desc:'Description',bs_g:'Matchs',bs_go:'Buts',bs_a:'Passes D.',rec_m:'MATCHS RÉCENTS',bn_home:'Accueil',bn_matches:'Matchs',bn_rank:'Classement',bn_players:'Joueurs',bn_profile:'Profil',t_join:'Rejoindre',t_wl:'Liste Attente',t_full:'Complet',t_spots:'places libres',t_joined:'Inscrit ✓',t_inwl:'En Attente',toast_join:'Inscrit!',toast_wl:'Sur liste d\'attente!',toast_create:'Match publié!',toast_reg:'Vérifie ton email!',toast_logout:'À bientôt!',toast_rate:'Évaluation envoyée!',toast_avatar:'Photo mise à jour!',pm_close:'Fermer',avail:'disponibles',err_fill:'Remplis tous les champs',err_login:'Email ou mot de passe incorrect',err_generic:'Erreur',err_banned:'Compte bloqué.',about_launch:"Année de lancement",about_long2:"La plateforme est multilingue (italien, espagnol, français, anglais) car le football amateur du sud de Tenerife réunit des joueurs de toute l'Europe. Elle ne remplace pas tes groupes WhatsApp — elle les complète, en ajoutant données, histoire et réputation.",about_long1:"AeternaFutbol est né pour donner une identité numérique à ceux qui jouent au football amateur au sud de Tenerife. Un endroit où tes statistiques, évaluations et réputation se construisent match après match — quel que soit ton niveau.",log_forgot:'Mot de passe oublié ?',forgot_sub:'Récupère ton mot de passe',forgot_btn:'Envoyer le lien',forgot_ok:'Email envoyé! Vérifie ta boîte.',reset_sub:'Choisis un nouveau mot de passe',reset_new:'Nouveau Mot de passe',reset_conf:'Confirmer',reset_btn:'Enregistrer',reset_ok:'Mot de passe mis à jour!',reset_err_match:'Les mots de passe ne correspondent pas.',footer_about:'Qui sommes-nous',footer_contact:'Contact'},
+  en:{nav_login:'Login',nav_register:'Sign Up',nav_logout:'Logout',hero_tag:'Tenerife South · Amateur Football',hero_l1:'FIND YOUR',hero_l2:'MATCH',hero_p:'Find matches near you and build your reputation in amateur football.',hero_btn1:'Find a Match',hero_btn_rank:'Leaderboard',hs_p:'Players',hs_m:'Matches',hs_z:'Zones',scroll:'Discover',feat_title:'HOW IT WORKS',f1t:'Find Matches',f1d:'Filter and join in one click or join the waitlist.',f2t:'Player Profile',f2d:'Photo, stats, earned badges and average rating.',f3t:'Leaderboard',f3d:'Sort by goals, assists, matches or rating.',f4t:'Rate Players',f4d:'After the match every player present can rate the others.',about_h:'THE TENERIFE SOUTH PROJECT',about_p1:'AeternaFutbol connects amateur football enthusiasts in South Tenerife.',about_p2:'No bureaucracy. Just football.',about_cta:'Join for Free',ab1:'Zones covered',ab2:'Formats',ab3:'Languages',m_title:'MATCHES',m_create:'+ Create',fz_all:'All zones',ff_all:'All formats',t_up:'Upcoming',t_mine:'My Matches',t_past:'Archive',pl_title:'PLAYERS',fp_all:'All positions',fp_ph:'Search player...',reg_sub:"Join · It's free",reg_name:'Full Name',reg_pos:'Position',reg_age:'Age',reg_zone:'Zone',reg_pw:'Password',reg_btn:'Create Account',reg_alt:'Already have an account?',log_sub:'Welcome back',log_alt:"Don't have an account?",cm_title:'CREATE MATCH',cm_name:'Match Name',cm_date:'Date',cm_time:'Start Time',cm_field:'Field',cm_fmt:'Format',cm_spots:'Spots',cm_pub:'Publish Match',cm_desc:'Description',bs_g:'Matches',bs_go:'Goals',bs_a:'Assists',rec_m:'RECENT MATCHES',bn_home:'Home',bn_matches:'Matches',bn_rank:'Ranking',bn_players:'Players',bn_profile:'Profile',t_join:'Join',t_wl:'Waitlist',t_full:'Full',t_spots:'spots left',t_joined:'Joined ✓',t_inwl:'Waitlisted',toast_join:'Joined!',toast_wl:'Added to waitlist!',toast_create:'Match published!',toast_reg:'Check your email to confirm!',toast_logout:'See you!',toast_rate:'Rating sent!',toast_avatar:'Photo updated!',pm_close:'Close',avail:'available',err_fill:'Fill in all fields',err_login:'Wrong email or password',err_generic:'Error, please try again',err_banned:'Account banned.',about_launch:"Launch year",about_long2:"The platform is multilingual (Italian, Spanish, French, English) because amateur football in South Tenerife brings together players from all over Europe. It does not replace your WhatsApp groups — it complements them, adding data, history and reputation.",about_long1:"AeternaFutbol was created to give a digital identity to amateur football players in South Tenerife. A place where your stats, ratings and reputation are built match after match — regardless of your level.",log_forgot:'Forgot password?',forgot_sub:'Recover your password',forgot_btn:'Send Reset Link',forgot_ok:'Email sent! Check your inbox.',reset_sub:'Choose a new password',reset_new:'New Password',reset_conf:'Confirm Password',reset_btn:'Save Password',reset_ok:'Password updated! You can login.',reset_err_match:'Passwords do not match.',footer_about:'About us',footer_contact:'Contact'}
 };
-
+ 
 /* ══ BADGES DEFINITION ══ */
 const BADGE_DEFS=[
   {id:'esordiente',emoji:'⚡',label:'Esordiente',cls:'badge-gray',check:p=>p.games>=1},
@@ -779,18 +778,18 @@ const BADGE_DEFS=[
   {id:'star',emoji:'⭐',label:'5-Star',cls:'badge-gold',check:p=>p.rating&&Number(p.rating)>=4.5},
   {id:'leader',emoji:'🏆',label:'Leader',cls:'badge-gold',check:p=>p.mvp>=3},
 ];
-
+ 
 function getBadges(p){return BADGE_DEFS.filter(b=>b.check(p));}
 function renderBadges(p){return getBadges(p).map(b=>`<span class="badge ${b.cls}">${b.emoji} ${b.label}</span>`).join('');}
-
+ 
 /* ══ COLORS ══ */
 const COLORS={bianco:{hex:'#f0f0f0',label:'Bianco'},nero:{hex:'#1a1a1a',label:'Nero'},rosso:{hex:'#e63030',label:'Rosso'},blu:{hex:'#1a56e8',label:'Blu'},giallo:{hex:'#f5c800',label:'Giallo'},viola:{hex:'#7c3aed',label:'Viola'}};
-
+ 
 let lang='es',currentUser=null,currentProfile=null,matchTab='up';
 let allMatches=[],allPlayers=[],myMatchIds=new Set(),myWaitlistIds=new Set();
 let rateCtx={matchId:null,ratedId:null,score:0};
 let lbSortKey='rating',searchTm=null;
-
+ 
 function detectLang(){const l=(navigator.language||'es').substring(0,2).toLowerCase();return['it','es','fr','en'].includes(l)?l:'es';}
 function setLang(l){lang=l;document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));document.querySelector(`.lbtn[onclick="setLang('${l}')"]`)?.classList.add('on');applyI18n();}
 function t(k){return T[lang][k]||T.es[k]||k;}
@@ -798,7 +797,7 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[lang][k])el.textContent=T[lang][k];});
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(T[lang][k])el.placeholder=T[lang][k];});
 }
-
+ 
 function buildPalette(cid,hid,def){
   const c=document.getElementById(cid),h=document.getElementById(hid);if(!c||!h)return;
   c.innerHTML='';
@@ -808,7 +807,7 @@ function buildPalette(cid,hid,def){
     c.appendChild(d);
   });
 }
-
+ 
 function goPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   const el=document.getElementById('p-'+id);if(el){el.classList.add('on');window.scrollTo(0,0);}
@@ -819,13 +818,13 @@ function goPage(id){
   if(id==='admin'){if(!currentProfile?.is_admin){goPage('home');return;}loadAdmin();}
 }
 function setBn(id){document.querySelectorAll('.bnbb').forEach(b=>b.classList.remove('on'));if(id)document.getElementById('bn-'+id)?.classList.add('on');}
-
+ 
 function setAuthUI(){
   const out=document.getElementById('nav-auth-out'),inn=document.getElementById('nav-auth-in'),nm=document.getElementById('nav-user-name'),ab=document.getElementById('nav-admin-btn');
   if(currentUser){out.style.display='none';inn.style.display='flex';if(nm&&currentProfile)nm.textContent=currentProfile.name.split(' ')[0];if(ab)ab.style.display=currentProfile?.is_admin?'inline-flex':'none';}
   else{out.style.display='flex';inn.style.display='none';if(ab)ab.style.display='none';}
 }
-
+ 
 /* ══ AUTH ══ */
 async function doRegister(){
   const name=document.getElementById('rn').value.trim(),pos=document.getElementById('rpos').value,age=document.getElementById('rage').value,zone=document.getElementById('rzone').value,email=document.getElementById('rem').value.trim(),pw=document.getElementById('rpw').value;
@@ -841,7 +840,7 @@ async function doRegister(){
   }
   btn.disabled=false;btn.textContent=t('reg_btn');
 }
-
+ 
 async function doLogin(){
   const email=document.getElementById('lem').value.trim(),pw=document.getElementById('lpw').value;
   const err=document.getElementById('log-err');err.classList.remove('on');
@@ -854,20 +853,20 @@ async function doLogin(){
   setAuthUI();updateProfileUI();goPage('profile');setBn('profile');
   btn.disabled=false;btn.textContent=t('nav_login');
 }
-
+ 
 async function doLogout(){
   await _sb.auth.signOut();currentUser=null;currentProfile=null;myMatchIds=new Set();myWaitlistIds=new Set();setAuthUI();goPage('home');setBn('home');toast(t('toast_logout'));
 }
-
+ 
 async function fetchProfile(){
   if(!currentUser)return;
   const{data}=await _sb.from('profiles').select('*').eq('id',currentUser.id).single();
   if(data)currentProfile=data;
 }
-
+ 
 /* ══ AVATAR ══ */
 function triggerAvatarUpload(){if(!currentUser)return;document.getElementById('avatar-input').click();}
-
+ 
 async function uploadAvatar(input){
   const file=input.files[0];if(!file||!currentUser)return;
   if(file.size>3*1024*1024){toast('Max 3MB',true);return;}
@@ -881,13 +880,13 @@ async function uploadAvatar(input){
   currentProfile.avatar_url=url;
   updateProfileUI();toast(t('toast_avatar'));
 }
-
+ 
 /* ══ PROFILE UI ══ */
 function avHtml(url,name,cls=''){
   if(url)return`<img src="${url}" alt="${name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
   return`<span class="${cls}">${ini(name)}</span>`;
 }
-
+ 
 function updateProfileUI(){
   if(!currentProfile)return;
   const p=currentProfile;
@@ -906,9 +905,9 @@ function updateProfileUI(){
   const br=document.getElementById('prof-badges-row');
   if(br)br.innerHTML=renderBadges(p)||`<span style="font-size:12px;color:var(--text3)">Nessun badge ancora — gioca!</span>`;
 }
-
+ 
 async function loadProfile(){await fetchProfile();updateProfileUI();loadProfMatches();}
-
+ 
 async function loadProfMatches(){
   if(!currentUser)return;
   const{data}=await _sb.from('match_players').select('match_id,matches(*)').eq('player_id',currentUser.id).order('match_id',{ascending:false}).limit(5);
@@ -921,10 +920,10 @@ async function loadProfMatches(){
       <div class="mc-right"><div style="font-size:13px;color:var(--text2)">${m.joined}/${m.spots} 👤</div></div>
     </div>`).join('');
 }
-
+ 
 /* ══ MATCHES ══ */
 function isPastMatch(m){return new Date(m.date+'T23:59:59')<new Date();}
-
+ 
 async function loadMatches(){
   document.getElementById('matches-list').innerHTML=`<div class="loading"><div class="spin"></div><span>Caricamento...</span></div>`;
   const{data}=await _sb.from('matches').select('*').order('date',{ascending:true}).order('time',{ascending:true});
@@ -940,9 +939,9 @@ async function loadMatches(){
   }
   renderMatches();
 }
-
+ 
 function setTab(tab,btn){matchTab=tab;document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderMatches();}
-
+ 
 function renderMatches(){
   const fd=document.getElementById('fd')?.value||'',fz=document.getElementById('fz')?.value||'',ff=document.getElementById('ff')?.value||'';
   const today=new Date().toISOString().split('T')[0];
@@ -994,7 +993,7 @@ function renderMatches(){
     </div>`;
   }).join('');
 }
-
+ 
 async function joinMatch(id){
   if(!currentUser){goPage('login');return;}
   const m=allMatches.find(x=>x.id===id);if(!m)return;
@@ -1004,7 +1003,7 @@ async function joinMatch(id){
   await _sb.from('matches').update({joined:m.joined+1}).eq('id',id);
   myMatchIds.add(id);await loadMatches();toast(t('toast_join'));
 }
-
+ 
 async function joinWaitlist(id){
   if(!currentUser){goPage('login');return;}
   if(myWaitlistIds.has(id)){return;}
@@ -1015,7 +1014,7 @@ async function joinWaitlist(id){
   if(error){toast(t('err_generic'),true);return;}
   myWaitlistIds.add(id);await loadMatches();toast(t('toast_wl'));
 }
-
+ 
 /* ══ MATCH DETAIL ══ */
 async function openMatchDetail(matchId){
   const idx=allMatches.findIndex(x=>x.id===matchId);
@@ -1039,21 +1038,21 @@ async function openMatchDetail(matchId){
     <span style="color:var(--text3);font-weight:700;font-size:12px">VS</span>
     <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:50%;background:${c2.hex};border:2px solid rgba(255,255,255,.2)"></div><span style="font-size:12px;color:var(--text2)">${c2.label}</span></div>
   `;
-
+ 
   const[{data:mps},{data:wlData}]=await Promise.all([
     _sb.from('match_players').select('player_id,presente,gol,assist,is_mvp,profiles(*)').eq('match_id',matchId),
     _sb.from('match_waitlist').select('player_id,position,profiles(*)').eq('match_id',matchId).order('position',{ascending:true})
   ]);
-
+ 
   // Check if current user is a confirmed present player (for voting)
   const amIPresent=mps&&currentUser&&mps.find(r=>r.player_id===currentUser.id&&r.presente);
-
+ 
   let myRatings=new Set();
   if(currentUser){
     const{data:rr}=await _sb.from('ratings').select('rated_id').eq('match_id',matchId).eq('voter_id',currentUser.id);
     myRatings=new Set((rr||[]).map(r=>r.rated_id));
   }
-
+ 
   const pl=document.getElementById('md-players');
   if(!mps||!mps.length){pl.innerHTML=`<div style="color:var(--text3);font-size:13px;text-align:center;padding:20px">Nessun iscritto</div>`;}
   else if(confirmed){
@@ -1088,7 +1087,7 @@ async function openMatchDetail(matchId){
       </div>`;
     }).join('');
   }
-
+ 
   // waitlist
   const wlEl=document.getElementById('md-waitlist');
   if(wlData&&wlData.length){
@@ -1098,7 +1097,7 @@ async function openMatchDetail(matchId){
         <div style="font-size:13px">${w.profiles?.name||'—'}</div>
       </div>`).join('')}</div>`;
   } else wlEl.innerHTML='';
-
+ 
   // stats form (org only, past, not confirmed)
   const sfEl=document.getElementById('md-stats-form');
   if(isOrg&&past&&!confirmed&&mps&&mps.length){
@@ -1132,10 +1131,10 @@ async function openMatchDetail(matchId){
   } else if(isOrg&&!past) {
     sfEl.innerHTML=`<div style="margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:6px;font-size:12px;color:var(--text2)">ℹ️ Potrai confermare presenze e stats al termine della partita</div>`;
   } else sfEl.innerHTML='';
-
+ 
   document.getElementById('ov-match').classList.add('on');
 }
-
+ 
 async function submitStats(matchId){
   const btn=document.getElementById('sfbtn-'+matchId);btn.disabled=true;btn.textContent='Salvo...';
   try{
@@ -1160,7 +1159,7 @@ async function submitStats(matchId){
     toast('✅ Stats salvate!');openMatchDetail(matchId);
   }catch(e){toast(t('err_generic'),true);btn.disabled=false;btn.textContent='✅ CONFERMA E SALVA';}
 }
-
+ 
 async function promoteFromWaitlist(matchId){
   const{data:wl}=await _sb.from('match_waitlist').select('*').eq('match_id',matchId).order('position',{ascending:true}).limit(1);
   if(!wl||!wl.length)return;
@@ -1174,7 +1173,7 @@ async function promoteFromWaitlist(matchId){
   const{data:rest}=await _sb.from('match_waitlist').select('id').eq('match_id',matchId).order('position',{ascending:true});
   for(let i=0;i<(rest||[]).length;i++)await _sb.from('match_waitlist').update({position:i+1}).eq('id',rest[i].id);
 }
-
+ 
 /* ══ RATING ══ */
 function openRate(matchId,ratedId,ratedName){
   rateCtx={matchId,ratedId,ratedName,score:0};
@@ -1197,7 +1196,7 @@ async function submitRating(){
   document.getElementById('ov-rate').classList.remove('on');
   openMatchDetail(rateCtx.matchId);toast(t('toast_rate'));
 }
-
+ 
 /* ══ CREATE MATCH ══ */
 function openCreate(){
   if(!currentUser){goPage('login');return;}
@@ -1211,7 +1210,7 @@ function openCreate(){
   document.getElementById('ov-create').classList.add('on');
 }
 function closeCreate(){document.getElementById('ov-create').classList.remove('on');}
-
+ 
 async function createMatch(){
   const n=document.getElementById('cm-n').value.trim(),d=document.getElementById('cm-d').value,ti=document.getElementById('cm-t').value,te=document.getElementById('cm-te').value,z=document.getElementById('cm-z').value;
   const f=document.getElementById('cm-f').value.trim()||z,fmt=document.getElementById('cm-fmt').value,s=parseInt(document.getElementById('cm-s').value)||10;
@@ -1225,7 +1224,7 @@ async function createMatch(){
   myMatchIds.add(data.id);closeCreate();await loadMatches();toast(t('toast_create'));
   btn.disabled=false;btn.textContent=t('cm_pub');
 }
-
+ 
 /* ══ MAP SEARCH ══ */
 async function searchPlace(query){
   clearTimeout(searchTm);const sugs=document.getElementById('map-sugs');
@@ -1244,7 +1243,7 @@ function selectPlace(name,lat,lng){
   const ml=document.getElementById('cm-maplink');ml.href=`https://www.google.com/maps?q=${lat},${lng}`;ml.style.display='inline-flex';
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.map-search-wrap'))document.getElementById('map-sugs').style.display='none';});
-
+ 
 /* ══ PLAYERS ══ */
 async function loadPlayers(){
   document.getElementById('pgrid').innerHTML=`<div class="loading" style="grid-column:1/-1"><div class="spin"></div><span>Caricamento...</span></div>`;
@@ -1290,7 +1289,7 @@ function openPlayer(i){
   document.getElementById('ov-player').classList.add('on');
 }
 function closePlayer(){document.getElementById('ov-player').classList.remove('on');}
-
+ 
 /* ══ RANKING ══ */
 async function loadRanking(){
   const el=document.getElementById('lb-body');el.innerHTML=`<tr><td colspan="7"><div class="loading"><div class="spin"></div><span>Caricamento...</span></div></td></tr>`;
@@ -1328,7 +1327,7 @@ function renderRanking(){
       <td class="lb-val lb-val-gold">${p.rating?Number(p.rating).toFixed(1):'—'}</td>
     </tr>`).join('');
 }
-
+ 
 /* ══ ADMIN ══ */
 async function loadAdmin(){
   const[{count:uc},{count:mc},{data:banned},{data:suspended}]=await Promise.all([
@@ -1366,13 +1365,13 @@ async function adminDelMatch(id){
   await _sb.from('matches').delete().eq('id',id);
   allMatches=allMatches.filter(m=>m.id!==id);toast('✓ Eliminata');loadAdmin();
 }
-
+ 
 /* ══ UTILS ══ */
 function ini(n){return(n||'?').split(' ').map(x=>x[0]).join('').substring(0,2).toUpperCase();}
 function fmtDate(d){const dt=new Date(d+'T00:00:00');const loc={it:'it-IT',es:'es-ES',fr:'fr-FR',en:'en-GB'}[lang]||'es-ES';return dt.toLocaleDateString(loc,{day:'2-digit',month:'short'});}
 function toast(msg,err=false){const el=document.getElementById('toast');document.getElementById('toast-t').textContent=msg;el.classList.remove('err');if(err)el.classList.add('err');el.classList.add('on');setTimeout(()=>el.classList.remove('on'),3000);}
 document.querySelectorAll('.overlay').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('on');});});
-
+ 
 /* ══ FORGOT / RESET PASSWORD ══ */
 async function doForgot(){
   const email=document.getElementById('forgot-em').value.trim();
@@ -1385,7 +1384,7 @@ async function doForgot(){
   else{ok.textContent=t('forgot_ok');ok.classList.add('on');document.getElementById('forgot-em').value='';}
   btn.disabled=false;btn.textContent=t('forgot_btn');
 }
-
+ 
 async function doReset(){
   const pw=document.getElementById('reset-pw').value,pw2=document.getElementById('reset-pw2').value;
   const err=document.getElementById('reset-err'),ok=document.getElementById('reset-ok');
@@ -1398,7 +1397,7 @@ async function doReset(){
   else{ok.textContent=t('reset_ok');ok.classList.add('on');setTimeout(()=>{goPage('login');},2000);}
   btn.disabled=false;btn.textContent=t('reset_btn');
 }
-
+ 
 /* ══ INIT ══ */
 (async function init(){
   lang=detectLang();
@@ -1422,4 +1421,4 @@ async function doReset(){
 })();
 </script>
 </body>
-</html>
+</html
