@@ -356,6 +356,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
     <div id="nav-auth-in" style="display:none;gap:8px;align-items:center">
       <span id="nav-user-name" style="font-size:13px;color:var(--text2)"></span>
+      <button class="btn btn-o btn-sm" onclick="goPage('leagues');setBn('leagues')" style="font-size:12px">🏟️ Leghe</button>
       <button id="nav-admin-btn" class="btn btn-gold btn-sm" onclick="goPage('admin');setBn('')" style="display:none">ADMIN</button>
       <button class="btn btn-o btn-sm" onclick="doLogout()" data-i18n="nav_logout">Logout</button>
     </div>
@@ -1501,22 +1502,14 @@ async function loadLeagues(){
   // mostra pulsante crea lega se admin
   if(creaBtn)creaBtn.style.display=currentProfile?.is_admin?'inline-flex':'none';
   if(actEl)actEl.innerHTML='';
+
   const{data}=await _sb.from('leagues').select('*').order('created_at',{ascending:false});
   const leagues=data||[];
 
-  // check if user is manager of any league
   let managedIds=new Set();
   if(currentUser){
     const{data:lm}=await _sb.from('league_managers').select('league_id').eq('player_id',currentUser.id);
     managedIds=new Set((lm||[]).map(r=>r.league_id));
-  }
-
-  if(currentProfile?.is_admin){
-    actEl.innerHTML=`<button class="btn btn-gold btn-sm" onclick="openCreateLeague()">+ Crea Lega</button>`;
-  } else if(!currentUser){
-    actEl.innerHTML=`<button class="btn btn-c btn-sm" onclick="goPage('login')">Login</button>`;
-  } else {
-    actEl.innerHTML='';
   }
 
   if(!leagues.length){
