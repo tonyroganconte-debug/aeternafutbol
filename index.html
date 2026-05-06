@@ -231,10 +231,10 @@ textarea.fi{resize:vertical;min-height:80px;}
 .rating-val{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--gold);text-align:center;margin-bottom:8px;}
 
 /* COLOR PALETTE */
-.color-palette{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
-.color-opt{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .18s;position:relative;}
+.color-palette{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px;}
+.color-opt{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .18s;position:relative;flex-shrink:0;}
 .color-opt.on{border-color:var(--cyan);transform:scale(1.15);}
-.color-opt::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;opacity:0;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.8);}
+.color-opt::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;opacity:0;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.8);}
 .color-opt.on::after{opacity:1;}
 
 /* MAP */
@@ -919,7 +919,24 @@ function getBadges(p){return BADGE_DEFS.filter(b=>b.check(p));}
 function renderBadges(p){return getBadges(p).map(b=>`<span class="badge ${b.cls}">${b.emoji} ${b.label}</span>`).join('');}
 
 /* ══ COLORS ══ */
-const COLORS={bianco:{hex:'#f0f0f0',label:'Bianco'},nero:{hex:'#1a1a1a',label:'Nero'},rosso:{hex:'#e63030',label:'Rosso'},blu:{hex:'#1a56e8',label:'Blu'},giallo:{hex:'#f5c800',label:'Giallo'},viola:{hex:'#7c3aed',label:'Viola'}};
+const COLORS={
+  bianco:{hex:'#f0f0f0',label:'Bianco'},
+  nero:{hex:'#1a1a1a',label:'Nero'},
+  grigio:{hex:'#6b7280',label:'Grigio'},
+  rosso:{hex:'#e63030',label:'Rosso'},
+  bordeaux:{hex:'#7f1d1d',label:'Bordeaux'},
+  arancio:{hex:'#f97316',label:'Arancio'},
+  giallo:{hex:'#f5c800',label:'Giallo'},
+  verde:{hex:'#16a34a',label:'Verde'},
+  verde_chiaro:{hex:'#4ade80',label:'Verde Chiaro'},
+  blu:{hex:'#1a56e8',label:'Blu'},
+  blu_navy:{hex:'#1e3a5f',label:'Blu Navy'},
+  azzurro:{hex:'#38bdf8',label:'Azzurro'},
+  celeste:{hex:'#7dd3fc',label:'Celeste'},
+  viola:{hex:'#7c3aed',label:'Viola'},
+  rosa:{hex:'#ec4899',label:'Rosa'},
+  marrone:{hex:'#92400e',label:'Marrone'},
+};
 
 let lang='es',currentUser=null,currentProfile=null,matchTab='up';
 let allMatches=[],allPlayers=[],myMatchIds=new Set(),myWaitlistIds=new Set();
@@ -1748,27 +1765,23 @@ async function loadLeagueManagerPanel(){
   const teamOpts=(teams||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
 
   el.innerHTML=`
-    <!-- ADD TEAM -->
+    <!-- SQUADRE -->
     <div class="lm-form">
-      <div class="lm-form-title">➕ Aggiungi Squadra</div>
-      <div style="display:flex;gap:8px;flex-wrap:wrap">
+      <div class="lm-form-title">👥 Squadre</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
         <input class="fi" id="lm-team-name" placeholder="Nome squadra" style="flex:1;min-width:140px">
-        <select class="fi" id="lm-team-color" style="flex:1;min-width:120px">
+        <select class="fi" id="lm-team-color" style="flex:1;min-width:140px">
           ${Object.entries(COLORS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
         </select>
-        <button class="btn btn-gold btn-sm" onclick="lmAddTeam()">Aggiungi</button>
+        <button class="btn btn-gold btn-sm" onclick="lmAddTeam()">➕ Aggiungi</button>
       </div>
-    </div>
-
-    <!-- TEAMS LIST WITH DELETE -->
-    ${teams&&teams.length?`<div class="lm-form">
-      <div class="lm-form-title">🗑️ Gestisci Squadre</div>
-      ${teams.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      ${teams&&teams.length?teams.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
         <div class="team-dot" style="background:${(COLORS[t.color]||COLORS.bianco).hex}"></div>
-        <span style="flex:1;font-size:13px">${t.name}</span>
+        <span style="flex:1;font-size:13px;font-weight:500">${t.name}</span>
+        <span style="font-size:11px;color:var(--text2)">${(COLORS[t.color]||COLORS.bianco).label}</span>
         <button class="abtn abtn-del" onclick="lmDeleteTeam(${t.id},'${t.name.replace(/'/g,"\\'")}')">🗑 Elimina</button>
-      </div>`).join('')}
-    </div>`:''}
+      </div>`).join(''):`<div style="font-size:12px;color:var(--text3);padding:8px 0">Nessuna squadra ancora — aggiungine una sopra.</div>`}
+    </div>
 
     <!-- ADD MATCH -->
     <div class="lm-form">
