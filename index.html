@@ -1492,6 +1492,8 @@ async function loadLeagues(){
   const el=document.getElementById('leagues-list');
   const actEl=document.getElementById('leagues-actions');
   el.innerHTML=`<div class="loading"><div class="spin"></div><span>Caricamento...</span></div>`;
+  // assicura profilo aggiornato
+  if(currentUser&&!currentProfile)await fetchProfile();
   const{data}=await _sb.from('leagues').select('*').order('created_at',{ascending:false});
   const leagues=data||[];
 
@@ -1504,7 +1506,11 @@ async function loadLeagues(){
 
   if(currentProfile?.is_admin){
     actEl.innerHTML=`<button class="btn btn-gold btn-sm" onclick="openCreateLeague()">+ Crea Lega</button>`;
-  } else actEl.innerHTML='';
+  } else if(!currentUser){
+    actEl.innerHTML=`<button class="btn btn-c btn-sm" onclick="goPage('login')">Login</button>`;
+  } else {
+    actEl.innerHTML='';
+  }
 
   if(!leagues.length){
     el.innerHTML=`<div class="empty"><div class="empty-i">🏟️</div><div class="empty-t">Nessuna lega attiva</div><div class="empty-s">Le leghe verranno create dall'amministratore</div></div>`;
