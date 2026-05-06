@@ -630,7 +630,10 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="sec-head">
       <div class="sec-title">🏟️ LEGHE</div>
       <div class="sec-line"></div>
-      <div class="sec-extra" id="leagues-actions"></div>
+      <div class="sec-extra">
+        <div id="leagues-actions"></div>
+        <button id="btn-crea-lega" class="btn btn-gold btn-sm" onclick="openCreateLeague()" style="display:none">+ Crea Lega</button>
+      </div>
     </div>
     <div id="leagues-list"></div>
   </div>
@@ -1491,9 +1494,13 @@ function isLeagueManager(league){
 async function loadLeagues(){
   const el=document.getElementById('leagues-list');
   const actEl=document.getElementById('leagues-actions');
+  const creaBtn=document.getElementById('btn-crea-lega');
   el.innerHTML=`<div class="loading"><div class="spin"></div><span>Caricamento...</span></div>`;
   // assicura profilo aggiornato
   if(currentUser&&!currentProfile)await fetchProfile();
+  // mostra pulsante crea lega se admin
+  if(creaBtn)creaBtn.style.display=currentProfile?.is_admin?'inline-flex':'none';
+  if(actEl)actEl.innerHTML='';
   const{data}=await _sb.from('leagues').select('*').order('created_at',{ascending:false});
   const leagues=data||[];
 
