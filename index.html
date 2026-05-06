@@ -595,7 +595,36 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="fg"><label class="fl" data-i18n="reg_pw">Password</label><input class="fi" id="lpw" type="password" placeholder="••••••••"></div>
     <button class="bsubmit" id="log-btn" onclick="doLogin()" data-i18n="nav_login">Login</button>
     <div style="text-align:center;margin-top:10px"><a href="#" onclick="goPage('forgot')" style="font-size:12px;color:var(--text2);text-decoration:none" data-i18n="log_forgot">Password dimenticata?</a></div>
-    <div class="auth-alt"><span data-i18n="log_alt">Non hai un account?</span> <a href="#" onclick="goPage('register')" data-i18n="nav_register">Registrati</a></div>
+    <div class="auth-alt"><span data-i18n="log_alt">Non hai un account?</span> <a href="#" onclick="goPage('register')" data-i18n="nav_register">Registrati</a> · <a href="#" onclick="goPage('invite')" style="color:var(--gold);text-decoration:none">🔑 Ho un codice invito</a></div>
+  </div></div>
+</div>
+
+<!-- REGISTER WITH INVITE CODE -->
+<div id="p-invite" class="page">
+  <div class="auth-wrap"><div class="auth-card">
+    <div class="auth-logo">AETERNA<em>FUTBOL</em></div>
+    <div class="auth-sub">Registrazione con codice invito</div>
+    <div class="auth-err" id="inv-err"></div>
+    <div class="auth-ok" id="inv-ok"></div>
+    <div class="fg">
+      <label class="fl">🔑 Codice Invito</label>
+      <input class="fi" id="inv-code" type="text" placeholder="ES: AB3X7K" style="text-transform:uppercase;letter-spacing:3px;font-size:20px;text-align:center" oninput="this.value=this.value.toUpperCase()">
+    </div>
+    <div class="fg"><label class="fl" data-i18n="reg_name">Nome e Cognome</label><input class="fi" id="inv-name" type="text" placeholder="Marco Rossi"></div>
+    <div class="frow">
+      <div class="fg"><label class="fl" data-i18n="reg_pos">Posizione</label>
+        <select class="fi" id="inv-pos"><option value="POR">Portiere</option><option value="DEF">Difensore</option><option value="CEN">Centrocampista</option><option value="ATT">Attaccante</option></select>
+      </div>
+      <div class="fg"><label class="fl" data-i18n="reg_age">Età</label><input class="fi" id="inv-age" type="number" placeholder="25" min="14" max="70"></div>
+    </div>
+    <div class="fg"><label class="fl" data-i18n="reg_zone">Zona</label>
+      <select class="fi" id="inv-zone"><option>Las Américas</option><option>Los Cristianos</option><option>Costa Adeje</option><option>El Médano</option><option>San Isidro</option><option>Arona</option></select>
+    </div>
+    <div class="fg"><label class="fl">Email</label><input class="fi" id="inv-email" type="email" placeholder="tu@email.com"></div>
+    <div class="fg"><label class="fl" data-i18n="reg_pw">Password</label><input class="fi" id="inv-pw" type="password" placeholder="••••••••"></div>
+    <button class="bsubmit" id="inv-btn" onclick="doInviteRegister()">Crea Account</button>
+    <div class="auth-alt">Hai già un account? <a href="#" onclick="goPage('login')" style="color:var(--cyan);text-decoration:none">Login</a></div>
+    <div class="auth-alt" style="margin-top:6px">Registrazione normale? <a href="#" onclick="goPage('register')" style="color:var(--cyan);text-decoration:none">Clicca qui</a></div>
   </div></div>
 </div>
 
@@ -1466,6 +1495,36 @@ function fmtDate(d){const dt=new Date(d+'T00:00:00');const loc={it:'it-IT',es:'e
 function toast(msg,err=false){const el=document.getElementById('toast');document.getElementById('toast-t').textContent=msg;el.classList.remove('err');if(err)el.classList.add('err');el.classList.add('on');setTimeout(()=>el.classList.remove('on'),3000);}
 document.querySelectorAll('.overlay').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('on');});});
 
+/* ══ INVITE CODE REGISTER ══ */
+async function doInviteRegister(){
+  const code=document.getElementById('inv-code').value.trim().toUpperCase();
+  const name=document.getElementById('inv-name').value.trim();
+  const pos=document.getElementById('inv-pos').value;
+  const age=document.getElementById('inv-age').value;
+  const zone=document.getElementById('inv-zone').value;
+  const email=document.getElementById('inv-email').value.trim();
+  const pw=document.getElementById('inv-pw').value;
+  const err=document.getElementById('inv-err'),ok=document.getElementById('inv-ok');
+  err.classList.remove('on');ok.classList.remove('on');
+  if(!code||!name||!email||!pw||!age){err.textContent=t('err_fill');err.classList.add('on');return;}
+  const btn=document.getElementById('inv-btn');btn.disabled=true;btn.textContent='...';
+  // valida codice
+  const{data:invData,error:invErr}=await _sb.from('invite_codes').select('*').eq('code',code).is('used_by',null).single();
+  if(invErr||!invData){err.textContent='Codice invito non valido o già utilizzato.';err.classList.add('on');btn.disabled=false;btn.textContent='Crea Account';return;}
+  // registra
+  const{data,error}=await _sb.auth.signUp({email,password:pw});
+  if(error){err.textContent=error.message;err.classList.add('on');btn.disabled=false;btn.textContent='Crea Account';return;}
+  if(data.user){
+    await _sb.from('profiles').insert({id:data.user.id,name,position:pos,age:parseInt(age),zone,games:0,goals:0,assists:0,mvp:0,rating:0,is_admin:false,is_banned:false,is_suspended:false});
+    await _sb.from('invite_codes').update({used_by:data.user.id,used_at:new Date().toISOString()}).eq('id',invData.id);
+    // auto login
+    const{data:sess}=await _sb.auth.signInWithPassword({email,password:pw});
+    if(sess?.user){currentUser=sess.user;await fetchProfile();setAuthUI();updateProfileUI();goPage('profile');setBn('profile');toast('Benvenuto! 🎉');}
+    else{ok.textContent='Account creato! Ora fai login.';ok.classList.add('on');}
+  }
+  btn.disabled=false;btn.textContent='Crea Account';
+}
+
 /* ══ OTP EMAIL VERIFICATION ══ */
 async function doRegister(){
   const name=document.getElementById('rn').value.trim(),pos=document.getElementById('rpos').value,age=document.getElementById('rage').value,zone=document.getElementById('rzone').value,email=document.getElementById('rem').value.trim(),pw=document.getElementById('rpw').value;
@@ -1678,11 +1737,12 @@ function openLeagueManager(){
 async function loadLeagueManagerPanel(){
   const el=document.getElementById('lm-panel');
   el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
-  const[{data:teams},{data:matches},{data:managers},{data:allProfiles}]=await Promise.all([
+  const[{data:teams},{data:matches},{data:managers},{data:allProfiles},{data:invites}]=await Promise.all([
     _sb.from('teams').select('*').eq('league_id',currentLeague.id),
     _sb.from('league_matches').select('*, home:home_team_id(name), away:away_team_id(name)').eq('league_id',currentLeague.id).order('date',{ascending:true}),
     _sb.from('league_managers').select('player_id,profiles(name)').eq('league_id',currentLeague.id),
-    _sb.from('profiles').select('id,name').eq('is_banned',false).order('name')
+    _sb.from('profiles').select('id,name').eq('is_banned',false).order('name'),
+    _sb.from('invite_codes').select('*,used_by_profile:used_by(name)').eq('created_by',currentUser.id).order('created_at',{ascending:false}).limit(10)
   ]);
   const profileOpts=(allProfiles||[]).map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
   const teamOpts=(teams||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
@@ -1700,17 +1760,44 @@ async function loadLeagueManagerPanel(){
       </div>
     </div>
 
+    <!-- TEAMS LIST WITH DELETE -->
+    ${teams&&teams.length?`<div class="lm-form">
+      <div class="lm-form-title">🗑️ Gestisci Squadre</div>
+      ${teams.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+        <div class="team-dot" style="background:${(COLORS[t.color]||COLORS.bianco).hex}"></div>
+        <span style="flex:1;font-size:13px">${t.name}</span>
+        <button class="abtn abtn-del" onclick="lmDeleteTeam(${t.id},'${t.name.replace(/'/g,"\\'")}')">🗑 Elimina</button>
+      </div>`).join('')}
+    </div>`:''}
+
     <!-- ADD MATCH -->
     <div class="lm-form">
       <div class="lm-form-title">📅 Aggiungi Partita</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
-        <select class="fi" id="lm-home">${teamOpts}</select>
-        <select class="fi" id="lm-away">${teamOpts}</select>
+        <select class="fi" id="lm-home"><option value="">Casa...</option>${teamOpts}</select>
+        <select class="fi" id="lm-away"><option value="">Ospite...</option>${teamOpts}</select>
         <input class="fi" type="date" id="lm-match-date">
         <input class="fi" type="time" id="lm-match-time" value="18:00">
       </div>
       <button class="btn btn-gold btn-sm" style="width:100%" onclick="lmAddMatch()">Aggiungi Partita</button>
     </div>
+
+    <!-- MATCHES LIST WITH EDIT/DELETE -->
+    ${matches&&matches.length?`<div class="lm-form">
+      <div class="lm-form-title">📋 Partite — Modifica / Elimina</div>
+      ${matches.map(m=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border);flex-wrap:wrap">
+        <div style="flex:1;min-width:140px">
+          <div style="font-size:12px;font-weight:500">${m.home?.name||'?'} vs ${m.away?.name||'?'}</div>
+          <div style="font-size:10px;color:var(--text2)">${m.date?fmtDate(m.date):'-'} ${m.time?m.time.substring(0,5):''} ${m.played?`· <span style="color:var(--green)">${m.home_goals}-${m.away_goals}</span>`:''}</div>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <button class="abtn abtn-sus" onclick="openEnterResultFull(${m.id})">✏️ ${m.played?'Modifica':'Inserisci'}</button>
+          <button class="abtn abtn-sus" onclick="lmWalkover(${m.id},'home','${m.home?.name||'Casa'}')">🏠 3-0</button>
+          <button class="abtn abtn-sus" onclick="lmWalkover(${m.id},'away','${m.away?.name||'Ospite'}')">✈️ 0-3</button>
+          <button class="abtn abtn-del" onclick="lmDeleteMatch(${m.id})">🗑</button>
+        </div>
+      </div>`).join('')}
+    </div>`:''}
 
     <!-- MANAGERS -->
     <div class="lm-form">
@@ -1725,7 +1812,21 @@ async function loadLeagueManagerPanel(){
       </div>`).join('')||`<div style="font-size:12px;color:var(--text3)">Nessun assistente</div>`}</div>
     </div>
 
-    <!-- LEGA STATUS -->
+    <!-- CODICI INVITO -->
+    <div class="lm-form">
+      <div class="lm-form-title">🔑 Codici Invito</div>
+      <div style="font-size:12px;color:var(--text2);margin-bottom:10px">Genera un codice da condividere su WhatsApp. Chi lo inserisce si registra senza verifica email.</div>
+      <button class="btn btn-gold btn-sm" style="width:100%;margin-bottom:12px" onclick="lmGenerateCode()">Genera Nuovo Codice</button>
+      <div id="lm-codes-list">
+        ${(invites||[]).map(inv=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 0;border-bottom:1px solid var(--border)">
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:${inv.used_by?'var(--text3)':'var(--cyan)'};letter-spacing:2px">${inv.code}</div>
+          <div style="flex:1;font-size:11px;color:var(--text2)">${inv.used_by?`✓ Usato da ${inv.used_by_profile?.name||'?'}`:'Disponibile'}</div>
+          ${!inv.used_by?`<button onclick="copyCode('${inv.code}')" style="background:none;border:1px solid var(--border);color:var(--text2);padding:3px 8px;border-radius:3px;font-size:11px;cursor:pointer">Copia</button>`:''}
+        </div>`).join('')||`<div style="font-size:12px;color:var(--text3)">Nessun codice generato</div>`}
+      </div>
+    </div>
+
+    <!-- STATO LEGA -->
     <div class="lm-form">
       <div class="lm-form-title">⚙️ Stato Lega</div>
       <div style="display:flex;gap:8px">
@@ -1774,12 +1875,50 @@ async function lmSetStatus(status){
 let currentMatchId=null;
 function openEnterResult(matchId){openEnterResultFull(matchId);}
 
+async function lmDeleteTeam(teamId,teamName){
+  if(!confirm(`Eliminare la squadra "${teamName}"? Verranno rimossi anche tutti i giocatori in rosa.`))return;
+  await _sb.from('team_players').delete().eq('team_id',teamId);
+  await _sb.from('teams').delete().eq('id',teamId);
+  toast('✓ Squadra eliminata');loadLeagueManagerPanel();renderLeagueTab();
+}
+
+async function lmDeleteMatch(matchId){
+  if(!confirm('Eliminare questa partita?'))return;
+  await _sb.from('league_match_stats').delete().eq('league_match_id',matchId);
+  await _sb.from('league_matches').delete().eq('id',matchId);
+  toast('✓ Partita eliminata');loadLeagueManagerPanel();renderLeagueTab();
+}
+
+async function lmWalkover(matchId,winner,teamName){
+  if(!confirm(`Assegnare vittoria a tavolino (3-0) a ${teamName}?`))return;
+  const hg=winner==='home'?3:0,ag=winner==='away'?3:0;
+  await _sb.from('league_match_stats').delete().eq('league_match_id',matchId);
+  await _sb.from('league_matches').update({home_goals:hg,away_goals:ag,played:true}).eq('id',matchId);
+  toast('✓ Vittoria a tavolino assegnata');loadLeagueManagerPanel();renderLeagueTab();
+}
+
+async function lmGenerateCode(){
+  const chars='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  const code=Array.from({length:6},()=>chars[Math.floor(Math.random()*chars.length)]).join('');
+  const{error}=await _sb.from('invite_codes').insert({code,created_by:currentUser.id});
+  if(error){toast(t('err_generic'),true);return;}
+  toast(`Codice ${code} generato!`);loadLeagueManagerPanel();
+}
+
+function copyCode(code){
+  const msg=`Registrati su AeternaFutbol con il codice invito: ${code}\n👉 https://aaternafutbol.netlify.app`;
+  navigator.clipboard?.writeText(msg).then(()=>toast('Messaggio copiato!')).catch(()=>{
+    // fallback
+    const ta=document.createElement('textarea');ta.value=msg;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);toast('Copiato!');
+  });
+}
+
 async function submitResult(){
   const hg=parseInt(document.getElementById('res-home').value)||0;
   const ag=parseInt(document.getElementById('res-away').value)||0;
+  // delete old stats before re-inserting (handles edits)
+  await _sb.from('league_match_stats').delete().eq('league_match_id',currentMatchId);
   await _sb.from('league_matches').update({home_goals:hg,away_goals:ag,played:true}).eq('id',currentMatchId);
-
-  // save individual stats
   const statRows=document.querySelectorAll('.res-stat-row');
   for(const row of statRows){
     const pid=row.dataset.pid,tid=row.dataset.tid;
@@ -1790,7 +1929,7 @@ async function submitResult(){
     }
   }
   document.getElementById('ov-result').classList.remove('on');
-  toast('✅ Risultato salvato');renderLeagueTab();
+  toast('✅ Risultato salvato');loadLeagueManagerPanel();renderLeagueTab();
 }
 
 async function openEnterResultFull(matchId){
