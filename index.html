@@ -14,7 +14,7 @@ html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--text);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
 body::after{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9999;opacity:.5;}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px;}
- 
+
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:200;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;background:rgba(6,10,15,.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:var(--font-black);font-size:20px;letter-spacing:1px;color:var(--text);cursor:pointer;user-select:none;}
@@ -29,11 +29,11 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .btn-sm{padding:6px 14px;font-size:12px;}
 .btn-red{background:var(--red);color:#fff;}.btn-red:hover{background:#cc2244;}
 .btn-gold{background:var(--gold);color:var(--bg);}.btn-gold:hover{background:#ccaa00;}
- 
+
 /* PAGES */
 .page{display:none;padding-top:56px;min-height:100vh;animation:fadeIn .3s ease;}.page.on{display:block;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
- 
+
 /* HERO */
 .hero{position:relative;min-height:calc(100vh - 56px);display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:0 24px;}
 .hero-canvas{position:absolute;inset:0;overflow:hidden;}
@@ -56,7 +56,7 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
 .hstat-l{font-size:10px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
 .scroll-hint{display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text3);font-size:10px;letter-spacing:1px;text-transform:uppercase;animation:bounce 2s infinite;}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
- 
+
 /* SECTIONS */
 .sec{max-width:1080px;margin:0 auto;padding:48px 20px;}
 .sec-head{display:flex;align-items:center;gap:14px;margin-bottom:28px;}
@@ -70,7 +70,7 @@ select.finput option{background:var(--card2);}
 .tabs{display:flex;gap:3px;background:var(--card);border:1px solid var(--border);border-radius:6px;padding:3px;margin-bottom:20px;}
 .tab{flex:1;background:none;border:none;color:var(--text2);padding:9px;border-radius:4px;font-family:var(--font-display);font-size:13px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;cursor:pointer;transition:all .18s;}
 .tab.on{background:var(--cyan);color:var(--bg);}
- 
+
 /* MATCH CARD */
 .match-grid{display:grid;gap:10px;}
 .mc{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 20px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:12px;transition:all .22s;position:relative;overflow:hidden;}
@@ -102,14 +102,14 @@ select.finput option{background:var(--card2);}
 .bjoin.waitlist{background:rgba(255,204,0,.12);color:var(--gold);border:1px solid rgba(255,204,0,.4);cursor:default;}
 .list-btn{background:none;border:1px solid var(--border);color:var(--text2);padding:4px 10px;border-radius:4px;font-size:11px;cursor:pointer;font-family:var(--font-display);letter-spacing:.5px;transition:all .15s;margin-top:6px;}
 .list-btn:hover{border-color:var(--cyan);color:var(--cyan);}
- 
+
 /* WAITLIST */
 .wl-section{margin-top:16px;padding:12px 14px;background:rgba(255,204,0,.05);border:1px solid rgba(255,204,0,.2);border-radius:8px;}
 .wl-title{font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--gold);margin-bottom:8px;}
 .wl-item{display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:12px;}
 .wl-item:last-child{border-bottom:none;}
 .wl-pos{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--gold);width:24px;}
- 
+
 /* BADGES */
 .badges-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;}
@@ -118,7 +118,7 @@ select.finput option{background:var(--card2);}
 .badge-green{background:rgba(0,255,136,.12);color:var(--green);border:1px solid rgba(0,255,136,.25);}
 .badge-red{background:rgba(255,51,85,.12);color:var(--red);border:1px solid rgba(255,51,85,.25);}
 .badge-gray{background:rgba(255,255,255,.06);color:var(--text2);border:1px solid var(--border);}
- 
+
 /* PLAYERS */
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;}
 .pc{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:22px 16px;text-align:center;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;}
@@ -136,7 +136,7 @@ select.finput option{background:var(--card2);}
 .pcs-l{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-top:2px;}
 .pc-sus{border-color:rgba(255,204,0,.3)!important;}
 .pc-sus-badge{position:absolute;top:8px;left:8px;background:var(--gold);color:var(--bg);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;}
- 
+
 /* LEADERBOARD */
 .lb-table{width:100%;border-collapse:collapse;}
 .lb-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding:10px 14px;border-bottom:2px solid var(--border);cursor:pointer;user-select:none;white-space:nowrap;}
@@ -153,7 +153,7 @@ select.finput option{background:var(--card2);}
 .lb-av img{width:100%;height:100%;object-fit:cover;}
 .lb-val{font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--cyan);}
 .lb-val-gold{color:var(--gold);}
- 
+
 /* PROFILE */
 .prof-hero{background:var(--card);border-bottom:1px solid var(--border);padding:36px 24px;position:relative;overflow:hidden;}
 .prof-hero::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,229,255,.04) 0%,transparent 60%);}
@@ -171,7 +171,7 @@ select.finput option{background:var(--card2);}
 .bstat{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;}
 .bstat-v{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--cyan);line-height:1;}
 .bstat-l{font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-top:5px;}
- 
+
 /* AUTH */
 .auth-wrap{max-width:440px;margin:36px auto;padding:0 20px;}
 .auth-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:32px;}
@@ -194,7 +194,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .auth-err.on{display:block;}
 .auth-ok{background:rgba(0,255,136,.1);border:1px solid rgba(0,255,136,.3);color:var(--green);padding:10px 14px;border-radius:5px;font-size:12px;margin-bottom:14px;display:none;}
 .auth-ok.on{display:block;}
- 
+
 /* MODAL */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);z-index:300;align-items:center;justify-content:center;padding:20px;}
 .overlay.on{display:flex;animation:fadeIn .2s ease;}
@@ -212,7 +212,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .pmod-s{background:var(--bg2);border-radius:6px;padding:12px;text-align:center;}
 .pmod-sv{font-family:var(--font-display);font-size:24px;font-weight:600;color:var(--cyan);}
 .pmod-sl{font-size:9px;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-top:3px;}
- 
+
 /* MATCH PLAYERS LIST */
 .mpl{display:flex;flex-direction:column;gap:8px;margin-top:12px;}
 .mpl-item{display:flex;align-items:center;gap:10px;background:var(--bg2);border-radius:6px;padding:10px 14px;}
@@ -223,20 +223,20 @@ textarea.fi{resize:vertical;min-height:80px;}
 .mpl-rate-btn{background:var(--gold);color:var(--bg);border:none;padding:5px 12px;border-radius:4px;font-family:var(--font-display);font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;}
 .mpl-rate-btn:hover{background:#ccaa00;}
 .mpl-rated{font-size:11px;color:var(--gold);}
- 
+
 /* STARS */
 .stars-row{display:flex;gap:6px;justify-content:center;margin:12px 0;}
 .star{font-size:32px;cursor:pointer;transition:transform .15s;filter:grayscale(1);opacity:.4;}
 .star:hover,.star.on{filter:none;opacity:1;transform:scale(1.15);}
 .rating-val{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--gold);text-align:center;margin-bottom:8px;}
- 
+
 /* COLOR PALETTE */
 .color-palette{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
 .color-opt{width:32px;height:32px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:all .18s;position:relative;}
 .color-opt.on{border-color:var(--cyan);transform:scale(1.15);}
 .color-opt::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;opacity:0;font-weight:700;text-shadow:0 1px 3px rgba(0,0,0,.8);}
 .color-opt.on::after{opacity:1;}
- 
+
 /* MAP */
 .map-search-wrap{position:relative;}
 .map-suggestions{position:absolute;top:100%;left:0;right:0;background:var(--card2);border:1px solid var(--border);border-top:none;border-radius:0 0 5px 5px;z-index:10;max-height:200px;overflow-y:auto;}
@@ -244,7 +244,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .map-sug-item:hover{background:var(--bg2);}.map-sug-item:last-child{border-bottom:none;}
 .map-link{display:inline-flex;align-items:center;gap:5px;color:var(--cyan);font-size:12px;text-decoration:none;margin-top:6px;}
 .map-link:hover{text-decoration:underline;}
- 
+
 /* ADMIN */
 .admin-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;margin-bottom:32px;}
 .admin-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px;}
@@ -265,7 +265,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .abtn-sus{background:rgba(255,204,0,.15);color:var(--gold);}.abtn-sus:hover{background:var(--gold);color:var(--bg);}
 .abtn-del{background:rgba(255,51,85,.15);color:var(--red);}.abtn-del:hover{background:var(--red);color:#fff;}
 .abtn-ok{background:rgba(0,255,136,.15);color:var(--green);}.abtn-ok:hover{background:var(--green);color:var(--bg);}
- 
+
 /* HOME FEATURES */
 .features{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:48px;}
 .feat{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:28px 24px;transition:all .22s;position:relative;overflow:hidden;}
@@ -284,7 +284,7 @@ textarea.fi{resize:vertical;min-height:80px;}
 .about-stat-n{font-family:var(--font-display);font-size:42px;font-weight:700;color:var(--cyan);line-height:1;}
 .about-stat-l{font-size:12px;color:var(--text2);margin-top:3px;}
 .about-divider{height:1px;background:var(--border);margin:18px 0;}
- 
+
 /* MISC */
 .loading{display:flex;align-items:center;justify-content:center;padding:48px;color:var(--text2);font-size:13px;gap:10px;}
 .spin{width:18px;height:18px;border:2px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin .7s linear infinite;}
@@ -296,14 +296,38 @@ textarea.fi{resize:vertical;min-height:80px;}
 .toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--card2);border:1px solid var(--cyan);color:var(--cyan);padding:12px 22px;border-radius:8px;font-size:13px;font-weight:600;z-index:500;opacity:0;white-space:nowrap;transition:all .28s;pointer-events:none;}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0);}
 .toast.err{border-color:var(--red);color:var(--red);}
- 
+
 /* BOTTOM NAV */
 .bnav{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(6,10,15,.96);backdrop-filter:blur(24px);border-top:1px solid var(--border);z-index:200;padding-bottom:env(safe-area-inset-bottom);}
 .bnav-row{display:flex;justify-content:space-around;}
 .bnbb{background:none;border:none;color:var(--text3);padding:10px 12px;cursor:pointer;font-family:var(--font-display);font-size:9px;font-weight:500;letter-spacing:.8px;text-transform:uppercase;display:flex;flex-direction:column;align-items:center;gap:3px;transition:color .15s;min-width:52px;}
 .bnbb svg{width:20px;height:20px;stroke-width:1.8;}
 .bnbb.on{color:var(--cyan);}
- 
+
+/* LEAGUES */
+.league-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;margin-bottom:10px;}
+.league-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .22s;}
+.league-card:hover{border-color:rgba(255,204,0,.3);background:var(--card2);}.league-card:hover::before{transform:scaleY(1);}
+.league-name{font-family:var(--font-display);font-size:20px;font-weight:600;letter-spacing:.5px;margin-bottom:6px;}
+.league-meta{font-size:12px;color:var(--text2);display:flex;gap:14px;flex-wrap:wrap;}
+.league-status{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.8px;padding:2px 8px;border-radius:3px;text-transform:uppercase;margin-left:8px;}
+.ls-active{background:rgba(0,255,136,.1);color:var(--green);}
+.ls-ended{background:rgba(255,255,255,.06);color:var(--text3);}
+.standings-table{width:100%;border-collapse:collapse;}
+.standings-table th{text-align:left;font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);padding:8px 12px;border-bottom:2px solid var(--border);}
+.standings-table td{padding:10px 12px;border-bottom:1px solid var(--border);font-size:13px;vertical-align:middle;}
+.standings-table tr:hover td{background:var(--card2);}
+.standings-table tr:last-child td{border-bottom:none;}
+.st-rank{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--text3);width:36px;}
+.st-rank.r1{color:var(--gold);}.st-rank.r2{color:#c0c0c0;}.st-rank.r3{color:#cd7f32;}
+.st-pts{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--cyan);}
+.lm-badge{background:rgba(255,204,0,.15);color:var(--gold);border:1px solid rgba(255,204,0,.3);font-size:10px;font-weight:700;letter-spacing:.8px;padding:2px 8px;border-radius:3px;text-transform:uppercase;margin-left:6px;}
+.team-card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:8px;}
+.team-name{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.team-dot{width:14px;height:14px;border-radius:50%;border:2px solid rgba(255,255,255,.2);flex-shrink:0;}
+.lm-form{background:var(--card);border:1px solid rgba(255,204,0,.2);border-radius:10px;padding:20px;margin-bottom:16px;}
+.lm-form-title{font-family:var(--font-display);font-size:14px;font-weight:600;letter-spacing:1px;color:var(--gold);margin-bottom:14px;}
+
 @media(max-width:640px){
   .bnav{display:block;}body{padding-bottom:68px;}
   .hero-bottom{flex-direction:column;align-items:flex-start;gap:20px;}.hero-stats{gap:20px;}.hero-pitch-svg{display:none;}
@@ -311,11 +335,12 @@ textarea.fi{resize:vertical;min-height:80px;}
   .prof-bigstats{grid-template-columns:repeat(2,1fr);}.frow{grid-template-columns:1fr;}.pmod-stats{grid-template-columns:repeat(2,1fr);}
   .nav-right .btn-o{display:none;}.about-grid{grid-template-columns:1fr;}
   .lb-table th,.lb-table td{padding:8px 8px;font-size:11px;}
+  .standings-table th,.standings-table td{padding:7px 8px;font-size:11px;}
 }
 </style>
 </head>
 <body>
- 
+
 <nav class="nav">
   <div class="nav-logo" onclick="goPage('home')">AETERNA<em>FUTBOL</em></div>
   <div class="nav-right">
@@ -336,7 +361,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </nav>
- 
+
 <!-- HOME -->
 <div id="p-home" class="page on">
   <section class="hero">
@@ -407,7 +432,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
 <!-- MATCHES -->
 <div id="p-matches" class="page">
   <div class="sec">
@@ -439,7 +464,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div id="matches-list" class="match-grid"></div>
   </div>
 </div>
- 
+
 <!-- PLAYERS -->
 <div id="p-players" class="page">
   <div class="sec">
@@ -458,7 +483,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div id="pgrid" class="pgrid"></div>
   </div>
 </div>
- 
+
 <!-- RANKING -->
 <div id="p-ranking" class="page">
   <div class="sec">
@@ -484,7 +509,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
 <!-- PROFILE -->
 <div id="p-profile" class="page">
   <div class="prof-hero">
@@ -517,7 +542,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div id="prof-matches" class="match-grid"></div>
   </div>
 </div>
- 
+
 <!-- ADMIN -->
 <div id="p-admin" class="page">
   <div class="sec">
@@ -534,7 +559,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div style="overflow-x:auto"><table class="admin-table"><thead><tr><th>Nome</th><th>Data</th><th>Zona</th><th>Formato</th><th>Iscritti</th><th>Azioni</th></tr></thead><tbody id="adm-matches-body"></tbody></table></div>
   </div>
 </div>
- 
+
 <!-- REGISTER -->
 <div id="p-register" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -558,7 +583,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="auth-alt"><span data-i18n="reg_alt">Già registrato?</span> <a href="#" onclick="goPage('login')" data-i18n="nav_login">Login</a></div>
   </div></div>
 </div>
- 
+
 <!-- LOGIN -->
 <div id="p-login" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -572,7 +597,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="auth-alt"><span data-i18n="log_alt">Non hai un account?</span> <a href="#" onclick="goPage('register')" data-i18n="nav_register">Registrati</a></div>
   </div></div>
 </div>
- 
+
 <!-- FORGOT PASSWORD -->
 <div id="p-forgot" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -585,7 +610,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     <div class="auth-alt"><a href="#" onclick="goPage('login')" data-i18n="nav_login" style="color:var(--cyan);text-decoration:none">← Torna al Login</a></div>
   </div></div>
 </div>
- 
+
 <!-- RESET PASSWORD -->
 <div id="p-reset" class="page">
   <div class="auth-wrap"><div class="auth-card">
@@ -598,7 +623,37 @@ textarea.fi{resize:vertical;min-height:80px;}
     <button class="bsubmit" id="reset-btn" onclick="doReset()" data-i18n="reset_btn">Salva Nuova Password</button>
   </div></div>
 </div>
- 
+
+<!-- LEAGUES -->
+<div id="p-leagues" class="page">
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-title">🏟️ LEGHE</div>
+      <div class="sec-line"></div>
+      <div class="sec-extra" id="leagues-actions"></div>
+    </div>
+    <div id="leagues-list"></div>
+  </div>
+</div>
+
+<!-- LEAGUE DETAIL -->
+<div id="p-league-detail" class="page">
+  <div class="sec">
+    <div class="sec-head">
+      <div class="sec-title" id="ld-title">LEGA</div>
+      <div class="sec-line"></div>
+      <div class="sec-extra" id="ld-actions"></div>
+    </div>
+    <div class="tabs">
+      <button class="tab on" onclick="setLeagueTab('standings',this)">🏆 Classifica</button>
+      <button class="tab" onclick="setLeagueTab('matches',this)">📅 Calendario</button>
+      <button class="tab" onclick="setLeagueTab('teams',this)">👥 Squadre</button>
+      <button class="tab" onclick="setLeagueTab('scorers',this)">⚽ Marcatori</button>
+    </div>
+    <div id="ld-content"></div>
+  </div>
+</div>
+
 <!-- ABOUT -->
 <div id="p-about" class="page">
   <div class="sec" style="max-width:720px">
@@ -630,7 +685,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
 <!-- MODAL CREATE -->
 <div class="overlay" id="ov-create">
   <div class="modal">
@@ -667,7 +722,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
 <!-- MODAL MATCH DETAIL -->
 <div class="overlay" id="ov-match">
   <div class="modal">
@@ -682,7 +737,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
 <!-- MODAL PLAYER -->
 <div class="overlay" id="ov-player">
   <div class="modal">
@@ -710,7 +765,7 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
 <!-- MODAL RATE -->
 <div class="overlay" id="ov-rate">
   <div class="modal" style="max-width:380px">
@@ -727,9 +782,57 @@ textarea.fi{resize:vertical;min-height:80px;}
     </div>
   </div>
 </div>
- 
+
+<!-- MODAL LEAGUE MANAGER -->
+<div class="overlay" id="ov-league-manager">
+  <div class="modal" style="max-width:600px">
+    <div class="modal-head"><div class="modal-title">⚙️ GESTIONE LEGA</div><button class="modal-x" onclick="document.getElementById('ov-league-manager').classList.remove('on')">✕</button></div>
+    <div class="modal-body"><div id="lm-panel"><div class="loading"><div class="spin"></div></div></div></div>
+  </div>
+</div>
+
+<!-- MODAL ENTER RESULT -->
+<div class="overlay" id="ov-result">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-head"><div class="modal-title" id="res-match-title">RISULTATO</div><button class="modal-x" onclick="document.getElementById('ov-result').classList.remove('on')">✕</button></div>
+    <div class="modal-body">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;justify-content:center">
+        <input type="number" id="res-home" min="0" max="30" value="0" style="width:70px;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:6px;font-family:var(--font-display);font-size:28px;font-weight:700;text-align:center;outline:none">
+        <span style="font-family:var(--font-display);font-size:24px;color:var(--text3)">—</span>
+        <input type="number" id="res-away" min="0" max="30" value="0" style="width:70px;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:6px;font-family:var(--font-display);font-size:28px;font-weight:700;text-align:center;outline:none">
+      </div>
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:600;letter-spacing:1px;color:var(--text2);margin-bottom:10px">MARCATORI</div>
+      <div id="res-rosters"></div>
+      <button class="bsubmit" style="margin-top:14px" onclick="submitResult()">✅ Salva Risultato</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL MANAGE ROSTER -->
+<div class="overlay" id="ov-roster">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head"><div class="modal-title">👥 ROSA</div><button class="modal-x" onclick="document.getElementById('ov-roster').classList.remove('on')">✕</button></div>
+    <div class="modal-body"><div id="roster-body"></div></div>
+  </div>
+</div>
+
+<!-- MODAL CREATE LEAGUE -->
+<div class="overlay" id="ov-create-league">
+  <div class="modal" style="max-width:420px">
+    <div class="modal-head"><div class="modal-title">🏟️ CREA LEGA</div><button class="modal-x" onclick="document.getElementById('ov-create-league').classList.remove('on')">✕</button></div>
+    <div class="modal-body">
+      <div class="fg"><label class="fl">Nome Lega</label><input class="fi" id="cl-name" placeholder="Es: Calcetto Las Americas 2025"></div>
+      <div class="fg"><label class="fl">Formato</label>
+        <select class="fi" id="cl-format"><option>5v5</option><option>7v7</option><option>11v11</option></select>
+      </div>
+      <div class="fg"><label class="fl">Stagione</label><input class="fi" id="cl-season" placeholder="Es: 2025/2026"></div>
+      <button class="bsubmit" id="cl-btn" onclick="submitCreateLeague()">Crea Lega</button>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"><span id="toast-t">OK</span></div>
- 
+
 <div class="bnav"><div class="bnav-row">
   <button class="bnbb on" id="bn-home" onclick="goPage('home');setBn('home')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Home
@@ -737,24 +840,24 @@ textarea.fi{resize:vertical;min-height:80px;}
   <button class="bnbb" id="bn-matches" onclick="goPage('matches');setBn('matches')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span data-i18n="bn_matches">Partite</span>
   </button>
+  <button class="bnbb" id="bn-leagues" onclick="goPage('leagues');setBn('leagues')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8l-2 4h12l-2-4z"/></svg><span>Leghe</span>
+  </button>
   <button class="bnbb" id="bn-ranking" onclick="goPage('ranking');setBn('ranking')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="18 20 18 10"/><polyline points="12 20 12 4"/><polyline points="6 20 6 14"/></svg><span data-i18n="bn_rank">Classifica</span>
-  </button>
-  <button class="bnbb" id="bn-players" onclick="goPage('players');setBn('players')">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span data-i18n="bn_players">Giocatori</span>
   </button>
   <button class="bnbb" id="bn-profile" onclick="goPage('profile');setBn('profile')">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span data-i18n="bn_profile">Profilo</span>
   </button>
 </div></div>
- 
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const _sb=supabase.createClient(
   'https://yaqcdxhlyihykeceehfd.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhcWNkeGhseWloeWtlY2VlaGZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDU0NzIsImV4cCI6MjA5MDIyMTQ3Mn0.5WZIPu0cVVOpPk5fg4NOm71_t3AV9k2au-zMmOljDVM'
 );
- 
+
 /* ══ I18N ══ */
 const T={
   it:{nav_login:'Login',nav_register:'Registrati',nav_logout:'Esci',hero_tag:'Tenerife Sur · Calcio Amatoriale',hero_l1:'TROVA',hero_l2:'LA TUA PARTITA',hero_p:'Cerca partite vicino a te e costruisci la tua reputazione nel calcio amatoriale.',hero_btn1:'Trova Partita',hero_btn_rank:'Classifica',hs_p:'Giocatori',hs_m:'Partite',hs_z:'Zone',scroll:'Scopri',feat_title:'COME FUNZIONA',f1t:'Trova Partite',f1d:'Filtra per zona, orario e formato. Unisciti in un click o mettiti in lista d\'attesa.',f2t:'Profilo Giocatore',f2d:'Foto, statistiche, badge guadagnati e valutazione media.',f3t:'Classifica',f3d:'Ordina per gol, assist, presenze o rating.',f4t:'Valuta i Giocatori',f4d:'Dopo la partita ogni presente può votare gli altri.',about_h:'IL PROGETTO TENERIFE SUR',about_p1:'AeternaFutbol connette gli appassionati di calcio amatoriale nel sud di Tenerife.',about_p2:'Niente burocrazia. Solo calcio.',about_cta:'Unisciti Gratis',ab1:'Zone coperte',ab2:'Formati',ab3:'Lingue',m_title:'PARTITE',m_create:'+ Crea',fz_all:'Tutte le zone',ff_all:'Tutti i formati',t_up:'Prossime',t_mine:'Le Mie',t_past:'Archivio',pl_title:'GIOCATORI',fp_all:'Tutte le posizioni',fp_ph:'Cerca giocatore...',reg_sub:'Unisciti · È gratis',reg_name:'Nome e Cognome',reg_pos:'Posizione',reg_age:'Età',reg_zone:'Zona',reg_pw:'Password',reg_btn:'Crea Account',reg_alt:'Già registrato?',log_sub:'Bentornato in campo',log_alt:'Non hai un account?',cm_title:'CREA PARTITA',cm_name:'Nome Partita',cm_date:'Data',cm_time:'Orario',cm_field:'Campo',cm_fmt:'Formato',cm_spots:'Posti',cm_pub:'Pubblica Partita',cm_desc:'Descrizione',bs_g:'Partite',bs_go:'Gol',bs_a:'Assist',rec_m:'PARTITE RECENTI',bn_home:'Home',bn_matches:'Partite',bn_rank:'Classifica',bn_players:'Giocatori',bn_profile:'Profilo',t_join:'Unisciti',t_wl:'Lista Attesa',t_full:'Completo',t_spots:'posti liberi',t_joined:'Iscritto ✓',t_inwl:'In Attesa',toast_join:'Iscritto!',toast_wl:'In lista d\'attesa!',toast_create:'Partita pubblicata!',toast_reg:'Controlla la tua email per confermare!',toast_logout:'A presto!',toast_rate:'Valutazione inviata!',toast_avatar:'Foto aggiornata!',pm_close:'Chiudi',avail:'disponibili',err_fill:'Compila tutti i campi',err_login:'Email o password errati',err_generic:'Errore, riprova',err_banned:'Account bannato.',about_launch:"Anno lancio",about_long2:"La piattaforma è multilingua (italiano, spagnolo, francese, inglese) perché il calcetto del sud Tenerife unisce giocatori di tutta Europa. Non sostituisce i tuoi gruppi WhatsApp — li affianca, aggiungendo dati, storia e reputazione.",about_long1:"AeternaFutbol nasce per dare un'identità digitale a chi gioca a calcio amatoriale nel sud di Tenerife. Un posto dove le tue statistiche, le tue valutazioni e la tua reputazione si costruiscono partita dopo partita — indipendentemente dal livello.",log_forgot:'Password dimenticata?',forgot_sub:'Recupera la tua password',forgot_btn:'Invia Link Reset',forgot_ok:'Email inviata! Controlla la casella.',reset_sub:'Scegli una nuova password',reset_new:'Nuova Password',reset_conf:'Conferma Password',reset_btn:'Salva Nuova Password',reset_ok:'Password aggiornata!',reset_err_match:'Le password non coincidono.',footer_about:'Chi siamo',footer_contact:'Contatti'},
@@ -762,7 +865,7 @@ const T={
   fr:{nav_login:'Connexion',nav_register:"S'inscrire",nav_logout:'Déconnexion',hero_tag:'Tenerife Sud · Football Amateur',hero_l1:'TROUVE',hero_l2:'TON MATCH',hero_p:'Cherche des matchs et construis ta réputation dans le football amateur.',hero_btn1:'Trouver un Match',hero_btn_rank:'Classement',hs_p:'Joueurs',hs_m:'Matchs',hs_z:'Zones',scroll:'Découvrir',feat_title:'COMMENT ÇA MARCHE',f1t:'Trouve des Matchs',f1d:'Filtre et rejoins en un clic ou mets-toi sur liste d\'attente.',f2t:'Profil Joueur',f2d:'Photo, stats, badges et note moyenne.',f3t:'Classement',f3d:'Trie par buts, passes, matchs ou note.',f4t:'Évalue les Joueurs',f4d:'Après le match chaque présent peut voter les autres.',about_h:'LE PROJET TENERIFE SUD',about_p1:'AeternaFutbol connecte les passionnés de football au sud de Tenerife.',about_p2:'Pas de bureaucratie. Juste du football.',about_cta:'Rejoindre Gratuitement',ab1:'Zones couvertes',ab2:'Formats',ab3:'Langues',m_title:'MATCHS',m_create:'+ Créer',fz_all:'Toutes les zones',ff_all:'Tous les formats',t_up:'À venir',t_mine:'Les Miens',t_past:'Archives',pl_title:'JOUEURS',fp_all:'Tous les postes',fp_ph:'Chercher joueur...',reg_sub:'Rejoins · Gratuit',reg_name:'Nom Complet',reg_pos:'Poste',reg_age:'Âge',reg_zone:'Zone',reg_pw:'Mot de passe',reg_btn:'Créer un Compte',reg_alt:'Déjà un compte ?',log_sub:'Bienvenue de retour',log_alt:'Pas encore de compte ?',cm_title:'CRÉER MATCH',cm_name:'Nom',cm_date:'Date',cm_time:'Heure',cm_field:'Terrain',cm_fmt:'Format',cm_spots:'Places',cm_pub:'Publier',cm_desc:'Description',bs_g:'Matchs',bs_go:'Buts',bs_a:'Passes D.',rec_m:'MATCHS RÉCENTS',bn_home:'Accueil',bn_matches:'Matchs',bn_rank:'Classement',bn_players:'Joueurs',bn_profile:'Profil',t_join:'Rejoindre',t_wl:'Liste Attente',t_full:'Complet',t_spots:'places libres',t_joined:'Inscrit ✓',t_inwl:'En Attente',toast_join:'Inscrit!',toast_wl:'Sur liste d\'attente!',toast_create:'Match publié!',toast_reg:'Vérifie ton email!',toast_logout:'À bientôt!',toast_rate:'Évaluation envoyée!',toast_avatar:'Photo mise à jour!',pm_close:'Fermer',avail:'disponibles',err_fill:'Remplis tous les champs',err_login:'Email ou mot de passe incorrect',err_generic:'Erreur',err_banned:'Compte bloqué.',about_launch:"Année de lancement",about_long2:"La plateforme est multilingue (italien, espagnol, français, anglais) car le football amateur du sud de Tenerife réunit des joueurs de toute l'Europe. Elle ne remplace pas tes groupes WhatsApp — elle les complète, en ajoutant données, histoire et réputation.",about_long1:"AeternaFutbol est né pour donner une identité numérique à ceux qui jouent au football amateur au sud de Tenerife. Un endroit où tes statistiques, évaluations et réputation se construisent match après match — quel que soit ton niveau.",log_forgot:'Mot de passe oublié ?',forgot_sub:'Récupère ton mot de passe',forgot_btn:'Envoyer le lien',forgot_ok:'Email envoyé! Vérifie ta boîte.',reset_sub:'Choisis un nouveau mot de passe',reset_new:'Nouveau Mot de passe',reset_conf:'Confirmer',reset_btn:'Enregistrer',reset_ok:'Mot de passe mis à jour!',reset_err_match:'Les mots de passe ne correspondent pas.',footer_about:'Qui sommes-nous',footer_contact:'Contact'},
   en:{nav_login:'Login',nav_register:'Sign Up',nav_logout:'Logout',hero_tag:'Tenerife South · Amateur Football',hero_l1:'FIND YOUR',hero_l2:'MATCH',hero_p:'Find matches near you and build your reputation in amateur football.',hero_btn1:'Find a Match',hero_btn_rank:'Leaderboard',hs_p:'Players',hs_m:'Matches',hs_z:'Zones',scroll:'Discover',feat_title:'HOW IT WORKS',f1t:'Find Matches',f1d:'Filter and join in one click or join the waitlist.',f2t:'Player Profile',f2d:'Photo, stats, earned badges and average rating.',f3t:'Leaderboard',f3d:'Sort by goals, assists, matches or rating.',f4t:'Rate Players',f4d:'After the match every player present can rate the others.',about_h:'THE TENERIFE SOUTH PROJECT',about_p1:'AeternaFutbol connects amateur football enthusiasts in South Tenerife.',about_p2:'No bureaucracy. Just football.',about_cta:'Join for Free',ab1:'Zones covered',ab2:'Formats',ab3:'Languages',m_title:'MATCHES',m_create:'+ Create',fz_all:'All zones',ff_all:'All formats',t_up:'Upcoming',t_mine:'My Matches',t_past:'Archive',pl_title:'PLAYERS',fp_all:'All positions',fp_ph:'Search player...',reg_sub:"Join · It's free",reg_name:'Full Name',reg_pos:'Position',reg_age:'Age',reg_zone:'Zone',reg_pw:'Password',reg_btn:'Create Account',reg_alt:'Already have an account?',log_sub:'Welcome back',log_alt:"Don't have an account?",cm_title:'CREATE MATCH',cm_name:'Match Name',cm_date:'Date',cm_time:'Start Time',cm_field:'Field',cm_fmt:'Format',cm_spots:'Spots',cm_pub:'Publish Match',cm_desc:'Description',bs_g:'Matches',bs_go:'Goals',bs_a:'Assists',rec_m:'RECENT MATCHES',bn_home:'Home',bn_matches:'Matches',bn_rank:'Ranking',bn_players:'Players',bn_profile:'Profile',t_join:'Join',t_wl:'Waitlist',t_full:'Full',t_spots:'spots left',t_joined:'Joined ✓',t_inwl:'Waitlisted',toast_join:'Joined!',toast_wl:'Added to waitlist!',toast_create:'Match published!',toast_reg:'Check your email to confirm!',toast_logout:'See you!',toast_rate:'Rating sent!',toast_avatar:'Photo updated!',pm_close:'Close',avail:'available',err_fill:'Fill in all fields',err_login:'Wrong email or password',err_generic:'Error, please try again',err_banned:'Account banned.',about_launch:"Launch year",about_long2:"The platform is multilingual (Italian, Spanish, French, English) because amateur football in South Tenerife brings together players from all over Europe. It does not replace your WhatsApp groups — it complements them, adding data, history and reputation.",about_long1:"AeternaFutbol was created to give a digital identity to amateur football players in South Tenerife. A place where your stats, ratings and reputation are built match after match — regardless of your level.",log_forgot:'Forgot password?',forgot_sub:'Recover your password',forgot_btn:'Send Reset Link',forgot_ok:'Email sent! Check your inbox.',reset_sub:'Choose a new password',reset_new:'New Password',reset_conf:'Confirm Password',reset_btn:'Save Password',reset_ok:'Password updated! You can login.',reset_err_match:'Passwords do not match.',footer_about:'About us',footer_contact:'Contact'}
 };
- 
+
 /* ══ BADGES DEFINITION ══ */
 const BADGE_DEFS=[
   {id:'esordiente',emoji:'⚡',label:'Esordiente',cls:'badge-gray',check:p=>p.games>=1},
@@ -778,18 +881,18 @@ const BADGE_DEFS=[
   {id:'star',emoji:'⭐',label:'5-Star',cls:'badge-gold',check:p=>p.rating&&Number(p.rating)>=4.5},
   {id:'leader',emoji:'🏆',label:'Leader',cls:'badge-gold',check:p=>p.mvp>=3},
 ];
- 
+
 function getBadges(p){return BADGE_DEFS.filter(b=>b.check(p));}
 function renderBadges(p){return getBadges(p).map(b=>`<span class="badge ${b.cls}">${b.emoji} ${b.label}</span>`).join('');}
- 
+
 /* ══ COLORS ══ */
 const COLORS={bianco:{hex:'#f0f0f0',label:'Bianco'},nero:{hex:'#1a1a1a',label:'Nero'},rosso:{hex:'#e63030',label:'Rosso'},blu:{hex:'#1a56e8',label:'Blu'},giallo:{hex:'#f5c800',label:'Giallo'},viola:{hex:'#7c3aed',label:'Viola'}};
- 
+
 let lang='es',currentUser=null,currentProfile=null,matchTab='up';
 let allMatches=[],allPlayers=[],myMatchIds=new Set(),myWaitlistIds=new Set();
 let rateCtx={matchId:null,ratedId:null,score:0};
 let lbSortKey='rating',searchTm=null;
- 
+
 function detectLang(){const l=(navigator.language||'es').substring(0,2).toLowerCase();return['it','es','fr','en'].includes(l)?l:'es';}
 function setLang(l){lang=l;document.querySelectorAll('.lbtn').forEach(b=>b.classList.remove('on'));document.querySelector(`.lbtn[onclick="setLang('${l}')"]`)?.classList.add('on');applyI18n();}
 function t(k){return T[lang][k]||T.es[k]||k;}
@@ -797,7 +900,7 @@ function applyI18n(){
   document.querySelectorAll('[data-i18n]').forEach(el=>{const k=el.getAttribute('data-i18n');if(T[lang][k])el.textContent=T[lang][k];});
   document.querySelectorAll('[data-i18n-ph]').forEach(el=>{const k=el.getAttribute('data-i18n-ph');if(T[lang][k])el.placeholder=T[lang][k];});
 }
- 
+
 function buildPalette(cid,hid,def){
   const c=document.getElementById(cid),h=document.getElementById(hid);if(!c||!h)return;
   c.innerHTML='';
@@ -807,10 +910,12 @@ function buildPalette(cid,hid,def){
     c.appendChild(d);
   });
 }
- 
+
 function goPage(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   const el=document.getElementById('p-'+id);if(el){el.classList.add('on');window.scrollTo(0,0);}
+  if(id==='leagues')loadLeagues();
+  if(id==='league-detail'){setBn('leagues');}
   if(id==='matches')loadMatches();
   if(id==='players')loadPlayers();
   if(id==='ranking')loadRanking();
@@ -818,29 +923,14 @@ function goPage(id){
   if(id==='admin'){if(!currentProfile?.is_admin){goPage('home');return;}loadAdmin();}
 }
 function setBn(id){document.querySelectorAll('.bnbb').forEach(b=>b.classList.remove('on'));if(id)document.getElementById('bn-'+id)?.classList.add('on');}
- 
+
 function setAuthUI(){
   const out=document.getElementById('nav-auth-out'),inn=document.getElementById('nav-auth-in'),nm=document.getElementById('nav-user-name'),ab=document.getElementById('nav-admin-btn');
   if(currentUser){out.style.display='none';inn.style.display='flex';if(nm&&currentProfile)nm.textContent=currentProfile.name.split(' ')[0];if(ab)ab.style.display=currentProfile?.is_admin?'inline-flex':'none';}
   else{out.style.display='flex';inn.style.display='none';if(ab)ab.style.display='none';}
 }
- 
+
 /* ══ AUTH ══ */
-async function doRegister(){
-  const name=document.getElementById('rn').value.trim(),pos=document.getElementById('rpos').value,age=document.getElementById('rage').value,zone=document.getElementById('rzone').value,email=document.getElementById('rem').value.trim(),pw=document.getElementById('rpw').value;
-  const err=document.getElementById('reg-err'),ok=document.getElementById('reg-ok');err.classList.remove('on');ok.classList.remove('on');
-  if(!name||!email||!pw||!age){err.textContent=t('err_fill');err.classList.add('on');return;}
-  const btn=document.getElementById('reg-btn');btn.disabled=true;btn.textContent='...';
-  const{data,error}=await _sb.auth.signUp({email,password:pw,options:{emailRedirectTo:'https://aaternafutbol.netlify.app'}});
-  if(error){err.textContent=error.message;err.classList.add('on');btn.disabled=false;btn.textContent=t('reg_btn');return;}
-  if(data.user){
-    await _sb.from('profiles').insert({id:data.user.id,name,position:pos,age:parseInt(age),zone,games:0,goals:0,assists:0,mvp:0,rating:0,is_admin:false,is_banned:false,is_suspended:false});
-    ok.textContent=t('toast_reg');ok.classList.add('on');
-    document.getElementById('rn').value='';document.getElementById('rem').value='';document.getElementById('rpw').value='';
-  }
-  btn.disabled=false;btn.textContent=t('reg_btn');
-}
- 
 async function doLogin(){
   const email=document.getElementById('lem').value.trim(),pw=document.getElementById('lpw').value;
   const err=document.getElementById('log-err');err.classList.remove('on');
@@ -853,20 +943,20 @@ async function doLogin(){
   setAuthUI();updateProfileUI();goPage('profile');setBn('profile');
   btn.disabled=false;btn.textContent=t('nav_login');
 }
- 
+
 async function doLogout(){
   await _sb.auth.signOut();currentUser=null;currentProfile=null;myMatchIds=new Set();myWaitlistIds=new Set();setAuthUI();goPage('home');setBn('home');toast(t('toast_logout'));
 }
- 
+
 async function fetchProfile(){
   if(!currentUser)return;
   const{data}=await _sb.from('profiles').select('*').eq('id',currentUser.id).single();
   if(data)currentProfile=data;
 }
- 
+
 /* ══ AVATAR ══ */
 function triggerAvatarUpload(){if(!currentUser)return;document.getElementById('avatar-input').click();}
- 
+
 async function uploadAvatar(input){
   const file=input.files[0];if(!file||!currentUser)return;
   if(file.size>3*1024*1024){toast('Max 3MB',true);return;}
@@ -880,13 +970,13 @@ async function uploadAvatar(input){
   currentProfile.avatar_url=url;
   updateProfileUI();toast(t('toast_avatar'));
 }
- 
+
 /* ══ PROFILE UI ══ */
 function avHtml(url,name,cls=''){
   if(url)return`<img src="${url}" alt="${name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
   return`<span class="${cls}">${ini(name)}</span>`;
 }
- 
+
 function updateProfileUI(){
   if(!currentProfile)return;
   const p=currentProfile;
@@ -905,9 +995,9 @@ function updateProfileUI(){
   const br=document.getElementById('prof-badges-row');
   if(br)br.innerHTML=renderBadges(p)||`<span style="font-size:12px;color:var(--text3)">Nessun badge ancora — gioca!</span>`;
 }
- 
+
 async function loadProfile(){await fetchProfile();updateProfileUI();loadProfMatches();}
- 
+
 async function loadProfMatches(){
   if(!currentUser)return;
   const{data}=await _sb.from('match_players').select('match_id,matches(*)').eq('player_id',currentUser.id).order('match_id',{ascending:false}).limit(5);
@@ -920,10 +1010,10 @@ async function loadProfMatches(){
       <div class="mc-right"><div style="font-size:13px;color:var(--text2)">${m.joined}/${m.spots} 👤</div></div>
     </div>`).join('');
 }
- 
+
 /* ══ MATCHES ══ */
 function isPastMatch(m){return new Date(m.date+'T23:59:59')<new Date();}
- 
+
 async function loadMatches(){
   document.getElementById('matches-list').innerHTML=`<div class="loading"><div class="spin"></div><span>Caricamento...</span></div>`;
   const{data}=await _sb.from('matches').select('*').order('date',{ascending:true}).order('time',{ascending:true});
@@ -939,9 +1029,9 @@ async function loadMatches(){
   }
   renderMatches();
 }
- 
+
 function setTab(tab,btn){matchTab=tab;document.querySelectorAll('.tab').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderMatches();}
- 
+
 function renderMatches(){
   const fd=document.getElementById('fd')?.value||'',fz=document.getElementById('fz')?.value||'',ff=document.getElementById('ff')?.value||'';
   const today=new Date().toISOString().split('T')[0];
@@ -993,7 +1083,7 @@ function renderMatches(){
     </div>`;
   }).join('');
 }
- 
+
 async function joinMatch(id){
   if(!currentUser){goPage('login');return;}
   const m=allMatches.find(x=>x.id===id);if(!m)return;
@@ -1003,7 +1093,7 @@ async function joinMatch(id){
   await _sb.from('matches').update({joined:m.joined+1}).eq('id',id);
   myMatchIds.add(id);await loadMatches();toast(t('toast_join'));
 }
- 
+
 async function joinWaitlist(id){
   if(!currentUser){goPage('login');return;}
   if(myWaitlistIds.has(id)){return;}
@@ -1014,7 +1104,7 @@ async function joinWaitlist(id){
   if(error){toast(t('err_generic'),true);return;}
   myWaitlistIds.add(id);await loadMatches();toast(t('toast_wl'));
 }
- 
+
 /* ══ MATCH DETAIL ══ */
 async function openMatchDetail(matchId){
   const idx=allMatches.findIndex(x=>x.id===matchId);
@@ -1038,21 +1128,21 @@ async function openMatchDetail(matchId){
     <span style="color:var(--text3);font-weight:700;font-size:12px">VS</span>
     <div style="display:flex;align-items:center;gap:8px"><div style="width:22px;height:22px;border-radius:50%;background:${c2.hex};border:2px solid rgba(255,255,255,.2)"></div><span style="font-size:12px;color:var(--text2)">${c2.label}</span></div>
   `;
- 
+
   const[{data:mps},{data:wlData}]=await Promise.all([
     _sb.from('match_players').select('player_id,presente,gol,assist,is_mvp,profiles(*)').eq('match_id',matchId),
     _sb.from('match_waitlist').select('player_id,position,profiles(*)').eq('match_id',matchId).order('position',{ascending:true})
   ]);
- 
+
   // Check if current user is a confirmed present player (for voting)
   const amIPresent=mps&&currentUser&&mps.find(r=>r.player_id===currentUser.id&&r.presente);
- 
+
   let myRatings=new Set();
   if(currentUser){
     const{data:rr}=await _sb.from('ratings').select('rated_id').eq('match_id',matchId).eq('voter_id',currentUser.id);
     myRatings=new Set((rr||[]).map(r=>r.rated_id));
   }
- 
+
   const pl=document.getElementById('md-players');
   if(!mps||!mps.length){pl.innerHTML=`<div style="color:var(--text3);font-size:13px;text-align:center;padding:20px">Nessun iscritto</div>`;}
   else if(confirmed){
@@ -1087,7 +1177,7 @@ async function openMatchDetail(matchId){
       </div>`;
     }).join('');
   }
- 
+
   // waitlist
   const wlEl=document.getElementById('md-waitlist');
   if(wlData&&wlData.length){
@@ -1097,7 +1187,7 @@ async function openMatchDetail(matchId){
         <div style="font-size:13px">${w.profiles?.name||'—'}</div>
       </div>`).join('')}</div>`;
   } else wlEl.innerHTML='';
- 
+
   // stats form (org only, past, not confirmed)
   const sfEl=document.getElementById('md-stats-form');
   if(isOrg&&past&&!confirmed&&mps&&mps.length){
@@ -1131,10 +1221,10 @@ async function openMatchDetail(matchId){
   } else if(isOrg&&!past) {
     sfEl.innerHTML=`<div style="margin-top:12px;padding:10px 14px;background:rgba(0,229,255,.05);border:1px solid rgba(0,229,255,.15);border-radius:6px;font-size:12px;color:var(--text2)">ℹ️ Potrai confermare presenze e stats al termine della partita</div>`;
   } else sfEl.innerHTML='';
- 
+
   document.getElementById('ov-match').classList.add('on');
 }
- 
+
 async function submitStats(matchId){
   const btn=document.getElementById('sfbtn-'+matchId);btn.disabled=true;btn.textContent='Salvo...';
   try{
@@ -1159,7 +1249,7 @@ async function submitStats(matchId){
     toast('✅ Stats salvate!');openMatchDetail(matchId);
   }catch(e){toast(t('err_generic'),true);btn.disabled=false;btn.textContent='✅ CONFERMA E SALVA';}
 }
- 
+
 async function promoteFromWaitlist(matchId){
   const{data:wl}=await _sb.from('match_waitlist').select('*').eq('match_id',matchId).order('position',{ascending:true}).limit(1);
   if(!wl||!wl.length)return;
@@ -1173,7 +1263,7 @@ async function promoteFromWaitlist(matchId){
   const{data:rest}=await _sb.from('match_waitlist').select('id').eq('match_id',matchId).order('position',{ascending:true});
   for(let i=0;i<(rest||[]).length;i++)await _sb.from('match_waitlist').update({position:i+1}).eq('id',rest[i].id);
 }
- 
+
 /* ══ RATING ══ */
 function openRate(matchId,ratedId,ratedName){
   rateCtx={matchId,ratedId,ratedName,score:0};
@@ -1196,7 +1286,7 @@ async function submitRating(){
   document.getElementById('ov-rate').classList.remove('on');
   openMatchDetail(rateCtx.matchId);toast(t('toast_rate'));
 }
- 
+
 /* ══ CREATE MATCH ══ */
 function openCreate(){
   if(!currentUser){goPage('login');return;}
@@ -1210,7 +1300,7 @@ function openCreate(){
   document.getElementById('ov-create').classList.add('on');
 }
 function closeCreate(){document.getElementById('ov-create').classList.remove('on');}
- 
+
 async function createMatch(){
   const n=document.getElementById('cm-n').value.trim(),d=document.getElementById('cm-d').value,ti=document.getElementById('cm-t').value,te=document.getElementById('cm-te').value,z=document.getElementById('cm-z').value;
   const f=document.getElementById('cm-f').value.trim()||z,fmt=document.getElementById('cm-fmt').value,s=parseInt(document.getElementById('cm-s').value)||10;
@@ -1224,7 +1314,7 @@ async function createMatch(){
   myMatchIds.add(data.id);closeCreate();await loadMatches();toast(t('toast_create'));
   btn.disabled=false;btn.textContent=t('cm_pub');
 }
- 
+
 /* ══ MAP SEARCH ══ */
 async function searchPlace(query){
   clearTimeout(searchTm);const sugs=document.getElementById('map-sugs');
@@ -1243,7 +1333,7 @@ function selectPlace(name,lat,lng){
   const ml=document.getElementById('cm-maplink');ml.href=`https://www.google.com/maps?q=${lat},${lng}`;ml.style.display='inline-flex';
 }
 document.addEventListener('click',e=>{if(!e.target.closest('.map-search-wrap'))document.getElementById('map-sugs').style.display='none';});
- 
+
 /* ══ PLAYERS ══ */
 async function loadPlayers(){
   document.getElementById('pgrid').innerHTML=`<div class="loading" style="grid-column:1/-1"><div class="spin"></div><span>Caricamento...</span></div>`;
@@ -1289,7 +1379,7 @@ function openPlayer(i){
   document.getElementById('ov-player').classList.add('on');
 }
 function closePlayer(){document.getElementById('ov-player').classList.remove('on');}
- 
+
 /* ══ RANKING ══ */
 async function loadRanking(){
   const el=document.getElementById('lb-body');el.innerHTML=`<tr><td colspan="7"><div class="loading"><div class="spin"></div><span>Caricamento...</span></div></td></tr>`;
@@ -1327,7 +1417,7 @@ function renderRanking(){
       <td class="lb-val lb-val-gold">${p.rating?Number(p.rating).toFixed(1):'—'}</td>
     </tr>`).join('');
 }
- 
+
 /* ══ ADMIN ══ */
 async function loadAdmin(){
   const[{count:uc},{count:mc},{data:banned},{data:suspended}]=await Promise.all([
@@ -1365,14 +1455,407 @@ async function adminDelMatch(id){
   await _sb.from('matches').delete().eq('id',id);
   allMatches=allMatches.filter(m=>m.id!==id);toast('✓ Eliminata');loadAdmin();
 }
- 
+
 /* ══ UTILS ══ */
 function ini(n){return(n||'?').split(' ').map(x=>x[0]).join('').substring(0,2).toUpperCase();}
 function fmtDate(d){const dt=new Date(d+'T00:00:00');const loc={it:'it-IT',es:'es-ES',fr:'fr-FR',en:'en-GB'}[lang]||'es-ES';return dt.toLocaleDateString(loc,{day:'2-digit',month:'short'});}
 function toast(msg,err=false){const el=document.getElementById('toast');document.getElementById('toast-t').textContent=msg;el.classList.remove('err');if(err)el.classList.add('err');el.classList.add('on');setTimeout(()=>el.classList.remove('on'),3000);}
 document.querySelectorAll('.overlay').forEach(ov=>{ov.addEventListener('click',e=>{if(e.target===ov)ov.classList.remove('on');});});
- 
-/* ══ FORGOT / RESET PASSWORD ══ */
+
+/* ══ OTP EMAIL VERIFICATION ══ */
+async function doRegister(){
+  const name=document.getElementById('rn').value.trim(),pos=document.getElementById('rpos').value,age=document.getElementById('rage').value,zone=document.getElementById('rzone').value,email=document.getElementById('rem').value.trim(),pw=document.getElementById('rpw').value;
+  const err=document.getElementById('reg-err'),ok=document.getElementById('reg-ok');err.classList.remove('on');ok.classList.remove('on');
+  if(!name||!email||!pw||!age){err.textContent=t('err_fill');err.classList.add('on');return;}
+  const btn=document.getElementById('reg-btn');btn.disabled=true;btn.textContent='...';
+  const{data,error}=await _sb.auth.signUp({email,password:pw,options:{emailRedirectTo:'https://aaternafutbol.netlify.app'}});
+  if(error){err.textContent=error.message;err.classList.add('on');btn.disabled=false;btn.textContent=t('reg_btn');return;}
+  if(data.user){
+    await _sb.from('profiles').insert({id:data.user.id,name,position:pos,age:parseInt(age),zone,games:0,goals:0,assists:0,mvp:0,rating:0,is_admin:false,is_banned:false,is_suspended:false});
+    ok.textContent=t('toast_reg');ok.classList.add('on');
+    document.getElementById('rn').value='';document.getElementById('rem').value='';document.getElementById('rpw').value='';
+  }
+  btn.disabled=false;btn.textContent=t('reg_btn');
+}
+
+/* ══ LEAGUES ══ */
+let currentLeague=null,leagueTab='standings';
+
+function isLeagueManager(league){
+  if(!currentUser||!league)return false;
+  if(currentProfile?.is_admin)return true;
+  if(league.created_by===currentUser.id)return true;
+  return league._isManager||false;
+}
+
+async function loadLeagues(){
+  const el=document.getElementById('leagues-list');
+  const actEl=document.getElementById('leagues-actions');
+  el.innerHTML=`<div class="loading"><div class="spin"></div><span>Caricamento...</span></div>`;
+  const{data}=await _sb.from('leagues').select('*').order('created_at',{ascending:false});
+  const leagues=data||[];
+
+  // check if user is manager of any league
+  let managedIds=new Set();
+  if(currentUser){
+    const{data:lm}=await _sb.from('league_managers').select('league_id').eq('player_id',currentUser.id);
+    managedIds=new Set((lm||[]).map(r=>r.league_id));
+  }
+
+  if(currentProfile?.is_admin){
+    actEl.innerHTML=`<button class="btn btn-gold btn-sm" onclick="openCreateLeague()">+ Crea Lega</button>`;
+  } else actEl.innerHTML='';
+
+  if(!leagues.length){
+    el.innerHTML=`<div class="empty"><div class="empty-i">🏟️</div><div class="empty-t">Nessuna lega attiva</div><div class="empty-s">Le leghe verranno create dall'amministratore</div></div>`;
+    return;
+  }
+  el.innerHTML=leagues.map(l=>`
+    <div class="league-card" onclick="openLeague(${l.id})">
+      <div class="league-name">${l.name}<span class="league-status ${l.status==='active'?'ls-active':'ls-ended'}">${l.status==='active'?'Attiva':'Conclusa'}</span>${managedIds.has(l.id)||l.created_by===currentUser?.id?`<span class="lm-badge">Manager</span>`:''}</div>
+      <div class="league-meta">
+        <span>⚽ ${l.format}</span>
+        ${l.season?`<span>📅 ${l.season}</span>`:''}
+      </div>
+    </div>`).join('');
+}
+
+async function openLeague(leagueId){
+  const{data:league}=await _sb.from('leagues').select('*').eq('id',leagueId).single();
+  if(!league)return;
+  // check manager
+  if(currentUser){
+    const{data:lm}=await _sb.from('league_managers').select('id').eq('league_id',leagueId).eq('player_id',currentUser.id).single();
+    league._isManager=!!lm;
+  }
+  currentLeague=league;
+  document.getElementById('ld-title').textContent=league.name;
+  const actEl=document.getElementById('ld-actions');
+  if(isLeagueManager(league)){
+    actEl.innerHTML=`<button class="btn btn-gold btn-sm" onclick="openLeagueManager()">⚙️ Gestisci</button>`;
+  } else actEl.innerHTML=`<button class="btn btn-o btn-sm" onclick="goPage('leagues')">← Leghe</button>`;
+  leagueTab='standings';
+  document.querySelectorAll('#p-league-detail .tab').forEach((b,i)=>{b.classList.toggle('on',i===0);});
+  goPage('league-detail');
+  renderLeagueTab();
+}
+
+function setLeagueTab(tab,btn){
+  leagueTab=tab;
+  document.querySelectorAll('#p-league-detail .tab').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderLeagueTab();
+}
+
+async function renderLeagueTab(){
+  const el=document.getElementById('ld-content');
+  if(!currentLeague)return;
+  el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
+  if(leagueTab==='standings')await renderStandings(el);
+  else if(leagueTab==='matches')await renderLeagueMatches(el);
+  else if(leagueTab==='teams')await renderTeams(el);
+  else if(leagueTab==='scorers')await renderScorers(el);
+}
+
+async function renderStandings(el){
+  const{data:teams}=await _sb.from('teams').select('*').eq('league_id',currentLeague.id);
+  const{data:matches}=await _sb.from('league_matches').select('*').eq('league_id',currentLeague.id).eq('played',true);
+  if(!teams||!teams.length){el.innerHTML=`<div class="empty"><div class="empty-i">👥</div><div class="empty-t">Nessuna squadra</div></div>`;return;}
+  // calculate standings
+  const table={};
+  teams.forEach(t=>{table[t.id]={team:t,g:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};});
+  (matches||[]).forEach(m=>{
+    const h=table[m.home_team_id],a=table[m.away_team_id];
+    if(!h||!a)return;
+    h.g++;a.g++;h.gf+=m.home_goals;h.ga+=m.away_goals;a.gf+=m.away_goals;a.ga+=m.home_goals;
+    if(m.home_goals>m.away_goals){h.w++;h.pts+=3;a.l++;}
+    else if(m.home_goals<m.away_goals){a.w++;a.pts+=3;h.l++;}
+    else{h.d++;a.d++;h.pts++;a.pts++;}
+  });
+  const sorted=Object.values(table).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf);
+  const c=COLORS;
+  el.innerHTML=`<div style="overflow-x:auto"><table class="standings-table">
+    <thead><tr><th>#</th><th>Squadra</th><th>G</th><th>V</th><th>P</th><th>S</th><th>GF</th><th>GS</th><th>DR</th><th>Pts</th></tr></thead>
+    <tbody>${sorted.map((r,i)=>`<tr>
+      <td class="st-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</td>
+      <td><div style="display:flex;align-items:center;gap:8px"><div class="team-dot" style="background:${(c[r.team.color]||c.bianco).hex}"></div>${r.team.name}</div></td>
+      <td>${r.g}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
+      <td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga>0?'+':''}${r.gf-r.ga}</td>
+      <td class="st-pts">${r.pts}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+async function renderLeagueMatches(el){
+  const{data:matches}=await _sb.from('league_matches').select('*, home:home_team_id(name,color), away:away_team_id(name,color)').eq('league_id',currentLeague.id).order('date',{ascending:true});
+  if(!matches||!matches.length){el.innerHTML=`<div class="empty"><div class="empty-i">📅</div><div class="empty-t">Nessuna partita</div></div>`;return;}
+  const isManager=isLeagueManager(currentLeague);
+  el.innerHTML=matches.map(m=>{
+    const c1=(COLORS[m.home?.color]||COLORS.bianco).hex,c2=(COLORS[m.away?.color]||COLORS.nero).hex;
+    return `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <div style="font-size:11px;color:var(--text3);width:70px">${m.date?fmtDate(m.date):'-'} ${m.time?(m.time.substring(0,5)):''}  </div>
+      <div style="flex:1;display:flex;align-items:center;gap:10px;min-width:180px">
+        <div style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+          <span style="font-size:13px;font-weight:500">${m.home?.name||'?'}</span>
+          <div class="team-dot" style="background:${c1}"></div>
+        </div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:${m.played?'var(--cyan)':'var(--text3)'};min-width:50px;text-align:center">
+          ${m.played?`${m.home_goals} - ${m.away_goals}`:'vs'}
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex:1">
+          <div class="team-dot" style="background:${c2}"></div>
+          <span style="font-size:13px;font-weight:500">${m.away?.name||'?'}</span>
+        </div>
+      </div>
+      ${isManager&&!m.played?`<button class="btn btn-gold btn-sm" onclick="openEnterResult(${m.id})">Inserisci</button>`:''}
+      ${m.played?`<span style="font-size:10px;color:var(--green);font-weight:700">✓ Giocata</span>`:''}
+    </div>`;
+  }).join('');
+}
+
+async function renderTeams(el){
+  const{data:teams}=await _sb.from('teams').select('*').eq('league_id',currentLeague.id);
+  if(!teams||!teams.length){el.innerHTML=`<div class="empty"><div class="empty-i">👥</div><div class="empty-t">Nessuna squadra</div></div>`;return;}
+  const isManager=isLeagueManager(currentLeague);
+  let html='';
+  for(const team of teams){
+    const{data:roster}=await _sb.from('team_players').select('player_id,role,profiles(name,position,avatar_url)').eq('team_id',team.id);
+    const dot=`<div class="team-dot" style="background:${(COLORS[team.color]||COLORS.bianco).hex}"></div>`;
+    html+=`<div class="team-card">
+      <div class="team-name">${dot}${team.name}</div>
+      <div style="display:flex;flex-direction:column;gap:6px">
+        ${(roster||[]).map(r=>`<div style="display:flex;align-items:center;gap:10px;padding:6px 0;border-bottom:1px solid var(--border)">
+          <div class="mpl-av" style="width:30px;height:30px;font-size:11px">${r.profiles?.avatar_url?`<img src="${r.profiles.avatar_url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:ini(r.profiles?.name||'?')}</div>
+          <div style="flex:1;font-size:13px">${r.profiles?.name||'—'}</div>
+          <div style="font-size:10px;color:var(--cyan);background:rgba(0,229,255,.1);padding:2px 6px;border-radius:100px">${r.profiles?.position||'—'}</div>
+          ${r.role==='capitano'?`<span style="font-size:10px;color:var(--gold)">©</span>`:''}
+        </div>`).join('')}
+        ${!(roster||[]).length?`<div style="font-size:12px;color:var(--text3);padding:8px 0">Nessun giocatore in rosa</div>`:''}
+      </div>
+      ${isManager?`<button class="btn btn-o btn-sm" style="margin-top:10px;width:100%" onclick="openManageRoster(${team.id},'${team.name.replace(/'/g,"\\'")}')">Gestisci Rosa</button>`:''}
+    </div>`;
+  }
+  el.innerHTML=html;
+}
+
+async function renderScorers(el){
+  const{data:stats}=await _sb.from('league_match_stats').select('player_id,goals,assists,profiles(name,position,avatar_url),teams(name)').eq('teams.league_id',currentLeague.id);
+  // aggregate by player
+  const agg={};
+  (stats||[]).forEach(s=>{
+    if(!agg[s.player_id])agg[s.player_id]={name:s.profiles?.name||'?',pos:s.profiles?.position||'—',avatar:s.profiles?.avatar_url,team:s.teams?.name||'—',goals:0,assists:0};
+    agg[s.player_id].goals+=s.goals||0;agg[s.player_id].assists+=s.assists||0;
+  });
+  const sorted=Object.values(agg).filter(p=>p.goals>0||p.assists>0).sort((a,b)=>b.goals-a.goals||b.assists-a.assists);
+  if(!sorted.length){el.innerHTML=`<div class="empty"><div class="empty-i">⚽</div><div class="empty-t">Nessun marcatore</div></div>`;return;}
+  el.innerHTML=`<div style="overflow-x:auto"><table class="standings-table">
+    <thead><tr><th>#</th><th>Giocatore</th><th>Squadra</th><th>Gol</th><th>Assist</th></tr></thead>
+    <tbody>${sorted.map((p,i)=>`<tr>
+      <td class="st-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</td>
+      <td><div style="display:flex;align-items:center;gap:8px">
+        <div class="lb-av">${p.avatar?`<img src="${p.avatar}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`:ini(p.name)}</div>
+        <div><div style="font-size:13px;font-weight:500">${p.name}</div><div style="font-size:10px;color:var(--text2)">${p.pos}</div></div>
+      </div></td>
+      <td style="font-size:12px;color:var(--text2)">${p.team}</td>
+      <td class="st-pts">${p.goals}</td>
+      <td style="font-family:var(--font-display);font-size:16px;color:var(--text2)">${p.assists}</td>
+    </tr>`).join('')}</tbody>
+  </table></div>`;
+}
+
+/* ── LEAGUE MANAGER ACTIONS ── */
+function openLeagueManager(){
+  document.getElementById('ov-league-manager').classList.add('on');
+  loadLeagueManagerPanel();
+}
+
+async function loadLeagueManagerPanel(){
+  const el=document.getElementById('lm-panel');
+  el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
+  const[{data:teams},{data:matches},{data:managers},{data:allProfiles}]=await Promise.all([
+    _sb.from('teams').select('*').eq('league_id',currentLeague.id),
+    _sb.from('league_matches').select('*, home:home_team_id(name), away:away_team_id(name)').eq('league_id',currentLeague.id).order('date',{ascending:true}),
+    _sb.from('league_managers').select('player_id,profiles(name)').eq('league_id',currentLeague.id),
+    _sb.from('profiles').select('id,name').eq('is_banned',false).order('name')
+  ]);
+  const profileOpts=(allProfiles||[]).map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+  const teamOpts=(teams||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+
+  el.innerHTML=`
+    <!-- ADD TEAM -->
+    <div class="lm-form">
+      <div class="lm-form-title">➕ Aggiungi Squadra</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input class="fi" id="lm-team-name" placeholder="Nome squadra" style="flex:1;min-width:140px">
+        <select class="fi" id="lm-team-color" style="flex:1;min-width:120px">
+          ${Object.entries(COLORS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+        </select>
+        <button class="btn btn-gold btn-sm" onclick="lmAddTeam()">Aggiungi</button>
+      </div>
+    </div>
+
+    <!-- ADD MATCH -->
+    <div class="lm-form">
+      <div class="lm-form-title">📅 Aggiungi Partita</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <select class="fi" id="lm-home">${teamOpts}</select>
+        <select class="fi" id="lm-away">${teamOpts}</select>
+        <input class="fi" type="date" id="lm-match-date">
+        <input class="fi" type="time" id="lm-match-time" value="18:00">
+      </div>
+      <button class="btn btn-gold btn-sm" style="width:100%" onclick="lmAddMatch()">Aggiungi Partita</button>
+    </div>
+
+    <!-- MANAGERS -->
+    <div class="lm-form">
+      <div class="lm-form-title">👤 Assistenti Manager</div>
+      <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap">
+        <select class="fi" id="lm-new-manager" style="flex:1">${profileOpts}</select>
+        <button class="btn btn-gold btn-sm" onclick="lmAddManager()">Aggiungi</button>
+      </div>
+      <div>${(managers||[]).map(m=>`<div style="display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);font-size:13px">
+        <span>${m.profiles?.name||'—'}</span>
+        <button class="abtn abtn-del" onclick="lmRemoveManager('${m.player_id}')">Rimuovi</button>
+      </div>`).join('')||`<div style="font-size:12px;color:var(--text3)">Nessun assistente</div>`}</div>
+    </div>
+
+    <!-- LEGA STATUS -->
+    <div class="lm-form">
+      <div class="lm-form-title">⚙️ Stato Lega</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-c btn-sm" onclick="lmSetStatus('active')">Attiva</button>
+        <button class="btn btn-o btn-sm" onclick="lmSetStatus('ended')">Concludi</button>
+      </div>
+    </div>
+  `;
+}
+
+async function lmAddTeam(){
+  const name=document.getElementById('lm-team-name').value.trim(),color=document.getElementById('lm-team-color').value;
+  if(!name){toast(t('err_fill'),true);return;}
+  const{error}=await _sb.from('teams').insert({league_id:currentLeague.id,name,color});
+  if(error){toast(t('err_generic'),true);return;}
+  toast('✓ Squadra aggiunta');loadLeagueManagerPanel();renderLeagueTab();
+}
+
+async function lmAddMatch(){
+  const home=document.getElementById('lm-home').value,away=document.getElementById('lm-away').value;
+  const date=document.getElementById('lm-match-date').value,time=document.getElementById('lm-match-time').value;
+  if(home===away){toast('Le squadre devono essere diverse',true);return;}
+  const{error}=await _sb.from('league_matches').insert({league_id:currentLeague.id,home_team_id:parseInt(home),away_team_id:parseInt(away),date:date||null,time:time||null,played:false,home_goals:0,away_goals:0});
+  if(error){toast(t('err_generic'),true);return;}
+  toast('✓ Partita aggiunta');loadLeagueManagerPanel();renderLeagueTab();
+}
+
+async function lmAddManager(){
+  const pid=document.getElementById('lm-new-manager').value;
+  if(!pid)return;
+  const{error}=await _sb.from('league_managers').insert({league_id:currentLeague.id,player_id:pid});
+  if(error){toast(error.code==='23505'?'Già manager':t('err_generic'),true);return;}
+  toast('✓ Manager aggiunto');loadLeagueManagerPanel();
+}
+
+async function lmRemoveManager(pid){
+  await _sb.from('league_managers').delete().eq('league_id',currentLeague.id).eq('player_id',pid);
+  toast('✓ Rimosso');loadLeagueManagerPanel();
+}
+
+async function lmSetStatus(status){
+  await _sb.from('leagues').update({status}).eq('id',currentLeague.id);
+  currentLeague.status=status;toast('✓ Stato aggiornato');
+}
+
+let currentMatchId=null;
+function openEnterResult(matchId){openEnterResultFull(matchId);}
+
+async function submitResult(){
+  const hg=parseInt(document.getElementById('res-home').value)||0;
+  const ag=parseInt(document.getElementById('res-away').value)||0;
+  await _sb.from('league_matches').update({home_goals:hg,away_goals:ag,played:true}).eq('id',currentMatchId);
+
+  // save individual stats
+  const statRows=document.querySelectorAll('.res-stat-row');
+  for(const row of statRows){
+    const pid=row.dataset.pid,tid=row.dataset.tid;
+    const goals=parseInt(row.querySelector('[data-type="g"]').value)||0;
+    const assists=parseInt(row.querySelector('[data-type="a"]').value)||0;
+    if(goals>0||assists>0){
+      await _sb.from('league_match_stats').insert({league_match_id:currentMatchId,player_id:pid,team_id:parseInt(tid),goals,assists});
+    }
+  }
+  document.getElementById('ov-result').classList.remove('on');
+  toast('✅ Risultato salvato');renderLeagueTab();
+}
+
+async function openEnterResultFull(matchId){
+  currentMatchId=matchId;
+  const{data:match}=await _sb.from('league_matches').select('*, home:home_team_id(id,name), away:away_team_id(id,name)').eq('id',matchId).single();
+  if(!match)return;
+  const[{data:homeRoster},{data:awayRoster}]=await Promise.all([
+    _sb.from('team_players').select('player_id,profiles(name)').eq('team_id',match.home_team_id),
+    _sb.from('team_players').select('player_id,profiles(name)').eq('team_id',match.away_team_id)
+  ]);
+  document.getElementById('res-match-title').textContent=`${match.home?.name} vs ${match.away?.name}`;
+  const rosterHtml=(roster,teamId)=>(roster||[]).map(r=>`
+    <div class="res-stat-row" data-pid="${r.player_id}" data-tid="${teamId}" style="display:grid;grid-template-columns:1fr 46px 46px;gap:6px;align-items:center;margin-bottom:6px;padding:6px 10px;background:var(--bg2);border-radius:5px">
+      <div style="font-size:12px">${r.profiles?.name||'?'}</div>
+      <div><div style="font-size:9px;color:var(--text3);text-align:center">⚽</div><input type="number" data-type="g" min="0" max="20" value="0" style="width:100%;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:3px;border-radius:3px;font-size:12px;text-align:center;outline:none"></div>
+      <div><div style="font-size:9px;color:var(--text3);text-align:center">🎯</div><input type="number" data-type="a" min="0" max="20" value="0" style="width:100%;background:var(--bg1);border:1px solid var(--border);color:var(--text);padding:3px;border-radius:3px;font-size:12px;text-align:center;outline:none"></div>
+    </div>`).join('');
+  document.getElementById('res-rosters').innerHTML=`
+    <div style="font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:6px">${match.home?.name}</div>
+    ${rosterHtml(homeRoster,match.home_team_id)}
+    <div style="font-size:12px;font-weight:700;color:var(--cyan);margin:10px 0 6px">${match.away?.name}</div>
+    ${rosterHtml(awayRoster,match.away_team_id)}
+  `;
+  document.getElementById('ov-result').classList.add('on');
+}
+
+async function openManageRoster(teamId,teamName){
+  const{data:allProfiles}=await _sb.from('profiles').select('id,name,position').eq('is_banned',false).order('name');
+  const{data:current}=await _sb.from('team_players').select('player_id').eq('team_id',teamId);
+  const currentIds=new Set((current||[]).map(r=>r.player_id));
+  const el=document.getElementById('ov-roster');
+  el.querySelector('.modal-title').textContent=`Rosa — ${teamName}`;
+  document.getElementById('roster-body').innerHTML=`
+    <div style="max-height:360px;overflow-y:auto">
+      ${(allProfiles||[]).map(p=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+        <input type="checkbox" id="rc-${p.id}" ${currentIds.has(p.id)?'checked':''} style="width:16px;height:16px;accent-color:var(--cyan)">
+        <label for="rc-${p.id}" style="flex:1;font-size:13px;cursor:pointer">${p.name}</label>
+        <span style="font-size:10px;color:var(--cyan)">${p.position||'—'}</span>
+      </div>`).join('')}
+    </div>
+    <button class="bsubmit" style="margin-top:14px" onclick="saveRoster(${teamId})">Salva Rosa</button>
+  `;
+  el.classList.add('on');
+}
+
+async function saveRoster(teamId){
+  const{data:allProfiles}=await _sb.from('profiles').select('id').eq('is_banned',false);
+  const checked=(allProfiles||[]).filter(p=>document.getElementById('rc-'+p.id)?.checked).map(p=>p.id);
+  // delete all and re-insert
+  await _sb.from('team_players').delete().eq('team_id',teamId);
+  if(checked.length){
+    await _sb.from('team_players').insert(checked.map(pid=>({team_id:teamId,player_id:pid})));
+  }
+  document.getElementById('ov-roster').classList.remove('on');
+  toast('✓ Rosa salvata');renderLeagueTab();
+}
+
+function openCreateLeague(){document.getElementById('ov-create-league').classList.add('on');}
+
+async function submitCreateLeague(){
+  const name=document.getElementById('cl-name').value.trim(),format=document.getElementById('cl-format').value,season=document.getElementById('cl-season').value.trim();
+  if(!name){toast(t('err_fill'),true);return;}
+  const btn=document.getElementById('cl-btn');btn.disabled=true;btn.textContent='...';
+  const{error}=await _sb.from('leagues').insert({name,format,season:season||null,status:'active',created_by:currentUser.id});
+  if(error){toast(t('err_generic'),true);btn.disabled=false;btn.textContent='Crea Lega';return;}
+  document.getElementById('ov-create-league').classList.remove('on');
+  toast('✓ Lega creata!');loadLeagues();
+  btn.disabled=false;btn.textContent='Crea Lega';
+}
+
+/* ══ INIT ══ */
 async function doForgot(){
   const email=document.getElementById('forgot-em').value.trim();
   const err=document.getElementById('forgot-err'),ok=document.getElementById('forgot-ok');
@@ -1384,7 +1867,7 @@ async function doForgot(){
   else{ok.textContent=t('forgot_ok');ok.classList.add('on');document.getElementById('forgot-em').value='';}
   btn.disabled=false;btn.textContent=t('forgot_btn');
 }
- 
+
 async function doReset(){
   const pw=document.getElementById('reset-pw').value,pw2=document.getElementById('reset-pw2').value;
   const err=document.getElementById('reset-err'),ok=document.getElementById('reset-ok');
@@ -1397,7 +1880,7 @@ async function doReset(){
   else{ok.textContent=t('reset_ok');ok.classList.add('on');setTimeout(()=>{goPage('login');},2000);}
   btn.disabled=false;btn.textContent=t('reset_btn');
 }
- 
+
 /* ══ INIT ══ */
 (async function init(){
   lang=detectLang();
@@ -1421,4 +1904,4 @@ async function doReset(){
 })();
 </script>
 </body>
-</html
+</html>
