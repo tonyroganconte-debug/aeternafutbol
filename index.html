@@ -864,6 +864,63 @@ textarea.fi{resize:vertical;min-height:80px;}
   </div>
 </div>
 
+<!-- MODAL LIVE MATCH -->
+<div class="overlay" id="ov-live">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="live-title">⚽ LIVE</div>
+        <div id="live-score-header" style="font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--red);letter-spacing:2px;margin-top:4px">0 - 0</div>
+      </div>
+      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+        <button class="modal-x" onclick="closeLiveModal()">✕</button>
+        <div id="live-timer" style="font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--cyan)">0'</div>
+      </div>
+    </div>
+    <div class="modal-body">
+      <!-- TIMER CONTROLS -->
+      <div style="display:flex;gap:8px;margin-bottom:16px">
+        <button id="live-start-btn" class="btn btn-c btn-sm" onclick="liveStartTimer()" style="flex:1">▶ Avvia</button>
+        <button id="live-pause-btn" class="btn btn-o btn-sm" onclick="livePauseTimer()" style="flex:1;display:none">⏸ Pausa</button>
+        <button class="btn btn-o btn-sm" onclick="liveEndMatch()" style="flex:1">🏁 Fine Partita</button>
+      </div>
+
+      <!-- ADD EVENT -->
+      <div style="background:var(--bg2);border-radius:8px;padding:14px;margin-bottom:16px">
+        <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--text2);margin-bottom:10px">➕ AGGIUNGI EVENTO</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <select class="fi" id="live-event-type" style="font-size:13px" onchange="updateLiveEventUI()">
+            <option value="goal">⚽ Gol</option>
+            <option value="yellow">🟡 Giallo</option>
+            <option value="blue">🔵 Espulsione Temp.</option>
+            <option value="red">🔴 Rosso</option>
+          </select>
+          <select class="fi" id="live-event-team" style="font-size:13px" onchange="updateLivePlayerOpts()">
+            <option value="">Squadra...</option>
+          </select>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+          <select class="fi" id="live-event-player" style="font-size:13px">
+            <option value="">Giocatore (opz.)</option>
+          </select>
+          <select class="fi" id="live-event-assist" style="font-size:13px">
+            <option value="">Assist (opz.)</option>
+          </select>
+        </div>
+        <div style="display:flex;gap:8px">
+          <input type="number" id="live-event-minute" class="fi" placeholder="Minuto" style="width:90px;font-size:13px" min="0" max="120">
+          <input type="text" id="live-event-note" class="fi" placeholder="Nota (opz.)" style="flex:1;font-size:13px">
+          <button class="btn btn-gold btn-sm" onclick="liveAddEvent()">Aggiungi</button>
+        </div>
+      </div>
+
+      <!-- EVENTS LIST -->
+      <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--text2);margin-bottom:8px">CRONACA</div>
+      <div id="live-events-list" style="max-height:280px;overflow-y:auto"></div>
+    </div>
+  </div>
+</div>
+
 <div class="toast" id="toast"><span id="toast-t">OK</span></div>
 
 <div class="bnav"><div class="bnav-row">
@@ -1670,30 +1727,37 @@ async function renderStandings(el){
 
 async function renderLeagueMatches(el){
   const{data:matches}=await _sb.from('league_matches').select('*, home:home_team_id(name,color), away:away_team_id(name,color)').eq('league_id',currentLeague.id).order('date',{ascending:true});
-  if(!matches||!matches.length){el.innerHTML=`<div class="empty"><div class="empty-i">📅</div><div class="empty-t">Nessuna partita</div></div>`;return;}
+  if(!matches||!matches.length){el.innerHTML='<div class="empty"><div class="empty-i">📅</div><div class="empty-t">Nessuna partita</div></div>';return;}
   const isManager=isLeagueManager(currentLeague);
   el.innerHTML=matches.map(m=>{
     const c1=(COLORS[m.home?.color]||COLORS.bianco).hex,c2=(COLORS[m.away?.color]||COLORS.nero).hex;
-    return `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:14px 16px;margin-bottom:8px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-      <div style="font-size:11px;color:var(--text3);width:70px">${m.date?fmtDate(m.date):'-'} ${m.time?(m.time.substring(0,5)):''}  </div>
-      <div style="flex:1;display:flex;align-items:center;gap:10px;min-width:180px">
-        <div style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
-          <span style="font-size:13px;font-weight:500">${m.home?.name||'?'}</span>
-          <div class="team-dot" style="background:${c1}"></div>
+    return `<div style="background:var(--card);border:1px solid ${m.is_live?'rgba(255,51,85,.5)':'var(--border)'};border-radius:8px;padding:14px 16px;margin-bottom:8px;${m.is_live?'box-shadow:0 0 16px rgba(255,51,85,.15)':''}">
+      <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+        <div style="font-size:11px;color:var(--text3);width:70px">${m.date?fmtDate(m.date):'-'} ${m.time?m.time.substring(0,5):''}</div>
+        <div style="flex:1;display:flex;align-items:center;gap:10px;min-width:180px">
+          <div style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+            <span style="font-size:13px;font-weight:500">${m.home?.name||'?'}</span>
+            <div class="team-dot" style="background:${c1}"></div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:20px;font-weight:700;color:${m.is_live?'var(--red)':m.played?'var(--cyan)':'var(--text3)'};min-width:60px;text-align:center">
+            ${m.is_live?`${m.home_goals||0} - ${m.away_goals||0}`:m.played?`${m.home_goals} - ${m.away_goals}`:'vs'}
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex:1">
+            <div class="team-dot" style="background:${c2}"></div>
+            <span style="font-size:13px;font-weight:500">${m.away?.name||'?'}</span>
+          </div>
         </div>
-        <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:${m.played?'var(--cyan)':'var(--text3)'};min-width:50px;text-align:center">
-          ${m.played?`${m.home_goals} - ${m.away_goals}`:'vs'}
-        </div>
-        <div style="display:flex;align-items:center;gap:6px;flex:1">
-          <div class="team-dot" style="background:${c2}"></div>
-          <span style="font-size:13px;font-weight:500">${m.away?.name||'?'}</span>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+          ${m.is_live?`<span class="mc-live"><span class="dot-red"></span>LIVE${m.live_minute?' '+m.live_minute+"'":''}</span>`:''}
+          ${m.played&&!m.is_live?`<span style="font-size:10px;color:var(--green);font-weight:700">✓</span>`:''}
+          ${isManager?`<button class="abtn abtn-sus" onclick="openLiveModal(${m.id})">${m.is_live?'📺 Live':m.played?'✏️ Modifica':'⚽ Live'}</button>`:''}
+          ${isManager&&!m.is_live?`<button class="abtn abtn-del" onclick="lmDeleteMatch(${m.id})">🗑</button>`:''}
         </div>
       </div>
-      ${isManager&&!m.played?`<button class="btn btn-gold btn-sm" onclick="openEnterResult(${m.id})">Inserisci</button>`:''}
-      ${m.played?`<span style="font-size:10px;color:var(--green);font-weight:700">✓ Giocata</span>`:''}
     </div>`;
   }).join('');
 }
+
 
 async function renderTeams(el){
   const{data:teams}=await _sb.from('teams').select('*').eq('league_id',currentLeague.id);
@@ -2013,7 +2077,129 @@ async function submitCreateLeague(){
   btn.disabled=false;btn.textContent='Crea Lega';
 }
 
-/* ══ INIT ══ */
+/* ══ LIVE MATCH ══ */
+let liveState={matchId:null,homeId:null,awayId:null,homeName:'',awayName:'',homeGoals:0,awayGoals:0,minute:0,timerInterval:null,running:false,homeRoster:[],awayRoster:[]};
+
+async function openLiveModal(matchId){
+  const{data:match}=await _sb.from('league_matches').select('*,home:home_team_id(id,name,color),away:away_team_id(id,name,color)').eq('id',matchId).single();
+  if(!match)return;
+  const[{data:hr},{data:ar}]=await Promise.all([
+    _sb.from('team_players').select('player_id,profiles(id,name)').eq('team_id',match.home_team_id),
+    _sb.from('team_players').select('player_id,profiles(id,name)').eq('team_id',match.away_team_id)
+  ]);
+  liveState={matchId,homeId:match.home_team_id,awayId:match.away_team_id,homeName:match.home?.name||'Casa',awayName:match.away?.name||'Ospite',homeGoals:match.home_goals||0,awayGoals:match.away_goals||0,minute:match.live_minute||0,timerInterval:null,running:false,homeRoster:(hr||[]).map(r=>r.profiles).filter(Boolean),awayRoster:(ar||[]).map(r=>r.profiles).filter(Boolean)};
+  document.getElementById('live-title').textContent=`${liveState.homeName} vs ${liveState.awayName}`;
+  liveUpdateScore();liveUpdateTimer();
+  const ts=document.getElementById('live-event-team');
+  ts.innerHTML=`<option value="">Squadra...</option><option value="${liveState.homeId}">${liveState.homeName}</option><option value="${liveState.awayId}">${liveState.awayName}</option>`;
+  document.getElementById('live-event-player').innerHTML='<option value="">Giocatore (opz.)</option>';
+  document.getElementById('live-event-assist').innerHTML='<option value="">Assist (opz.)</option>';
+  document.getElementById('live-event-minute').value=liveState.minute||'';
+  document.getElementById('live-start-btn').style.display=match.is_live?'none':'flex';
+  document.getElementById('live-pause-btn').style.display=match.is_live?'flex':'none';
+  if(match.is_live){liveState.running=true;liveStartTimer(true);}
+  await liveLoadEvents();
+  document.getElementById('ov-live').classList.add('on');
+}
+
+function closeLiveModal(){
+  if(liveState.timerInterval)clearInterval(liveState.timerInterval);
+  liveState.timerInterval=null;liveState.running=false;
+  document.getElementById('ov-live').classList.remove('on');
+}
+
+function liveUpdateScore(){document.getElementById('live-score-header').textContent=`${liveState.homeGoals} - ${liveState.awayGoals}`;}
+function liveUpdateTimer(){document.getElementById('live-timer').textContent=`${liveState.minute}'`;}
+
+function liveStartTimer(resume=false){
+  if(liveState.running&&!resume)return;
+  liveState.running=true;
+  if(!resume)_sb.from('league_matches').update({is_live:true,live_started_at:new Date().toISOString()}).eq('id',liveState.matchId);
+  document.getElementById('live-start-btn').style.display='none';
+  document.getElementById('live-pause-btn').style.display='flex';
+  liveState.timerInterval=setInterval(()=>{
+    liveState.minute++;liveUpdateTimer();
+    document.getElementById('live-event-minute').value=liveState.minute;
+    _sb.from('league_matches').update({live_minute:liveState.minute}).eq('id',liveState.matchId);
+  },60000);
+}
+
+function livePauseTimer(){
+  clearInterval(liveState.timerInterval);liveState.timerInterval=null;liveState.running=false;
+  document.getElementById('live-start-btn').style.display='flex';
+  document.getElementById('live-pause-btn').style.display='none';
+}
+
+async function liveEndMatch(){
+  if(!confirm('Concludere la partita?'))return;
+  clearInterval(liveState.timerInterval);
+  await _sb.from('league_matches').update({is_live:false,played:true,home_goals:liveState.homeGoals,away_goals:liveState.awayGoals,live_minute:liveState.minute}).eq('id',liveState.matchId);
+  closeLiveModal();toast('🏁 Partita conclusa!');renderLeagueTab();
+}
+
+function updateLiveEventUI(){
+  const type=document.getElementById('live-event-type').value;
+  document.getElementById('live-event-assist').style.display=type==='goal'?'block':'none';
+}
+
+function updateLivePlayerOpts(){
+  const tid=document.getElementById('live-event-team').value;
+  const roster=String(tid)===String(liveState.homeId)?liveState.homeRoster:String(tid)===String(liveState.awayId)?liveState.awayRoster:[];
+  const opts='<option value="">Giocatore (opz.)</option>'+roster.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+  document.getElementById('live-event-player').innerHTML=opts;
+  document.getElementById('live-event-assist').innerHTML='<option value="">Assist (opz.)</option>'+roster.map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
+}
+
+async function liveAddEvent(){
+  const type=document.getElementById('live-event-type').value;
+  const teamId=document.getElementById('live-event-team').value||null;
+  const playerId=document.getElementById('live-event-player').value||null;
+  const assistId=document.getElementById('live-event-assist').value||null;
+  const minute=parseInt(document.getElementById('live-event-minute').value)||liveState.minute;
+  const note=document.getElementById('live-event-note').value.trim()||null;
+  const{error}=await _sb.from('league_match_events').insert({league_match_id:liveState.matchId,event_type:type,team_id:teamId?parseInt(teamId):null,player_id:playerId||null,assist_player_id:assistId||null,minute,note});
+  if(error){toast(t('err_generic'),true);return;}
+  if(type==='goal'){
+    if(String(teamId)===String(liveState.homeId))liveState.homeGoals++;
+    else if(String(teamId)===String(liveState.awayId))liveState.awayGoals++;
+    liveUpdateScore();
+    await _sb.from('league_matches').update({home_goals:liveState.homeGoals,away_goals:liveState.awayGoals}).eq('id',liveState.matchId);
+  }
+  document.getElementById('live-event-note').value='';
+  await liveLoadEvents();toast('✓ Evento aggiunto');
+}
+
+async function liveDeleteEvent(eventId,type,teamId){
+  if(!confirm('Eliminare questo evento?'))return;
+  await _sb.from('league_match_events').delete().eq('id',eventId);
+  if(type==='goal'){
+    if(String(teamId)===String(liveState.homeId))liveState.homeGoals=Math.max(0,liveState.homeGoals-1);
+    else if(String(teamId)===String(liveState.awayId))liveState.awayGoals=Math.max(0,liveState.awayGoals-1);
+    liveUpdateScore();
+    await _sb.from('league_matches').update({home_goals:liveState.homeGoals,away_goals:liveState.awayGoals}).eq('id',liveState.matchId);
+  }
+  await liveLoadEvents();
+}
+
+async function liveLoadEvents(){
+  const{data:evs}=await _sb.from('league_match_events').select('*,profiles(name),assist:assist_player_id(name),teams(name)').eq('league_match_id',liveState.matchId).order('minute',{ascending:true});
+  const el=document.getElementById('live-events-list');
+  const icons={goal:'⚽',yellow:'🟡',blue:'🔵',red:'🔴'};
+  if(!evs||!evs.length){el.innerHTML=`<div style="font-size:12px;color:var(--text3);text-align:center;padding:16px">Nessun evento ancora</div>`;return;}
+  el.innerHTML=evs.map(e=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="font-family:var(--font-display);font-size:14px;font-weight:700;color:var(--text2);width:32px;text-align:center">${e.minute?e.minute+"'":'—'}</div>
+      <div style="font-size:18px">${icons[e.event_type]||'•'}</div>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:500">${e.profiles?.name||'—'} <span style="font-size:11px;color:var(--text2)">${e.teams?.name?'('+e.teams.name+')':''}</span></div>
+        ${e.event_type==='goal'&&e.assist?.name?`<div style="font-size:11px;color:var(--text2)">🎯 ${e.assist.name}</div>`:''}
+        ${e.note?`<div style="font-size:11px;color:var(--text3);font-style:italic">${e.note}</div>`:''}
+      </div>
+      <button onclick="liveDeleteEvent(${e.id},'${e.event_type}',${e.team_id||'null'})" style="background:none;border:none;color:var(--text3);cursor:pointer;font-size:16px;padding:4px">✕</button>
+    </div>`).join('');
+}
+
+/* ══ FORGOT PASSWORD ══ */
 async function doForgot(){
   const email=document.getElementById('forgot-em').value.trim();
   const err=document.getElementById('forgot-err'),ok=document.getElementById('forgot-ok');
