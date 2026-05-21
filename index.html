@@ -1751,11 +1751,16 @@ async function renderLeagueTab(){
   const el=document.getElementById('ld-content');
   if(!currentLeague)return;
   el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
-  if(leagueTab==='standings')await renderStandings(el);
-  else if(leagueTab==='rounds')await renderRounds(el);
-  else if(leagueTab==='bracket')await renderBracket(el);
-  else if(leagueTab==='teams')await renderTeams(el);
-  else if(leagueTab==='scorers')await renderScorers(el);
+  try{
+    if(leagueTab==='standings')await renderStandings(el);
+    else if(leagueTab==='rounds')await renderRounds(el);
+    else if(leagueTab==='bracket')await renderBracket(el);
+    else if(leagueTab==='teams')await renderTeams(el);
+    else if(leagueTab==='scorers')await renderScorers(el);
+  }catch(err){
+    console.error('renderLeagueTab error:',err);
+    el.innerHTML=`<div class="empty"><div class="empty-i">⚠️</div><div class="empty-t">Errore caricamento</div><div class="empty-s" style="color:var(--red);font-size:11px">${err.message||'Errore sconosciuto'}</div><div style="margin-top:12px"><button class="btn btn-o btn-sm" onclick="renderLeagueTab()">Riprova</button></div></div>`;
+  }
 }
 
 async function renderStandings(el){
@@ -1908,12 +1913,13 @@ function openLeagueManager(){
 async function loadLeagueManagerPanel(){
   const el=document.getElementById('lm-panel');
   el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
-  const[{data:teams},{data:matches},{data:managers},{data:allProfiles},{data:invites}]=await Promise.all([
+  const[{data:teams},{data:matches},{data:managers},{data:allProfiles},{data:invites},{data:groups}]=await Promise.all([
     _sb.from('teams').select('*').eq('league_id',currentLeague.id),
     _sb.from('league_matches').select('*, home:home_team_id(name), away:away_team_id(name)').eq('league_id',currentLeague.id).order('date',{ascending:true}),
     _sb.from('league_managers').select('player_id,profiles(name)').eq('league_id',currentLeague.id),
     _sb.from('profiles').select('id,name').eq('is_banned',false).order('name'),
-    _sb.from('invite_codes').select('*,used_by_profile:used_by(name)').eq('created_by',currentUser.id).order('created_at',{ascending:false}).limit(10)
+    _sb.from('invite_codes').select('*,used_by_profile:used_by(name)').eq('created_by',currentUser.id).order('created_at',{ascending:false}).limit(10),
+    _sb.from('league_groups').select('*').eq('league_id',currentLeague.id)
   ]);
   const profileOpts=(allProfiles||[]).map(p=>`<option value="${p.id}">${p.name}</option>`).join('');
   const teamOpts=(teams||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
@@ -1946,10 +1952,10 @@ async function loadLeagueManagerPanel(){
     </div>
 
     <!-- GIRONI (solo formato groups) -->
-    ${currentLeague.competition_format==='groups'?`<div class="lm-form">
+    ${currentLeague.competition_format==='groups'&&groups&&groups.length?`<div class="lm-form">
       <div class="lm-form-title">🔀 Assegna Squadre ai Gironi</div>
-      ${(await _sb.from('league_groups').select('*').eq('league_id',currentLeague.id)).data?.map(g=>`
-        <div style="margin-bottom:10px">
+      ${groups.map(g=>`
+        <div style="margin-bottom:12px">
           <div style="font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:6px">${g.name}</div>
           ${teams?.filter(t=>t.group_id===g.id).map(t=>`
             <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)">
@@ -1964,10 +1970,8 @@ async function loadLeagueManagerPanel(){
             </select>
             <button class="btn btn-gold btn-sm" onclick="addToGroup(${g.id})">+</button>
           </div>
-        </div>`).join('')||'<div style="font-size:12px;color:var(--text3)">Nessun girone</div>'}
+        </div>`).join('')}
     </div>`:''}
-
-    <!-- ADD MATCH -->
     <div class="lm-form">
       <div class="lm-form-title">📅 Aggiungi Partita</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
@@ -2226,6 +2230,8 @@ async function submitCreateLeague(){
 async function renderRounds(el){
   const isManager=isLeagueManager(currentLeague);
   const{data:rounds}=await _sb.from('league_rounds').select('*').eq('league_id',currentLeague.id).order('round_number',{ascending:true});
+  const{data:teamsForOpts}=await _sb.from('teams').select('id,name').eq('league_id',currentLeague.id);
+  const teamOpts=(teamsForOpts||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
   let html='';
   if(isManager){
     html+=`<div style="background:var(--card);border:1px solid rgba(255,204,0,.2);border-radius:8px;padding:14px;margin-bottom:16px">
@@ -2277,11 +2283,11 @@ async function renderRounds(el){
       ${isManager?`<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
         <select class="finput" id="rm-home-${round.id}" style="flex:1;min-width:100px;font-size:12px;padding:6px 8px">
           <option value="">Casa...</option>
-          ${(await _sb.from('teams').select('id,name').eq('league_id',currentLeague.id)).data?.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')||''}
+          ${teamOpts}
         </select>
         <select class="finput" id="rm-away-${round.id}" style="flex:1;min-width:100px;font-size:12px;padding:6px 8px">
           <option value="">Ospite...</option>
-          ${(await _sb.from('teams').select('id,name').eq('league_id',currentLeague.id)).data?.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')||''}
+          ${teamOpts}
         </select>
         <input class="finput" type="time" id="rm-time-${round.id}" value="18:00" style="width:110px;font-size:12px;padding:6px 8px">
         <button class="btn btn-gold btn-sm" onclick="addMatchToRound(${round.id})">+ Partita</button>
