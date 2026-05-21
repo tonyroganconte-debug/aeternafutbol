@@ -1913,6 +1913,7 @@ function openLeagueManager(){
 async function loadLeagueManagerPanel(){
   const el=document.getElementById('lm-panel');
   el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
+  try{
   const[{data:teams},{data:matches},{data:managers},{data:allProfiles},{data:invites},{data:groups}]=await Promise.all([
     _sb.from('teams').select('*').eq('league_id',currentLeague.id),
     _sb.from('league_matches').select('*, home:home_team_id(name), away:away_team_id(name)').eq('league_id',currentLeague.id).order('date',{ascending:true}),
@@ -2036,6 +2037,12 @@ async function loadLeagueManagerPanel(){
       </div>
     </div>
   `;
+  }catch(err){
+    console.error('loadLeagueManagerPanel error:',err);
+    el.innerHTML=`<div class="empty"><div class="empty-i">⚠️</div><div class="empty-t">Errore pannello</div>
+      <div style="font-size:11px;color:var(--red);margin-top:8px;word-break:break-all">${err.message||JSON.stringify(err)}</div>
+      <button class="btn btn-o btn-sm" style="margin-top:12px" onclick="loadLeagueManagerPanel()">Riprova</button></div>`;
+  }
 }
 
 async function lmAddTeam(){
