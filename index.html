@@ -304,7 +304,17 @@ textarea.fi{resize:vertical;min-height:80px;}
 .bnbb svg{width:20px;height:20px;stroke-width:1.8;}
 .bnbb.on{color:var(--cyan);}
 
-/* LEAGUES */
+/* TEAM DOT multi-color */
+function teamDotHtml(color1,color2,color3,size=14){
+  const c1=(COLORS[color1]||COLORS.bianco).hex;
+  const c2=color2?(COLORS[color2]||null):null;
+  const c3=color3?(COLORS[color3]||null):null;
+  let bg;
+  if(c3&&c2){bg=`linear-gradient(to right, ${c1} 33%, ${c2.hex} 33% 66%, ${c3.hex} 66%)`;}
+  else if(c2){bg=`linear-gradient(to right, ${c1} 50%, ${c2.hex} 50%)`;}
+  else{bg=c1;}
+  return `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${bg};border:2px solid rgba(255,255,255,.2);flex-shrink:0"></div>`;
+}
 .league-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;margin-bottom:10px;}
 .league-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .22s;}
 .league-card:hover{border-color:rgba(255,204,0,.3);background:var(--card2);}.league-card:hover::before{transform:scaleY(1);}
@@ -677,9 +687,9 @@ textarea.fi{resize:vertical;min-height:80px;}
       <div class="sec-line"></div>
       <div class="sec-extra" id="ld-actions"></div>
     </div>
-    <div class="tabs">
+    <div class="tabs" id="ld-tabs">
       <button class="tab on" onclick="setLeagueTab('standings',this)">🏆 Classifica</button>
-      <button class="tab" onclick="setLeagueTab('matches',this)">📅 Calendario</button>
+      <button class="tab" onclick="setLeagueTab('rounds',this)">📅 Giornate</button>
       <button class="tab" onclick="setLeagueTab('teams',this)">👥 Squadre</button>
       <button class="tab" onclick="setLeagueTab('scorers',this)">⚽ Marcatori</button>
     </div>
@@ -851,12 +861,40 @@ textarea.fi{resize:vertical;min-height:80px;}
 
 <!-- MODAL CREATE LEAGUE -->
 <div class="overlay" id="ov-create-league">
-  <div class="modal" style="max-width:420px">
+  <div class="modal" style="max-width:480px">
     <div class="modal-head"><div class="modal-title">🏟️ CREA LEGA</div><button class="modal-x" onclick="document.getElementById('ov-create-league').classList.remove('on')">✕</button></div>
     <div class="modal-body">
       <div class="fg"><label class="fl">Nome Lega</label><input class="fi" id="cl-name" placeholder="Es: Calcetto Las Americas 2025"></div>
-      <div class="fg"><label class="fl">Formato</label>
+      <div class="fg"><label class="fl">Formato di Gioco</label>
         <select class="fi" id="cl-format"><option>5v5</option><option>7v7</option><option>11v11</option></select>
+      </div>
+      <div class="fg"><label class="fl">Tipo Competizione</label>
+        <select class="fi" id="cl-comp" onchange="toggleLeagueFormatOpts()">
+          <option value="league">🏆 Campionato (tutti vs tutti)</option>
+          <option value="groups">🔀 Gironi multipli + Playoff</option>
+          <option value="knockout">⚡ Eliminazione Diretta</option>
+        </select>
+      </div>
+      <div id="cl-league-opts">
+        <div class="fg"><label class="fl">Andata e Ritorno?</label>
+          <select class="fi" id="cl-legs">
+            <option value="2">Sì — Andata e Ritorno</option>
+            <option value="1">No — Solo Andata</option>
+          </select>
+        </div>
+      </div>
+      <div id="cl-knockout-opts" style="display:none">
+        <div class="fg"><label class="fl">Partite di andata e ritorno?</label>
+          <select class="fi" id="cl-ko-legs">
+            <option value="1">Solo Andata</option>
+            <option value="2">Andata e Ritorno</option>
+          </select>
+        </div>
+      </div>
+      <div id="cl-groups-opts" style="display:none">
+        <div class="fg"><label class="fl">Numero di Gironi</label>
+          <input class="fi" type="number" id="cl-num-groups" value="2" min="2" max="8" placeholder="Es: 2">
+        </div>
       </div>
       <div class="fg"><label class="fl">Stagione</label><input class="fi" id="cl-season" placeholder="Es: 2025/2026"></div>
       <button class="bsubmit" id="cl-btn" onclick="submitCreateLeague()">Crea Lega</button>
@@ -1673,8 +1711,31 @@ async function openLeague(leagueId){
   if(isLeagueManager(league)){
     actEl.innerHTML=`<button class="btn btn-gold btn-sm" onclick="openLeagueManager()">⚙️ Gestisci</button>`;
   } else actEl.innerHTML=`<button class="btn btn-o btn-sm" onclick="goPage('leagues')">← Leghe</button>`;
-  leagueTab='standings';
-  document.querySelectorAll('#p-league-detail .tab').forEach((b,i)=>{b.classList.toggle('on',i===0);});
+
+  // set tabs based on competition format
+  const fmt=league.competition_format||'league';
+  const tabsEl=document.getElementById('ld-tabs');
+  if(fmt==='knockout'){
+    tabsEl.innerHTML=`
+      <button class="tab on" onclick="setLeagueTab('bracket',this)">⚡ Tabellone</button>
+      <button class="tab" onclick="setLeagueTab('teams',this)">👥 Squadre</button>
+      <button class="tab" onclick="setLeagueTab('scorers',this)">⚽ Marcatori</button>`;
+    leagueTab='bracket';
+  } else if(fmt==='groups'){
+    tabsEl.innerHTML=`
+      <button class="tab on" onclick="setLeagueTab('standings',this)">🏆 Gironi</button>
+      <button class="tab" onclick="setLeagueTab('rounds',this)">📅 Giornate</button>
+      <button class="tab" onclick="setLeagueTab('teams',this)">👥 Squadre</button>
+      <button class="tab" onclick="setLeagueTab('scorers',this)">⚽ Marcatori</button>`;
+    leagueTab='standings';
+  } else {
+    tabsEl.innerHTML=`
+      <button class="tab on" onclick="setLeagueTab('standings',this)">🏆 Classifica</button>
+      <button class="tab" onclick="setLeagueTab('rounds',this)">📅 Giornate</button>
+      <button class="tab" onclick="setLeagueTab('teams',this)">👥 Squadre</button>
+      <button class="tab" onclick="setLeagueTab('scorers',this)">⚽ Marcatori</button>`;
+    leagueTab='standings';
+  }
   goPage('league-detail');
   renderLeagueTab();
 }
@@ -1691,38 +1752,67 @@ async function renderLeagueTab(){
   if(!currentLeague)return;
   el.innerHTML=`<div class="loading"><div class="spin"></div></div>`;
   if(leagueTab==='standings')await renderStandings(el);
-  else if(leagueTab==='matches')await renderLeagueMatches(el);
+  else if(leagueTab==='rounds')await renderRounds(el);
+  else if(leagueTab==='bracket')await renderBracket(el);
   else if(leagueTab==='teams')await renderTeams(el);
   else if(leagueTab==='scorers')await renderScorers(el);
 }
 
 async function renderStandings(el){
+  const fmt=currentLeague.competition_format||'league';
   const{data:teams}=await _sb.from('teams').select('*').eq('league_id',currentLeague.id);
   const{data:matches}=await _sb.from('league_matches').select('*').eq('league_id',currentLeague.id).eq('played',true);
   if(!teams||!teams.length){el.innerHTML=`<div class="empty"><div class="empty-i">👥</div><div class="empty-t">Nessuna squadra</div></div>`;return;}
-  // calculate standings
-  const table={};
-  teams.forEach(t=>{table[t.id]={team:t,g:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};});
-  (matches||[]).forEach(m=>{
-    const h=table[m.home_team_id],a=table[m.away_team_id];
-    if(!h||!a)return;
-    h.g++;a.g++;h.gf+=m.home_goals;h.ga+=m.away_goals;a.gf+=m.away_goals;a.ga+=m.home_goals;
-    if(m.home_goals>m.away_goals){h.w++;h.pts+=3;a.l++;}
-    else if(m.home_goals<m.away_goals){a.w++;a.pts+=3;h.l++;}
-    else{h.d++;a.d++;h.pts++;a.pts++;}
-  });
-  const sorted=Object.values(table).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf);
-  const c=COLORS;
-  el.innerHTML=`<div style="overflow-x:auto"><table class="standings-table">
-    <thead><tr><th>#</th><th>Squadra</th><th>G</th><th>V</th><th>P</th><th>S</th><th>GF</th><th>GS</th><th>DR</th><th>Pts</th></tr></thead>
-    <tbody>${sorted.map((r,i)=>`<tr>
-      <td class="st-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</td>
-      <td><div style="display:flex;align-items:center;gap:8px"><div class="team-dot" style="background:${(c[r.team.color]||c.bianco).hex}"></div>${r.team.name}</div></td>
-      <td>${r.g}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
-      <td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga>0?'+':''}${r.gf-r.ga}</td>
-      <td class="st-pts">${r.pts}</td>
-    </tr>`).join('')}</tbody>
-  </table></div>`;
+
+  // calculate standings per group or all together
+  let groups=null;
+  if(fmt==='groups'){
+    const{data:grps}=await _sb.from('league_groups').select('*').eq('league_id',currentLeague.id);
+    groups=grps||[];
+  }
+
+  const calcTable=(teamList,matchList)=>{
+    const table={};
+    teamList.forEach(t=>{table[t.id]={team:t,g:0,w:0,d:0,l:0,gf:0,ga:0,pts:0};});
+    (matchList||[]).forEach(m=>{
+      const h=table[m.home_team_id],a=table[m.away_team_id];
+      if(!h||!a)return;
+      h.g++;a.g++;h.gf+=m.home_goals;h.ga+=m.away_goals;a.gf+=m.away_goals;a.ga+=m.home_goals;
+      if(m.home_goals>m.away_goals){h.w++;h.pts+=3;a.l++;}
+      else if(m.home_goals<m.away_goals){a.w++;a.pts+=3;h.l++;}
+      else{h.d++;a.d++;h.pts++;a.pts++;}
+    });
+    return Object.values(table).sort((a,b)=>b.pts-a.pts||(b.gf-b.ga)-(a.gf-a.ga)||b.gf-a.gf);
+  };
+
+  const renderTable=(rows,title='')=>{
+    return `${title?`<div style="font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:1px;color:var(--cyan);margin:16px 0 10px;text-transform:uppercase">${title}</div>`:''}
+    <div style="overflow-x:auto"><table class="standings-table">
+      <thead><tr><th>#</th><th>Squadra</th><th>G</th><th>V</th><th>P</th><th>S</th><th>GF</th><th>GS</th><th>DR</th><th>Pts</th></tr></thead>
+      <tbody>${rows.map((r,i)=>`<tr>
+        <td class="st-rank ${i===0?'r1':i===1?'r2':i===2?'r3':''}">${i+1}</td>
+        <td><div style="display:flex;align-items:center;gap:8px">${teamDotHtml(r.team.color,r.team.color2,r.team.color3)}${r.team.name}</div></td>
+        <td>${r.g}</td><td>${r.w}</td><td>${r.d}</td><td>${r.l}</td>
+        <td>${r.gf}</td><td>${r.ga}</td><td>${r.gf-r.ga>0?'+':''}${r.gf-r.ga}</td>
+        <td class="st-pts">${r.pts}</td>
+      </tr>`).join('')}</tbody>
+    </table></div>`;
+  };
+
+  if(groups&&groups.length){
+    let html='';
+    for(const g of groups){
+      const gTeams=teams.filter(t=>t.group_id===g.id);
+      const gMatches=(matches||[]).filter(m=>gTeams.some(t=>t.id===m.home_team_id)||gTeams.some(t=>t.id===m.away_team_id));
+      html+=renderTable(calcTable(gTeams,gMatches),g.name);
+    }
+    // teams without group
+    const ungrouped=teams.filter(t=>!t.group_id);
+    if(ungrouped.length)html+=renderTable(calcTable(ungrouped,matches),'Non assegnati');
+    el.innerHTML=html;
+  } else {
+    el.innerHTML=renderTable(calcTable(teams,matches));
+  }
 }
 
 async function renderLeagueMatches(el){
@@ -1766,7 +1856,7 @@ async function renderTeams(el){
   let html='';
   for(const team of teams){
     const{data:roster}=await _sb.from('team_players').select('player_id,role,profiles(name,position,avatar_url)').eq('team_id',team.id);
-    const dot=`<div class="team-dot" style="background:${(COLORS[team.color]||COLORS.bianco).hex}"></div>`;
+    const dot=teamDotHtml(team.color,team.color2,team.color3,16);
     html+=`<div class="team-card">
       <div class="team-name">${dot}${team.name}</div>
       <div style="display:flex;flex-direction:column;gap:6px">
@@ -1834,18 +1924,48 @@ async function loadLeagueManagerPanel(){
       <div class="lm-form-title">👥 Squadre</div>
       <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
         <input class="fi" id="lm-team-name" placeholder="Nome squadra" style="flex:1;min-width:140px">
-        <select class="fi" id="lm-team-color" style="flex:1;min-width:140px">
+        <select class="fi" id="lm-team-color" style="flex:1;min-width:120px" title="Colore principale (obbligatorio)">
+          ${Object.entries(COLORS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+        </select>
+        <select class="fi" id="lm-team-color2" style="flex:1;min-width:120px" title="Secondo colore (opzionale)">
+          <option value="">2° Colore (opz.)</option>
+          ${Object.entries(COLORS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
+        </select>
+        <select class="fi" id="lm-team-color3" style="flex:1;min-width:120px" title="Terzo colore (opzionale)">
+          <option value="">3° Colore (opz.)</option>
           ${Object.entries(COLORS).map(([k,v])=>`<option value="${k}">${v.label}</option>`).join('')}
         </select>
         <button class="btn btn-gold btn-sm" onclick="lmAddTeam()">➕ Aggiungi</button>
       </div>
       ${teams&&teams.length?teams.map(t=>`<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border)">
-        <div class="team-dot" style="background:${(COLORS[t.color]||COLORS.bianco).hex}"></div>
+        ${teamDotHtml(t.color,t.color2,t.color3,16)}
         <span style="flex:1;font-size:13px;font-weight:500">${t.name}</span>
-        <span style="font-size:11px;color:var(--text2)">${(COLORS[t.color]||COLORS.bianco).label}</span>
+        <span style="font-size:11px;color:var(--text2)">${[t.color,t.color2,t.color3].filter(Boolean).map(c=>COLORS[c]?.label||c).join(' / ')}</span>
         <button class="abtn abtn-del" onclick="lmDeleteTeam(${t.id},'${t.name.replace(/'/g,"\\'")}')">🗑 Elimina</button>
       </div>`).join(''):`<div style="font-size:12px;color:var(--text3);padding:8px 0">Nessuna squadra ancora — aggiungine una sopra.</div>`}
     </div>
+
+    <!-- GIRONI (solo formato groups) -->
+    ${currentLeague.competition_format==='groups'?`<div class="lm-form">
+      <div class="lm-form-title">🔀 Assegna Squadre ai Gironi</div>
+      ${(await _sb.from('league_groups').select('*').eq('league_id',currentLeague.id)).data?.map(g=>`
+        <div style="margin-bottom:10px">
+          <div style="font-size:12px;font-weight:700;color:var(--cyan);margin-bottom:6px">${g.name}</div>
+          ${teams?.filter(t=>t.group_id===g.id).map(t=>`
+            <div style="display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border)">
+              ${teamDotHtml(t.color,t.color2,t.color3)}
+              <span style="flex:1;font-size:13px">${t.name}</span>
+              <button class="abtn abtn-del" onclick="removeFromGroup(${t.id})">✕</button>
+            </div>`).join('')||'<div style="font-size:11px;color:var(--text3);padding:4px 0">Nessuna squadra</div>'}
+          <div style="display:flex;gap:6px;margin-top:6px">
+            <select class="fi" id="grp-add-${g.id}" style="flex:1;font-size:12px;padding:6px 8px">
+              <option value="">Aggiungi squadra...</option>
+              ${teams?.filter(t=>!t.group_id).map(t=>`<option value="${t.id}">${t.name}</option>`).join('')}
+            </select>
+            <button class="btn btn-gold btn-sm" onclick="addToGroup(${g.id})">+</button>
+          </div>
+        </div>`).join('')||'<div style="font-size:12px;color:var(--text3)">Nessun girone</div>'}
+    </div>`:''}
 
     <!-- ADD MATCH -->
     <div class="lm-form">
@@ -1915,9 +2035,12 @@ async function loadLeagueManagerPanel(){
 }
 
 async function lmAddTeam(){
-  const name=document.getElementById('lm-team-name').value.trim(),color=document.getElementById('lm-team-color').value;
+  const name=document.getElementById('lm-team-name').value.trim();
+  const color=document.getElementById('lm-team-color').value;
+  const color2=document.getElementById('lm-team-color2').value||null;
+  const color3=document.getElementById('lm-team-color3').value||null;
   if(!name){toast(t('err_fill'),true);return;}
-  const{error}=await _sb.from('teams').insert({league_id:currentLeague.id,name,color});
+  const{error}=await _sb.from('teams').insert({league_id:currentLeague.id,name,color,color2,color3});
   if(error){toast(t('err_generic'),true);return;}
   toast('✓ Squadra aggiunta');loadLeagueManagerPanel();renderLeagueTab();
 }
@@ -2064,20 +2187,259 @@ async function saveRoster(teamId){
   toast('✓ Rosa salvata');renderLeagueTab();
 }
 
-function openCreateLeague(){document.getElementById('ov-create-league').classList.add('on');}
+function toggleLeagueFormatOpts(){
+  const comp=document.getElementById('cl-comp').value;
+  document.getElementById('cl-league-opts').style.display=comp==='league'?'block':'none';
+  document.getElementById('cl-knockout-opts').style.display=comp==='knockout'?'block':'none';
+  document.getElementById('cl-groups-opts').style.display=comp==='groups'?'block':'none';
+}
+
+function openCreateLeague(){
+  document.getElementById('ov-create-league').classList.add('on');
+  toggleLeagueFormatOpts();
+}
 
 async function submitCreateLeague(){
-  const name=document.getElementById('cl-name').value.trim(),format=document.getElementById('cl-format').value,season=document.getElementById('cl-season').value.trim();
+  const name=document.getElementById('cl-name').value.trim();
+  const format=document.getElementById('cl-format').value;
+  const comp=document.getElementById('cl-comp').value;
+  const season=document.getElementById('cl-season').value.trim();
+  const legs=comp==='league'?parseInt(document.getElementById('cl-legs').value):comp==='knockout'?parseInt(document.getElementById('cl-ko-legs').value):1;
+  const numGroups=comp==='groups'?parseInt(document.getElementById('cl-num-groups').value)||2:null;
   if(!name){toast(t('err_fill'),true);return;}
   const btn=document.getElementById('cl-btn');btn.disabled=true;btn.textContent='...';
-  const{error}=await _sb.from('leagues').insert({name,format,season:season||null,status:'active',created_by:currentUser.id});
+  const{data:league,error}=await _sb.from('leagues').insert({name,format,season:season||null,status:'active',created_by:currentUser.id,competition_format:comp}).select().single();
   if(error){toast(t('err_generic'),true);btn.disabled=false;btn.textContent='Crea Lega';return;}
+  // create groups if needed
+  if(comp==='groups'&&numGroups){
+    const groupNames=['A','B','C','D','E','F','G','H'].slice(0,numGroups);
+    for(const g of groupNames){
+      await _sb.from('league_groups').insert({league_id:league.id,name:`Girone ${g}`});
+    }
+  }
   document.getElementById('ov-create-league').classList.remove('on');
   toast('✓ Lega creata!');loadLeagues();
   btn.disabled=false;btn.textContent='Crea Lega';
 }
 
-/* ══ LIVE MATCH ══ */
+/* ── ROUNDS ── */
+async function renderRounds(el){
+  const isManager=isLeagueManager(currentLeague);
+  const{data:rounds}=await _sb.from('league_rounds').select('*').eq('league_id',currentLeague.id).order('round_number',{ascending:true});
+  let html='';
+  if(isManager){
+    html+=`<div style="background:var(--card);border:1px solid rgba(255,204,0,.2);border-radius:8px;padding:14px;margin-bottom:16px">
+      <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--gold);margin-bottom:10px">➕ NUOVA GIORNATA</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input class="fi" id="round-name" placeholder="Es: Giornata 1" style="flex:1;min-width:140px">
+        <input class="fi" type="date" id="round-date" style="width:150px">
+        <button class="btn btn-gold btn-sm" onclick="addRound()">Aggiungi</button>
+      </div>
+    </div>`;
+  }
+  if(!rounds||!rounds.length){
+    el.innerHTML=html+`<div class="empty"><div class="empty-i">📅</div><div class="empty-t">Nessuna giornata</div><div class="empty-s">Crea la prima giornata dal pannello gestione</div></div>`;
+    return;
+  }
+  for(const round of rounds){
+    const{data:matches}=await _sb.from('league_matches').select('*, home:home_team_id(name,color), away:away_team_id(name,color)').eq('round_id',round.id).order('time',{ascending:true});
+    const played=(matches||[]).filter(m=>m.played).length;
+    const total=(matches||[]).length;
+    html+=`<div style="background:var(--card);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+        <div style="flex:1">
+          <div style="font-family:var(--font-display);font-size:18px;font-weight:600;letter-spacing:.5px">${round.name}</div>
+          <div style="font-size:11px;color:var(--text2);margin-top:3px">${round.date?fmtDate(round.date):''} · ${played}/${total} partite giocate</div>
+        </div>
+        ${isManager?`<button class="abtn abtn-del" onclick="deleteRound(${round.id})">🗑</button>`:''}
+      </div>
+      ${(matches||[]).map(m=>{
+        const c1=(COLORS[m.home?.color]||COLORS.bianco).hex,c2=(COLORS[m.away?.color]||COLORS.nero).hex;
+        return `<div style="display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);flex-wrap:wrap">
+          <div style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end;min-width:80px">
+            <span style="font-size:13px">${m.home?.name||'?'}</span>
+            <div class="team-dot" style="background:${c1}"></div>
+          </div>
+          <div style="font-family:var(--font-display);font-size:16px;font-weight:700;color:${m.is_live?'var(--red)':m.played?'var(--cyan)':'var(--text3)'};min-width:52px;text-align:center">
+            ${m.is_live?`${m.home_goals||0}-${m.away_goals||0}`:m.played?`${m.home_goals}-${m.away_goals}`:'vs'}
+          </div>
+          <div style="display:flex;align-items:center;gap:6px;flex:1;min-width:80px">
+            <div class="team-dot" style="background:${c2}"></div>
+            <span style="font-size:13px">${m.away?.name||'?'}</span>
+          </div>
+          <div style="display:flex;gap:4px">
+            ${m.is_live?`<span class="mc-live" style="padding:2px 6px"><span class="dot-red"></span>LIVE</span>`:''}
+            ${isManager?`<button class="abtn abtn-sus" onclick="openLiveModal(${m.id})" style="font-size:10px">${m.is_live?'📺':m.played?'✏️':'⚽'}</button>`:''}
+            ${isManager&&!m.is_live?`<button class="abtn abtn-del" onclick="lmDeleteMatch(${m.id})" style="font-size:10px">🗑</button>`:''}
+          </div>
+        </div>`;
+      }).join('')}
+      ${isManager?`<div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <select class="finput" id="rm-home-${round.id}" style="flex:1;min-width:100px;font-size:12px;padding:6px 8px">
+          <option value="">Casa...</option>
+          ${(await _sb.from('teams').select('id,name').eq('league_id',currentLeague.id)).data?.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')||''}
+        </select>
+        <select class="finput" id="rm-away-${round.id}" style="flex:1;min-width:100px;font-size:12px;padding:6px 8px">
+          <option value="">Ospite...</option>
+          ${(await _sb.from('teams').select('id,name').eq('league_id',currentLeague.id)).data?.map(t=>`<option value="${t.id}">${t.name}</option>`).join('')||''}
+        </select>
+        <input class="finput" type="time" id="rm-time-${round.id}" value="18:00" style="width:110px;font-size:12px;padding:6px 8px">
+        <button class="btn btn-gold btn-sm" onclick="addMatchToRound(${round.id})">+ Partita</button>
+      </div>`:''}
+    </div>`;
+  }
+  el.innerHTML=html;
+}
+
+async function addRound(){
+  const name=document.getElementById('round-name').value.trim();
+  const date=document.getElementById('round-date').value||null;
+  if(!name){toast(t('err_fill'),true);return;}
+  const{data:last}=await _sb.from('league_rounds').select('round_number').eq('league_id',currentLeague.id).order('round_number',{ascending:false}).limit(1).single();
+  const nextNum=(last?.round_number||0)+1;
+  await _sb.from('league_rounds').insert({league_id:currentLeague.id,name,round_number:nextNum,date});
+  document.getElementById('round-name').value='';
+  toast('✓ Giornata aggiunta');renderLeagueTab();
+}
+
+async function deleteRound(roundId){
+  if(!confirm('Eliminare questa giornata e tutte le sue partite?'))return;
+  const{data:matches}=await _sb.from('league_matches').select('id').eq('round_id',roundId);
+  for(const m of matches||[]){
+    await _sb.from('league_match_stats').delete().eq('league_match_id',m.id);
+    await _sb.from('league_match_events').delete().eq('league_match_id',m.id);
+  }
+  await _sb.from('league_matches').delete().eq('round_id',roundId);
+  await _sb.from('league_rounds').delete().eq('id',roundId);
+  toast('✓ Giornata eliminata');renderLeagueTab();
+}
+
+async function addMatchToRound(roundId){
+  const homeId=document.getElementById(`rm-home-${roundId}`).value;
+  const awayId=document.getElementById(`rm-away-${roundId}`).value;
+  const time=document.getElementById(`rm-time-${roundId}`).value||null;
+  if(!homeId||!awayId||homeId===awayId){toast('Seleziona due squadre diverse',true);return;}
+  const{data:round}=await _sb.from('league_rounds').select('date').eq('id',roundId).single();
+  await _sb.from('league_matches').insert({league_id:currentLeague.id,home_team_id:parseInt(homeId),away_team_id:parseInt(awayId),date:round?.date||null,time,round_id:roundId,played:false,home_goals:0,away_goals:0,stats_confirmed:false});
+  toast('✓ Partita aggiunta');renderLeagueTab();
+}
+
+/* ── BRACKET (Eliminazione Diretta) ── */
+async function renderBracket(el){
+  const isManager=isLeagueManager(currentLeague);
+  const{data:matches}=await _sb.from('knockout_matches').select('*,home:home_team_id(name,color),away:away_team_id(name,color),winner:winner_id(name)').eq('league_id',currentLeague.id).order('round_order',{ascending:true});
+  const{data:teams}=await _sb.from('teams').select('id,name').eq('league_id',currentLeague.id);
+
+  // Group by round
+  const rounds={};
+  (matches||[]).forEach(m=>{
+    if(!rounds[m.round_name])rounds[m.round_name]={order:m.round_order,matches:[]};
+    rounds[m.round_name].matches.push(m);
+  });
+
+  let html='';
+  if(isManager){
+    const teamOpts=(teams||[]).map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+    html+=`<div style="background:var(--card);border:1px solid rgba(255,204,0,.2);border-radius:8px;padding:14px;margin-bottom:16px">
+      <div style="font-family:var(--font-display);font-size:12px;font-weight:600;letter-spacing:1px;color:var(--gold);margin-bottom:10px">➕ AGGIUNGI TURNO</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px">
+        <input class="fi" id="ko-round-name" placeholder="Es: Quarti di Finale" style="flex:1">
+        <input class="fi" type="number" id="ko-round-order" placeholder="Ordine (1,2,3...)" style="width:140px" value="${Object.keys(rounds).length+1}">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <select class="fi" id="ko-home"><option value="">Casa...</option>${teamOpts}</select>
+        <select class="fi" id="ko-away"><option value="">Ospite...</option>${teamOpts}</select>
+      </div>
+      <div style="display:flex;gap:8px">
+        <select class="fi" id="ko-legs" style="flex:1"><option value="1">Solo Andata</option><option value="2">Andata e Ritorno</option></select>
+        <button class="btn btn-gold btn-sm" onclick="addKnockoutMatch()">Aggiungi</button>
+      </div>
+    </div>`;
+  }
+
+  if(!Object.keys(rounds).length){
+    el.innerHTML=html+`<div class="empty"><div class="empty-i">⚡</div><div class="empty-t">Tabellone vuoto</div><div class="empty-s">Aggiungi i turni dal pannello gestione</div></div>`;
+    return;
+  }
+
+  Object.entries(rounds).sort((a,b)=>a[1].order-b[1].order).forEach(([roundName,data])=>{
+    html+=`<div style="margin-bottom:20px">
+      <div style="font-family:var(--font-display);font-size:16px;font-weight:600;letter-spacing:1px;color:var(--cyan);margin-bottom:10px;text-transform:uppercase">${roundName}</div>
+      ${data.matches.map(m=>{
+        const c1=(COLORS[m.home?.color]||COLORS.bianco).hex,c2=(COLORS[m.away?.color]||COLORS.nero).hex;
+        return `<div style="background:var(--card);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:8px">
+          <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+            <div style="display:flex;align-items:center;gap:6px;flex:1;justify-content:flex-end">
+              <span style="font-size:13px;font-weight:${m.winner_id===m.home_team_id?'700':'400'}">${m.home?.name||'TBD'}</span>
+              <div class="team-dot" style="background:${c1}"></div>
+            </div>
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:${m.played?'var(--cyan)':'var(--text3)'};min-width:60px;text-align:center">
+              ${m.played?`${m.home_goals} - ${m.away_goals}`:'vs'}
+              ${m.is_two_legs&&m.home_goals_2leg!==null?`<div style="font-size:11px;color:var(--text3)">${m.home_goals_2leg} - ${m.away_goals_2leg} (R)</div>`:''}
+            </div>
+            <div style="display:flex;align-items:center;gap:6px;flex:1">
+              <div class="team-dot" style="background:${c2}"></div>
+              <span style="font-size:13px;font-weight:${m.winner_id===m.away_team_id?'700':'400'}">${m.away?.name||'TBD'}</span>
+            </div>
+            ${m.winner?.name?`<span style="font-size:11px;color:var(--gold);font-weight:700">🏆 ${m.winner.name}</span>`:''}
+            ${isManager?`<button class="abtn abtn-sus" onclick="openKnockoutResult(${m.id})" style="font-size:10px">✏️</button>`:''}
+            ${isManager?`<button class="abtn abtn-del" onclick="deleteKnockoutMatch(${m.id})" style="font-size:10px">🗑</button>`:''}
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  });
+  el.innerHTML=html;
+}
+
+async function addKnockoutMatch(){
+  const roundName=document.getElementById('ko-round-name').value.trim();
+  const roundOrder=parseInt(document.getElementById('ko-round-order').value)||1;
+  const homeId=document.getElementById('ko-home').value;
+  const awayId=document.getElementById('ko-away').value;
+  const legs=parseInt(document.getElementById('ko-legs').value);
+  if(!roundName){toast(t('err_fill'),true);return;}
+  await _sb.from('knockout_matches').insert({league_id:currentLeague.id,round_name:roundName,round_order:roundOrder,home_team_id:homeId?parseInt(homeId):null,away_team_id:awayId?parseInt(awayId):null,is_two_legs:legs===2,played:false,home_goals:0,away_goals:0});
+  toast('✓ Aggiunto');renderLeagueTab();
+}
+
+async function openKnockoutResult(matchId){
+  const{data:m}=await _sb.from('knockout_matches').select('*,home:home_team_id(id,name),away:away_team_id(id,name)').eq('id',matchId).single();
+  if(!m)return;
+  const hg=prompt(`${m.home?.name||'Casa'} — Gol:`,m.home_goals||0);
+  if(hg===null)return;
+  const ag=prompt(`${m.away?.name||'Ospite'} — Gol:`,m.away_goals||0);
+  if(ag===null)return;
+  let winnerId=null;
+  const hgn=parseInt(hg),agn=parseInt(ag);
+  if(hgn>agn)winnerId=m.home_team_id;
+  else if(agn>hgn)winnerId=m.away_team_id;
+  else{
+    const w=confirm(`Pareggio! Vince ${m.home?.name||'Casa'}? (Annulla per ${m.away?.name||'Ospite'})`);
+    winnerId=w?m.home_team_id:m.away_team_id;
+  }
+  await _sb.from('knockout_matches').update({home_goals:hgn,away_goals:agn,winner_id:winnerId,played:true}).eq('id',matchId);
+  toast('✓ Risultato salvato');renderLeagueTab();
+}
+
+async function deleteKnockoutMatch(matchId){
+  if(!confirm('Eliminare questa partita?'))return;
+  await _sb.from('knockout_matches').delete().eq('id',matchId);
+  toast('✓ Eliminata');renderLeagueTab();
+}
+async function addToGroup(groupId){
+  const sel=document.getElementById(`grp-add-${groupId}`);
+  const teamId=sel?.value;
+  if(!teamId){toast('Seleziona una squadra',true);return;}
+  await _sb.from('teams').update({group_id:groupId}).eq('id',parseInt(teamId));
+  toast('✓ Squadra aggiunta al girone');loadLeagueManagerPanel();renderLeagueTab();
+}
+
+async function removeFromGroup(teamId){
+  await _sb.from('teams').update({group_id:null}).eq('id',teamId);
+  toast('✓ Rimossa dal girone');loadLeagueManagerPanel();renderLeagueTab();
+}
+
 let liveState={matchId:null,homeId:null,awayId:null,homeName:'',awayName:'',homeGoals:0,awayGoals:0,minute:0,timerInterval:null,running:false,homeRoster:[],awayRoster:[]};
 
 async function openLiveModal(matchId){
