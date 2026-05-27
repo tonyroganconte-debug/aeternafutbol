@@ -304,17 +304,6 @@ textarea.fi{resize:vertical;min-height:80px;}
 .bnbb svg{width:20px;height:20px;stroke-width:1.8;}
 .bnbb.on{color:var(--cyan);}
 
-/* TEAM DOT multi-color */
-function teamDotHtml(color1,color2,color3,size=14){
-  const c1=(COLORS[color1]||COLORS.bianco).hex;
-  const c2=color2?(COLORS[color2]||null):null;
-  const c3=color3?(COLORS[color3]||null):null;
-  let bg;
-  if(c3&&c2){bg=`linear-gradient(to right, ${c1} 33%, ${c2.hex} 33% 66%, ${c3.hex} 66%)`;}
-  else if(c2){bg=`linear-gradient(to right, ${c1} 50%, ${c2.hex} 50%)`;}
-  else{bg=c1;}
-  return `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${bg};border:2px solid rgba(255,255,255,.2);flex-shrink:0"></div>`;
-}
 .league-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;margin-bottom:10px;}
 .league-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--gold);transform:scaleY(0);transform-origin:bottom;transition:transform .22s;}
 .league-card:hover{border-color:rgba(255,204,0,.3);background:var(--card2);}.league-card:hover::before{transform:scaleY(1);}
@@ -982,6 +971,21 @@ function teamDotHtml(color1,color2,color3,size=14){
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const _sb=supabase.createClient(
+
+/* ══ TEAM DOT ══ */
+function teamDotHtml(color1,color2,color3,size){
+  size=size||14;
+  var COLS=typeof COLORS!=='undefined'?COLORS:{bianco:{hex:'#f0f0f0'},nero:{hex:'#1a1a1a'}};
+  var c1=(COLS[color1]||COLS.bianco).hex;
+  var c2col=color2&&COLS[color2]?COLS[color2]:null;
+  var c3col=color3&&COLS[color3]?COLS[color3]:null;
+  var bg;
+  if(c3col&&c2col){bg='linear-gradient(to right,'+c1+' 33%,'+c2col.hex+' 33% 66%,'+c3col.hex+' 66%)';}
+  else if(c2col){bg='linear-gradient(to right,'+c1+' 50%,'+c2col.hex+' 50%)';}
+  else{bg=c1;}
+  return '<div style="width:'+size+'px;height:'+size+'px;border-radius:50%;background:'+bg+';border:2px solid rgba(255,255,255,.2);flex-shrink:0"></div>';
+}
+
   'https://yaqcdxhlyihykeceehfd.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlhcWNkeGhseWloeWtlY2VlaGZkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ2NDU0NzIsImV4cCI6MjA5MDIyMTQ3Mn0.5WZIPu0cVVOpPk5fg4NOm71_t3AV9k2au-zMmOljDVM'
 );
