@@ -2312,7 +2312,8 @@ async function addRound(){
   if(!name){toast(t('err_fill'),true);return;}
   const{data:last}=await _sb.from('league_rounds').select('round_number').eq('league_id',currentLeague.id).order('round_number',{ascending:false}).limit(1).single();
   const nextNum=(last?.round_number||0)+1;
-  await _sb.from('league_rounds').insert({league_id:currentLeague.id,name,round_number:nextNum,date});
+  const{error}=await _sb.from('league_rounds').insert({league_id:currentLeague.id,name,round_number:nextNum,date});
+  if(error){toast('Errore: '+error.message,true);console.error('addRound error:',error);return;}
   document.getElementById('round-name').value='';
   toast('✓ Giornata aggiunta');renderLeagueTab();
 }
